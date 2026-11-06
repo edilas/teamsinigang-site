@@ -14,7 +14,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-adsense-account" content="ca-pub-6614135487817952">
 <meta name="theme-color" content="#07111f">
-<meta name="description" content="Team Sinigang — original browser games, game guides, anime notes, and Filipino-flavored gaming culture. A gaming studio from AGOS LLC.">
+<meta name="description" content="Team Sinigang — original browser games, game guides, Filipino recipes, and Filipino-flavored gaming culture. A gaming studio from AGOS LLC.">
 <link rel="canonical" href="https://www.teamsinigang.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
@@ -86,7 +86,7 @@ section+section{border-top:1px solid rgba(255,255,255,.08)}
 .mini{min-height:187px;border:1px solid rgba(255,255,255,.09);border-radius:26px;padding:28px;background:var(--surface);position:relative;overflow:hidden}
 .mini h3{font-size:28px;margin:5px 0 8px;letter-spacing:-.04em}
 .mini p{margin:0;color:var(--muted)}
-.mini.anime{background:linear-gradient(135deg,#1a3160,#131b2d)}
+.mini.blog{background:linear-gradient(135deg,#1a3160,#131b2d)}
 .mini.food{background:linear-gradient(135deg,#4a1820,#231814)}
 .culture-copy{max-width:820px;color:var(--muted);font-size:17px}
 .studio{border:1px solid rgba(244,197,66,.28);background:linear-gradient(135deg,rgba(31,95,174,.20),rgba(206,47,63,.10),rgba(255,255,255,.02));border-radius:30px;padding:38px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center}
@@ -140,6 +140,10 @@ footer{padding:42px 0 64px!important;text-align:left!important}
 .sf .gp{display:inline-flex;align-items:center;gap:9px;background:#000;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:12px;padding:8px 14px 8px 11px;text-decoration:none;font-weight:800;font-size:14px}
 .sf .gp svg{width:20px;height:20px}
 .sf .gp:hover{border-color:#5fe3f2}
+.sf .as{display:inline-flex;flex-direction:column;justify-content:center;line-height:1.05;background:#000;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:12px;padding:7px 16px;text-decoration:none;font-weight:800;font-size:16px;min-height:44px;box-sizing:border-box}
+.sf .as span{font-size:10px;font-weight:600;letter-spacing:.02em}
+.sf .as:hover{border-color:#5fe3f2}
+.sf .gp{min-height:44px;box-sizing:border-box}
 .sf .more{color:#5fe3f2;font-weight:900;font-size:14px;text-decoration:none}
 /* games grid: a lone last card becomes a compact full-width row so the grid never ends on an orphan */
 .grid .card:last-child:nth-child(3n+1){grid-column:1/-1;min-height:0;display:grid;grid-template-columns:auto 1fr;column-gap:22px;align-items:center;padding-right:110px}
@@ -150,6 +154,9 @@ footer{padding:42px 0 64px!important;text-align:left!important}
 @media(max-width:860px){.grid .card:last-child:nth-child(3n+1){grid-column:1/-1}}
 @media(max-width:620px){.grid .card:last-child:nth-child(3n+1){display:block;padding-right:24px;min-height:250px}.grid .card:last-child:nth-child(3n+1) .icon{margin-bottom:34px}.grid .card:last-child:nth-child(3n+1) p{margin:0 0 24px}.grid .card:last-child:nth-child(3n+1) .arrow{top:auto;bottom:20px;translate:none}}
 /* Wrench & Roam thumb (CSS-only, no image asset) */
+.post-card .thumb.balaraw-thumb{position:relative;overflow:hidden;background:radial-gradient(circle at 74% 34%,#c83a2e 0 9%,rgba(194,54,43,.45) 11%,rgba(194,54,43,.12) 22%,transparent 34%),radial-gradient(ellipse 34% 20% at 64% 66%,#05070a 0 98%,transparent 100%),linear-gradient(180deg,#07090d 0 66%,#0d1620 66% 100%)}
+.post-card .thumb.balaraw-thumb::after{content:"";position:absolute;left:68%;top:70%;width:12%;height:24%;background:repeating-linear-gradient(180deg,rgba(194,54,43,.45) 0 2px,transparent 2px 7px)}
+.balaraw-thumb .badge-new{position:absolute;right:12px;top:12px;z-index:1;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#c2362b;padding:5px 9px;border-radius:999px}
 .post-card .thumb.wr-thumb{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(90deg,rgba(242,183,5,.8) 0 26px,transparent 26px 52px) 0 82%/100% 4px no-repeat,linear-gradient(180deg,#2a3238 0 62%,#15181b 62% 100%)}
 .post-card .thumb.wr-thumb::before{content:"";position:absolute;inset:0 0 38% 0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 2px,transparent 2px 22px);border-bottom:4px solid #f2b705}
 .wr-thumb .wr-art{position:relative;font-size:clamp(40px,5vw,58px);line-height:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
@@ -194,24 +201,25 @@ footer{padding:42px 0 64px!important;text-align:left!important}
 .fi .btn.primary{background:#ff6fe4;border-color:#ff6fe4;color:#16061f}
 .fi .eyebrow{border-color:rgba(95,242,230,.4)}
 /* slide 3: Retro Fight (art carries its own title) */
-.hero-banner.rf{background:#120a12;align-items:flex-end;justify-content:flex-end}
-.hero-banner.rf::after{background:linear-gradient(0deg,rgba(8,6,12,.82) 0,rgba(8,6,12,.25) 26%,transparent 42%)}
-.rf-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
-.rf-panel{position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px;max-width:640px;margin:0 34px 30px;padding:16px 18px;border:1px solid rgba(255,255,255,.14);border-radius:20px;background:rgba(10,7,14,.62);backdrop-filter:blur(10px)}
+.hero-banner.rf{background:#0d1022;align-items:flex-end;justify-content:flex-start}
+.hero-banner.rf::after{background:linear-gradient(20deg,rgba(6,8,18,.7) 0,transparent 30%)}
+.rf-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:100% center}
+.rf-panel{position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px;max-width:max-content;margin:0 0 26px 28px;padding:14px 16px;border:1px solid rgba(255,255,255,.14);border-radius:20px;background:rgba(10,7,14,.62);backdrop-filter:blur(10px)}
 .rf-panel p{flex:1 1 260px;margin:0;color:#efe6dc;font-size:15px}
 .rf-soon{flex-basis:100%;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#ffb347}
-.btn.is-soon{opacity:.62;cursor:not-allowed;filter:saturate(.7)}
-.btn.is-soon:hover{transform:none}
-.btn.is-soon small{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;background:#111;color:var(--accent,#f4c542);padding:3px 7px;border-radius:999px}
+.rf-link{position:absolute;inset:0;z-index:1}
+@media(min-width:861px){.rf-panel{flex-direction:column;align-items:flex-start;gap:10px}.rf-panel p{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+.rf-panel .btn small{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;background:#111;color:var(--accent,#f4c542);padding:3px 7px;border-radius:999px}
 /* tablet + phone: art on top, copy underneath, so neither poster is cropped badly */
 @media(max-width:860px){
   .hero-banner.fi,.hero-banner.rf{flex-direction:column;align-items:stretch;justify-content:flex-start}
   .fi-poster{position:relative;height:auto;width:100%;aspect-ratio:4/3;object-position:center 12%;-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent);mask-image:linear-gradient(180deg,#000 72%,transparent)}
   .fi .hero-copy{width:auto;padding:4px 32px 32px;margin-top:-28px}
-  .rf-art{position:relative;height:auto;aspect-ratio:4/3;object-position:82% center;-webkit-mask-image:linear-gradient(180deg,#000 80%,transparent);mask-image:linear-gradient(180deg,#000 80%,transparent)}
+  .rf-art{position:relative;height:auto;aspect-ratio:4/3;object-position:84% center;-webkit-mask-image:linear-gradient(180deg,#000 80%,transparent);mask-image:linear-gradient(180deg,#000 80%,transparent)}
   .hero-banner.rf{background:radial-gradient(circle at 70% 0,rgba(255,140,60,.28),transparent 55%),linear-gradient(180deg,#2a1530,#120a12 70%)}
   .hero-banner.rf::after{display:none}
-  .rf-panel{margin:auto 20px 22px;max-width:none}
+  .rf-panel{margin:auto 20px;max-width:none}
+  .hero-banner.rf{background:radial-gradient(circle at 80% 0,rgba(60,90,200,.3),transparent 55%),linear-gradient(180deg,#151a3a,#0b0d1c 70%)}
 }
 @media(max-width:620px){
   .hero-track{border-radius:24px}
@@ -219,7 +227,7 @@ footer{padding:42px 0 64px!important;text-align:left!important}
   .fi .hero-copy{padding:0 22px 24px;background:none}
   .fi .lead{font-size:16px;margin-bottom:20px}
   .slide-title{font-size:46px;margin:12px 0}
-  .rf-panel{margin:auto 14px 16px;padding:14px}
+  .rf-panel{margin:auto 14px;padding:14px}
 }
 @media(prefers-reduced-motion:reduce){.hero-dots button{transition:none}}
 </style>
@@ -230,7 +238,6 @@ footer{padding:42px 0 64px!important;text-align:left!important}
   <ul>
     <li><a href="#games">Games</a></li>
     <li><a href="/sinigaming/index.html">Sinigaming</a></li>
-    <li><a href="/anime/index.html">Anime</a></li>
     <li><a href="#sinigang">Culture</a></li>
     <li><a href="/blog/index.html">Blog</a></li>
     <li><a class="nav-cta" href="#games">Play Free →</a></li>
@@ -245,7 +252,7 @@ footer{padding:42px 0 64px!important;text-align:left!important}
 </div>
 <script>(function(){var b=document.getElementById('fahm-banner');if(b&&new Date().getMonth()!==9)b.style.display='none';})();</script>
 
-    <!-- HERO CAROUSEL: slide 1 = studio hero, 2 = Forgotten Island, 3 = Retro Fight (now playing) -->
+    <!-- HERO CAROUSEL: slide 1 = studio hero, 2 = Forgotten Island, 3 = Retro Fight (out now) -->
     <section class="hero" id="hero" aria-roledescription="carousel" aria-label="Featured at Team Sinigang">
       <div class="hero-track" id="hero-track" tabindex="0">
       <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="1 of 3: Games served piping hot">
@@ -279,13 +286,14 @@ footer{padding:42px 0 64px!important;text-align:left!important}
         </div>
       </div>
 
-      <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 3: Retro Fight, now playing">
+      <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 3: Retro Fight, out now">
         <div class="hero-banner rf">
-          <img class="rf-art" src="/assets/hero/retro-fight-way-of-the-datu.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Retro Fight: Way of the Datu. A side-scroll fighting adventure into Filipino legends.">
+          <img class="rf-art" src="/assets/hero/retro-fight-way-of-the-datu-v2.webp" width="1774" height="887" loading="lazy" decoding="async" alt="Retro Fight: Way of the Datu by AGOS LLC. Two Filipino fighters in red headbands with glowing fists. An original beat 'em up adventure inspired by Filipino history, culture and warrior spirit.">
+          <a class="rf-link" href="/games/Retro_Fight_Way_of_the_Datu.html" tabindex="-1" aria-hidden="true"></a>
           <div class="rf-panel">
-            <span class="rf-soon">🔥 Now playing</span>
-            <p>Our side-scrolling beat 'em up, from the streets of LA into the world of Filipino legends. Play it free now on Team Sinigang.</p>
-            <a class="btn primary" href="https://www.teamsinigang.com/games/Retro_Fight_Way_of_the_Datu.html">▶ Play now</a>
+            <span class="rf-soon">🔥 Out now · Play free</span>
+            <p>Our side-scrolling beat 'em up, from the streets of LA into the world of Filipino legends. Play it free in your browser, solo or with a friend.</p>
+            <a class="btn primary" href="/games/Retro_Fight_Way_of_the_Datu.html">▶ Play now <small>New</small></a>
           </div>
         </div>
       </div>
@@ -313,12 +321,13 @@ footer{padding:42px 0 64px!important;text-align:left!important}
         <article class="post-card promo sf">
           <a class="thumb" href="/games/starfall.html" style="background-image:url('/assets/games/starfall/starfall-art.webp');background-position:50% 50%" aria-label="Starfall: Shattered Continuum game page"><span class="badge-new">New</span></a>
           <div class="body">
-            <span class="pill">🚀 Launch · Out now on Android</span>
-            <h3><a href="/games/starfall.html">Starfall: Shattered Continuum Lands on Google Play</a></h3>
-            <p>Our first Android game is a 200-level arcade space shooter. Blast through enemy waves, take down cosmic bosses, and build a fleet in the hangar with the scrap you collect.</p>
-            <ul class="facts"><li>Levels 1–10 free</li><li>Full game $2.99</li><li>No ads</li><li>No loot boxes</li></ul>
+            <span class="pill">🚀 Launch · Out now on iPhone, iPad &amp; Android</span>
+            <h3><a href="/games/starfall.html">Starfall: Shattered Continuum Lands on the App Store</a></h3>
+            <p>Our 200-level arcade space shooter is now on iPhone and iPad, joining the Android release. Blast through enemy waves, take down cosmic bosses, and build a fleet in the hangar with the scrap you collect.</p>
+            <ul class="facts"><li>Levels 1–10 free</li><li>One-time unlock</li><li>No ads</li><li>No loot boxes</li></ul>
             <div class="links">
-              <a class="gp" data-cta="latest-launch-card" href="https://play.google.com/store/apps/details?id=com.agosllc.starfallcontinuum" target="_blank" rel="noopener" aria-label="Get Starfall on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00d7fe" d="M3.6 2.3 13.4 12l-9.8 9.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z"/><path fill="#ffce00" d="m16.8 8.6 3.4 2c.9.5.9 1.8 0 2.4l-3.4 2L13.4 12z"/><path fill="#ff3a44" d="M16.8 15 13.4 12l-9.8 9.7c.3.2.8.2 1.2 0z"/><path fill="#00f076" d="M4.8 2.3c-.4-.2-.9-.2-1.2 0L13.4 12l3.4-3.4z"/></svg>Get it on Google Play</a>
+              <a class="as" data-app="Starfall" data-cta="latest-launch-card" href="https://apps.apple.com/us/app/starfall-shattered-continuum/id6822141923" target="_blank" rel="noopener" aria-label="Download Starfall on the App Store"><span>Download on the</span>App Store</a>
+              <a class="gp" data-app="Starfall" data-cta="latest-launch-card" href="https://play.google.com/store/apps/details?id=com.agosllc.starfallcontinuum" target="_blank" rel="noopener" aria-label="Get Starfall on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00d7fe" d="M3.6 2.3 13.4 12l-9.8 9.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z"/><path fill="#ffce00" d="m16.8 8.6 3.4 2c.9.5.9 1.8 0 2.4l-3.4 2L13.4 12z"/><path fill="#ff3a44" d="M16.8 15 13.4 12l-9.8 9.7c.3.2.8.2 1.2 0z"/><path fill="#00f076" d="M4.8 2.3c-.4-.2-.9-.2-1.2 0L13.4 12l3.4-3.4z"/></svg>Get it on Google Play</a>
               <a class="more" href="/games/starfall.html">Game details →</a>
             </div>
           </div>
@@ -326,6 +335,15 @@ footer{padding:42px 0 64px!important;text-align:left!important}
       </div>
       <div class="post-rail-heading"><strong>Latest stories</strong><div class="post-rail-actions"><button type="button" id="post-rail-prev" aria-label="Scroll to newer posts">‹</button><button type="button" id="post-rail-next" aria-label="Scroll to older posts">›</button></div></div>
       <div class="post-rail" id="post-rail" tabindex="0" role="region" aria-label="Recent and older posts; scroll horizontally">
+        <a class="post-card" href="/blog/balaraw-blood-island-review.html">
+          <div class="thumb balaraw-thumb" role="img" aria-label="Balaraw: a blood-red moon over a dark island"><span class="badge-new">New</span></div>
+          <div class="body">
+            <span class="pill">🎬 November 2 · At the Movies</span>
+            <h3>Balaraw: Blood Island Is Soooo essssScareeeee</h3>
+            <p>Netflix's Filipino folk-horror series, reviewed from under the covers. 4 out of 5, and my wife won't watch with me anymore.</p>
+            <span class="read">Read →</span>
+          </div>
+        </a>
         <article class="post-card"><a class="thumb" href="/blog/mortal-shell-2-gragu-beacons-october-2026.html" style="background-image:url('/assets/blog/ms2-oct28-gragu.webp');background-position:center 35%" aria-label="Read the new Mortal Shell II update"><span class="badge-new">New</span></a><div class="body"><span class="pill">🎮 October 28 · Now Playing</span><h3><a href="/blog/mortal-shell-2-gragu-beacons-october-2026.html">Mortal Shell II: Gragu, Beacons &amp; Bad Decisions</a></h3><p>Gragu might be my endgame shell. Three shells, a growing map, temple trouble and absolutely no night mode yet.</p><div class="links"><a href="/blog/mortal-shell-2-gragu-beacons-october-2026.html">Read the story →</a></div></div></article>
 <article class="post-card"><a class="thumb" href="/blog/extra-sour-beef-shrimp-sinigang-october-2026.html" style="background-image:url('/assets/blog/two-packet-beef-shrimp-sinigang-2026.webp');background-position:center" aria-label="Read our extra-sour sinigang story"><span class="badge-new">New</span></a><div class="body"><span class="pill">🍲 October 28 · Kitchen</span><h3><a href="/blog/extra-sour-beef-shrimp-sinigang-october-2026.html">Two Packets of Sinigang Mix. Sooooo Good.</a></h3><p>Beef, shrimp, long beans, daikon, eggplant, and a serious sour kick, served with brown rice.</p><div class="links"><a href="/blog/extra-sour-beef-shrimp-sinigang-october-2026.html">Read the story →</a></div></div></article>
         
@@ -391,7 +409,7 @@ footer{padding:42px 0 64px!important;text-align:left!important}
       </div>
       <div class="grid">
         <a class="card" href="/games/fingularity.html"><div class="icon">🌌</div><span class="pill">Action · Out now on iPhone</span><h3>Fingularity</h3><p>Swipe black holes away before they swallow VoyaDur 1. Free on the App Store, with a web demo.</p><span class="arrow">Get it →</span></a>
-        <a class="card" href="/games/starfall.html"><div class="icon">🚀</div><span class="pill">Shooter · Out now on Android</span><h3>Starfall: Shattered Continuum</h3><p>A 200-level arcade space shooter with cosmic bosses and an upgradable fleet. First 10 levels free, full game $2.99 on Google Play.</p><span class="arrow">Get it →</span></a>
+        <a class="card" href="/games/starfall.html"><div class="icon">🚀</div><span class="pill">Shooter · Out now on iPhone &amp; Android</span><h3>Starfall: Shattered Continuum</h3><p>A 200-level arcade space shooter with cosmic bosses and an upgradable fleet. First 10 levels free, then a one-time unlock on the App Store or Google Play.</p><span class="arrow">Get it →</span></a>
         <a class="card" href="/wrench-and-roam/index.html"><div class="icon">🔧</div><span class="pill">Garage &amp; Driving · New</span><h3>Wrench &amp; Roam</h3><p>Build a car bolt by bolt, check it with the TACH scanner, then take it for a drive through real cities.</p><span class="arrow">Play →</span></a>
         <a class="card" href="/games/jungle-sprint.html"><div class="icon">🌿</div><span class="pill">Runner · Live</span><h3>Jungle Sprint</h3><p>Dodge, jump, slide, and outrun danger through the jungle.</p><span class="arrow">Play →</span></a>
         <a class="card" href="/games/dungeon-3d.html"><div class="icon">🗡️</div><span class="pill">3D Dungeon · Live</span><h3>Dungeon of the Ancients</h3><p>Roll a champion and descend into cursed halls packed with monsters and traps.</p><span class="arrow">Play →</span></a>
@@ -401,15 +419,15 @@ footer{padding:42px 0 64px!important;text-align:left!important}
       </div>
     </section>
 
-    <section id="anime">
+    <section id="universe">
       <div class="sectionhead">
         <div><span class="kicker">Beyond the games</span><h2>The Sinigang universe.</h2></div>
-        <p>Guides, anime, Filipino culture, studio notes, and the things we're into when we're not building games.</p>
+        <p>Guides, Filipino culture, studio notes, and the things we're into when we're not building games.</p>
       </div>
       <div class="world">
         <a class="big" href="/sinigaming/index.html"><span class="kicker">🎮 Sinigaming</span><h3>Guides written by people who actually play.</h3><p>Elden Ring, Stardew Valley, Monster Hunter, Clair Obscur, Diablo and whatever else has us ignoring bedtime this week.</p><span class="btn primary" style="margin-top:18px">Browse game guides →</span></a>
         <div class="stack">
-          <a class="mini anime" href="/anime/index.html"><span class="pill">⛩️ Anime Notes</span><h3>Anime is not a genre.</h3><p>Akira, Evangelion, Bebop, Spirited Away, Attack on Titan and the culture around them.</p></a>
+          <a class="mini blog" href="/blog/index.html"><span class="pill">📝 The Blog</span><h3>Notes from the studio.</h3><p>Devlogs, monthly recaps, family days out, and the occasional movie night.</p></a>
           <a class="mini food" href="#sinigang"><span class="pill">🇵🇭 Why Sinigang?</span><h3>Bold. Sour. Unmistakable.</h3><p>The Filipino food and culture behind the name—and why it fits the games we want to make.</p></a>
         </div>
       </div>
@@ -432,7 +450,7 @@ footer{padding:42px 0 64px!important;text-align:left!important}
 <footer>
   <div class="wrap foot">
     <div class="ts-studio-line"><strong>Team Sinigang</strong> — Games served piping hot · A gaming studio from <a href="https://www.agosllc.com/">AGOS LLC</a></div>
-    <div class="footlinks"><a href="/index.html">Home</a><a href="/#games">Games</a><a href="/recipes.html">Recipes</a><a href="/sinigaming/index.html">Sinigaming</a><a href="/anime/index.html">Anime</a><a href="/blog/index.html">Blog</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
+    <div class="footlinks"><a href="/index.html">Home</a><a href="/#games">Games</a><a href="/recipes.html">Recipes</a><a href="/sinigaming/index.html">Sinigaming</a><a href="/blog/index.html">Blog</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
   </div>
 </footer>
 <script>
