@@ -1,0 +1,2657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,follow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Fingularity!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#000;overflow:hidden;font-family:'Exo 2',sans-serif;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;cursor:crosshair;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);}
+  canvas{display:block;position:fixed;top:0;left:0;}
+  #ui-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10;}
+  #hud{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:16px 24px;}
+  .hud-block{display:flex;flex-direction:column;gap:4px;}
+  .hud-label{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:rgba(160,200,255,0.6);}
+  .hud-value{font-family:'Orbitron',monospace;font-size:28px;font-weight:900;color:#e0eaff;text-shadow:0 0 20px rgba(100,160,255,0.5);}
+  .hud-value.level-val{background:linear-gradient(135deg,#ff4466,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  #timer-bar-container{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);width:min(80%,500px);height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}
+  #timer-bar{height:100%;width:100%;background:linear-gradient(90deg,#ff4466,#ff8800,#44ddff);border-radius:3px;transition:width 0.25s linear;box-shadow:0 0 12px rgba(255,100,50,0.4);}
+  #darkness-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:0;pointer-events:none;z-index:5;transition:opacity 0.3s ease;}
+  #screen-overlay{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;background:radial-gradient(ellipse at center,rgba(0,0,0,0.85)0%,rgba(0,0,0,0.97)100%);pointer-events:all;}
+  #screen-overlay.hidden{display:none;}
+  .screen-title{font-family:'Orbitron',monospace;font-size:clamp(32px,6vw,64px);font-weight:900;text-transform:uppercase;letter-spacing:6px;margin-bottom:12px;text-align:center;}
+  .title-main{background:linear-gradient(135deg,#ff4466,#ff8800,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .title-sub{font-family:'Exo 2',sans-serif;font-size:clamp(14px,2.5vw,20px);font-weight:300;color:rgba(180,210,255,0.7);letter-spacing:4px;margin-bottom:40px;text-align:center;}
+  .screen-score{font-family:'Orbitron',monospace;font-size:clamp(40px,8vw,72px);font-weight:900;color:#ffcc00;text-shadow:0 0 40px rgba(255,200,0,0.5);margin-bottom:8px;}
+  .screen-score-label{font-family:'Exo 2',sans-serif;font-size:14px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(255,200,100,0.6);margin-bottom:48px;}
+  .btn{pointer-events:all;font-family:'Orbitron',monospace;font-size:14px;font-weight:700;letter-spacing:4px;text-transform:uppercase;padding:16px 48px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:#e0eaff;border-radius:4px;cursor:pointer;transition:all 0.3s ease;backdrop-filter:blur(10px);}
+  .btn:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.4);box-shadow:0 0 30px rgba(100,160,255,0.2);transform:scale(1.02);}
+  .game-over-reason{font-family:'Exo 2',sans-serif;font-size:16px;color:rgba(255,100,100,0.8);margin-bottom:30px;letter-spacing:2px;}
+  .instructions{max-width:400px;text-align:center;margin-bottom:36px;line-height:1.8;color:rgba(180,210,255,0.5);font-size:13px;}
+  .instructions strong{color:rgba(255,200,100,0.9);font-weight:600;}
+  #level-banner{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:25;pointer-events:none;opacity:0;transition:opacity 0.5s ease;}
+  #level-banner.show{opacity:1;}
+  .level-announce{font-family:'Orbitron',monospace;font-size:clamp(48px,10vw,96px);font-weight:900;letter-spacing:8px;text-transform:uppercase;background:linear-gradient(135deg,#ff4466,#ff8800,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:levelPulse 0.8s ease-in-out;}
+  .level-subtitle{font-family:'Exo 2',sans-serif;font-size:clamp(14px,2.5vw,22px);font-weight:300;color:rgba(180,210,255,0.7);letter-spacing:6px;margin-top:8px;text-transform:uppercase;}
+  .level-warning{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:300;color:rgba(255,120,80,0.6);letter-spacing:3px;margin-top:16px;text-transform:uppercase;}
+  @keyframes levelPulse{0%{transform:scale(0.5);opacity:0;}50%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);opacity:1;}}
+  .level-stats{font-family:'Exo 2',sans-serif;font-size:13px;color:rgba(180,210,255,0.4);margin-bottom:16px;letter-spacing:2px;}
+  .final-stats{display:flex;gap:40px;margin-bottom:36px;}
+  .stat-item{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .stat-val{font-family:'Orbitron',monospace;font-size:24px;font-weight:700;color:#e0eaff;}
+  .stat-label{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(160,200,255,0.5);}
+  #pause-overlay{position:fixed;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:22;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);pointer-events:none;}
+  #pause-overlay.show{display:flex;}
+  .pause-title{font-family:'Orbitron',monospace;font-size:clamp(36px,7vw,72px);font-weight:900;letter-spacing:8px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-shadow:0 0 30px rgba(100,160,255,0.3);}
+  .pause-sub{font-family:'Exo 2',sans-serif;font-size:14px;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:rgba(180,210,255,0.5);margin-top:16px;}
+  #mute-btn{position:fixed;bottom:16px;right:16px;z-index:30;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:rgba(255,255,255,0.6);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:all 0.2s;}
+  #mute-btn:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.3);}
+</style>
+
+<style>
+#ts-back{
+  position:fixed;top:14px;left:14px;z-index:9999;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:20px;
+  background:rgba(0,0,0,0.55);
+  border:1px solid #a0c8ff55;
+  color:#a0c8ff;
+  font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;font-family:system-ui,sans-serif;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  cursor:pointer;transition:background .2s,border-color .2s;
+}
+#ts-back:hover{background:rgba(0,0,0,0.8);border-color:#a0c8ff;text-decoration:none;color:#a0c8ff;}
+</style>
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+</head>
+<body>
+<a href="https://www.teamsinigang.com/index.html#games" id="tsi-back-btn" style="position:fixed;top:16px;left:16px;z-index:999999;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:rgba(10,10,15,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);border-radius:999px;color:#fff;font-family:'JetBrains Mono',Consolas,monospace;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;box-shadow:0 4px 14px rgba(0,0,0,0.35);transition:background 0.2s ease,transform 0.2s ease,border-color 0.2s ease;" onmouseover="this.style.background='rgba(229,53,43,0.85)';this.style.borderColor='rgba(229,53,43,0.9)';this.style.transform='translateX(-2px)';" onmouseout="this.style.background='rgba(10,10,15,0.75)';this.style.borderColor='rgba(255,255,255,0.18)';this.style.transform='translateX(0)';">
+<span style="font-size:15px;line-height:1;">&#8592;</span><span>Back to Games</span>
+</a>
+<a id="ts-back" href="/index.html#games" onclick="if(document.referrer&&document.referrer.includes(location.hostname)){history.back();return false;}">← Back</a>
+<canvas id="game"></canvas>
+<div id="darkness-overlay"></div>
+<div id="ui-overlay">
+  <div id="hud">
+    <div class="hud-block"><span class="hud-label">Score</span><span class="hud-value" id="score-display">0</span></div>
+    <div class="hud-block" style="align-items:center;"><span class="hud-label">Level</span><span class="hud-value level-val" id="level-display">1</span></div>
+    <div class="hud-block" style="align-items:center;"><span class="hud-label">Time</span><span class="hud-value" id="time-display">30</span></div>
+    <div class="hud-block" style="align-items:flex-end;"><span class="hud-label">Black Holes</span><span class="hud-value" id="bh-display">0</span></div>
+  </div>
+  <div id="timer-bar-container"><div id="timer-bar"></div></div>
+  <div id="voyager-hud" style="position:absolute;bottom:36px;left:50%;transform:translateX(-50%);font-family:'Exo 2',sans-serif;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(50,255,120,0.6);text-shadow:0 0 8px rgba(50,255,120,0.2);"></div>
+</div>
+<div id="level-banner">
+  <div class="level-announce" id="level-announce-text">Level 1</div>
+  <div class="level-subtitle" id="level-announce-sub">Singularity detected</div>
+  <div class="level-warning" id="level-announce-warn"></div>
+</div>
+<div id="screen-overlay">
+  <div style="font-family:'Exo 2',sans-serif;font-size:11px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:rgba(255,200,100,0.5);margin-bottom:24px;">A Team Sinigang Game</div>
+  <div class="screen-title title-main">Fingularity</div>
+  <div class="title-sub">Defend the cosmos</div>
+  <div class="instructions">
+    <strong>Black holes</strong> form every 5 seconds and devour nearby objects.<br>
+    <strong>Swipe across them</strong> to shrink and destroy them.<br>
+    Survive <strong>10 levels</strong> of 30 seconds each.<br>
+    Each level spawns <strong>more black holes</strong> at once!<br>
+    Protect <strong>VoyaDur 1</strong> — if it survives the round, <strong>points double!</strong>
+  </div>
+  <button class="btn" id="start-btn" data-action="newgame">Launch</button>
+</div>
+<button id="mute-btn" title="Toggle sound">&#x1f50a;</button>
+<div id="pause-overlay">
+  <div class="pause-title">Paused</div>
+  <div class="pause-sub">Press Space to resume</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// ─── AUDIO ENGINE (Web Audio — procedural synthesis)
+// ═══════════════════════════════════════════════════
+let audioCtx=null, masterGain=null, ambientNodes=[], bhDrones=new Map(), audioStarted=false, audioMuted=false;
+
+function initAudio(){
+  if(audioStarted)return;
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  masterGain=audioCtx.createGain();
+  masterGain.gain.value=0.5;
+  masterGain.connect(audioCtx.destination);
+  audioStarted=true;
+}
+
+function toggleMute(){
+  audioMuted=!audioMuted;
+  if(masterGain)masterGain.gain.linearRampToValueAtTime(audioMuted?0:0.5,audioCtx.currentTime+0.1);
+  document.getElementById('mute-btn').innerHTML=audioMuted?'&#x1f507;':'&#x1f50a;';
+}
+document.getElementById('mute-btn').addEventListener('click',toggleMute);
+
+// ── Ambient celestial pad ──
+function startAmbient(){
+  if(!audioCtx)return; stopAmbient();
+  const layers=[
+    {f:55,type:'sine',vol:0.025,filterF:180},
+    {f:82.5,type:'sine',vol:0.018,filterF:220},
+    {f:110,type:'triangle',vol:0.012,filterF:280},
+    {f:164.81,type:'sine',vol:0.008,filterF:350},
+  ];
+  const now=audioCtx.currentTime;
+  layers.forEach((l,i)=>{
+    const osc=audioCtx.createOscillator();
+    const gain=audioCtx.createGain();
+    const pan=audioCtx.createStereoPanner();
+    const filter=audioCtx.createBiquadFilter();
+    osc.type=l.type; osc.frequency.value=l.f; osc.detune.value=(Math.random()-0.5)*12;
+    filter.type='lowpass'; filter.frequency.value=l.filterF; filter.Q.value=1.5;
+    gain.gain.setValueAtTime(0,now); gain.gain.linearRampToValueAtTime(l.vol,now+4);
+    pan.pan.value=(Math.random()-0.5)*0.5;
+    osc.connect(filter); filter.connect(gain); gain.connect(pan); pan.connect(masterGain);
+    osc.start(now);
+    // Slow LFO on filter
+    const lfo=audioCtx.createOscillator(); const lfoG=audioCtx.createGain();
+    lfo.type='sine'; lfo.frequency.value=0.04+Math.random()*0.08;
+    lfoG.gain.value=50+i*20; lfo.connect(lfoG); lfoG.connect(filter.frequency); lfo.start(now);
+    ambientNodes.push({osc,gain,lfo});
+  });
+  // High shimmer
+  const sh=audioCtx.createOscillator(), shG=audioCtx.createGain(), shF=audioCtx.createBiquadFilter();
+  sh.type='sine'; sh.frequency.value=440; sh.detune.value=7;
+  shF.type='bandpass'; shF.frequency.value=500; shF.Q.value=10;
+  shG.gain.setValueAtTime(0,now); shG.gain.linearRampToValueAtTime(0.006,now+6);
+  sh.connect(shF); shF.connect(shG); shG.connect(masterGain); sh.start(now);
+  const shL=audioCtx.createOscillator(), shLG=audioCtx.createGain();
+  shL.type='sine'; shL.frequency.value=0.025; shLG.gain.value=180;
+  shL.connect(shLG); shLG.connect(sh.frequency); shL.start(now);
+  ambientNodes.push({osc:sh,gain:shG,lfo:shL});
+}
+
+function stopAmbient(){
+  for(const n of ambientNodes){try{n.osc.stop();}catch(e){}try{n.lfo.stop();}catch(e){}}
+  ambientNodes=[];
+}
+
+// ═══════════════════════════════════════════════════
+// ─── BACKGROUND MUSIC (procedural, loops forever)
+// ═══════════════════════════════════════════════════
+// D minor pentatonic: D3 F3 G3 A3 C4 D4 F4 G4 A4 C5 D5
+// Tempo: 85 BPM — one bar = 2.82s, 16th note = 0.176s
+const MUSIC_BPM = 85;
+const MUSIC_BEAT = 60 / MUSIC_BPM;          // one quarter note
+const MUSIC_16TH = MUSIC_BEAT / 4;          // one 16th note
+
+// Scale in Hz — D minor pentatonic across 2 octaves
+const SCALE = [
+  146.83, // D3
+  174.61, // F3
+  196.00, // G3
+  220.00, // A3
+  261.63, // C4
+  293.66, // D4
+  349.23, // F4
+  392.00, // G4
+  440.00, // A4
+  523.25, // C5
+  587.33, // D5
+];
+
+let musicGain = null;       // dedicated music bus
+let musicNodes = [];        // all scheduled nodes, for cleanup
+let musicPlaying = false;
+let musicScheduler = null;  // setInterval handle
+let musicNextTime = 0;      // next Web Audio clock time to schedule
+let musicBar = 0;           // which bar we're on (loops)
+let musicLevel = 1;         // synced to game level for intensity
+
+// Melody patterns — 16 steps, index into SCALE, -1 = rest
+const MELODY_A = [7, -1, 9, -1,  8, -1, 7,  5,  3, -1, 5, -1,  3,  1,  0, -1];
+const MELODY_B = [10,-1, 9,  8,  7, -1, 5, -1,  3,  5, 7, -1,  8, -1,  7, -1];
+const BASS_PAT = [0,  0, -1, 0, -1,  0, -1, -1,  2,  2, -1, 2, -1,  2, -1, -1];
+// Arpeggio: runs up the chord on every other bar
+const ARP_PAT  = [0,  2,  3,  5,  7,  5,  3,  2,  0,  2,  3,  5,  7,  8, 10, -1];
+
+function startMusic(){
+  if(!audioCtx || musicPlaying) return;
+  musicPlaying = true;
+  musicBar = 0;
+  musicNextTime = audioCtx.currentTime + 0.1;
+
+  // Dedicated gain bus for music, sits under the master
+  musicGain = audioCtx.createGain();
+  musicGain.gain.setValueAtTime(0, audioCtx.currentTime);
+  musicGain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 3);
+  musicGain.connect(masterGain);
+
+  // Schedule ahead by ~200ms, refresh every 100ms
+  musicScheduler = setInterval(scheduleMusicChunk, 100);
+}
+
+function stopMusic(){
+  if(!musicPlaying) return;
+  musicPlaying = false;
+  clearInterval(musicScheduler);
+  musicScheduler = null;
+  // Fade out then kill all nodes
+  if(musicGain){
+    musicGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
+    setTimeout(()=>{
+      for(const n of musicNodes){ try{ n.stop(); }catch(e){} }
+      musicNodes = [];
+      try{ musicGain.disconnect(); }catch(e){}
+      musicGain = null;
+    }, 1600);
+  }
+}
+
+function setMusicIntensity(level){
+  // Called on each new level — ramps music gain up slightly each level
+  musicLevel = level;
+  if(!musicGain || !audioCtx) return;
+  const vol = Math.min(0.32, 0.18 + (level - 1) * 0.016);
+  musicGain.gain.linearRampToValueAtTime(vol, audioCtx.currentTime + 2);
+}
+
+function scheduleNote(freq, startTime, duration, vol, type='sine', detune=0){
+  if(!audioCtx || !musicGain) return;
+  const osc = audioCtx.createOscillator();
+  const g   = audioCtx.createGain();
+  const flt = audioCtx.createBiquadFilter();
+
+  osc.type = type;
+  osc.frequency.value = freq;
+  osc.detune.value = detune;
+  flt.type = 'lowpass';
+  flt.frequency.value = 1800;
+  flt.Q.value = 0.8;
+
+  // Envelope: fast attack, sustain, release
+  g.gain.setValueAtTime(0, startTime);
+  g.gain.linearRampToValueAtTime(vol, startTime + 0.012);
+  g.gain.setValueAtTime(vol, startTime + duration * 0.65);
+  g.gain.linearRampToValueAtTime(0, startTime + duration * 0.95);
+
+  osc.connect(flt); flt.connect(g); g.connect(musicGain);
+  osc.start(startTime);
+  osc.stop(startTime + duration + 0.05);
+  musicNodes.push(osc);
+
+  // Prune stopped nodes periodically so array doesn't grow forever
+  if(musicNodes.length > 400) musicNodes = musicNodes.filter(n => {
+    try{ return n.playbackState !== 3; }catch(e){ return false; }
+  });
+}
+
+function scheduleMusicChunk(){
+  if(!audioCtx || !musicPlaying || !musicGain) return;
+  const scheduleAhead = 0.25; // seconds to look ahead
+
+  while(musicNextTime < audioCtx.currentTime + scheduleAhead){
+    scheduleMusicBar(musicNextTime, musicBar);
+    musicNextTime += MUSIC_BEAT * 4; // one 4/4 bar
+    musicBar = (musicBar + 1) % 8;   // 8-bar loop
+  }
+}
+
+function scheduleMusicBar(barStart, barIndex){
+  // Alternate melody patterns every 2 bars
+  const melodyPat = (barIndex % 4 < 2) ? MELODY_A : MELODY_B;
+  const useArp    = (barIndex % 2 === 1);           // arp on odd bars
+  const useBeat   = musicLevel >= 2;                // kick/hat from level 2+
+  const useChords = musicLevel >= 4;                // pad chords from level 4+
+  const fastArp   = musicLevel >= 6;                // faster arp from level 6+
+
+  for(let step = 0; step < 16; step++){
+    const t = barStart + step * MUSIC_16TH;
+
+    // ── Melody (lead synth) ──
+    const mIdx = melodyPat[step];
+    if(mIdx >= 0){
+      const freq = SCALE[mIdx];
+      const vol  = 0.055 + (step % 4 === 0 ? 0.015 : 0);  // accent on beats
+      scheduleNote(freq, t, MUSIC_16TH * 1.6, vol, 'triangle', 3);
+      // Soft octave below for body
+      scheduleNote(freq / 2, t, MUSIC_16TH * 1.4, vol * 0.3, 'sine', -2);
+    }
+
+    // ── Bass line ──
+    const bIdx = BASS_PAT[step];
+    if(bIdx >= 0){
+      const freq = SCALE[bIdx] / 2; // one octave down
+      scheduleNote(freq, t, MUSIC_16TH * 2.2, 0.07, 'sawtooth', 0);
+      scheduleNote(freq, t, MUSIC_16TH * 2.2, 0.04, 'sine', 7); // sub layer
+    }
+
+    // ── Arpeggio ──
+    if(useArp){
+      const arpStep = fastArp ? step : Math.floor(step / 2);
+      const aIdx = ARP_PAT[fastArp ? step : (arpStep % ARP_PAT.length)];
+      if(aIdx >= 0){
+        const freq = SCALE[aIdx];
+        scheduleNote(freq, t, MUSIC_16TH * 0.8, 0.025, 'sine', 5);
+      }
+    }
+
+    // ── Rhythmic beat (from level 2) ──
+    if(useBeat){
+      // Kick on beats 1 and 3 (steps 0, 8)
+      if(step === 0 || step === 8){
+        scheduleKick(t, 0.10);
+      }
+      // Snare on beats 2 and 4 (steps 4, 12)
+      if(step === 4 || step === 12){
+        scheduleSnare(t, 0.045);
+      }
+      // Hi-hat every 2 steps from level 3+
+      if(musicLevel >= 3 && step % 2 === 1){
+        scheduleHihat(t, 0.018);
+      }
+      // Faster hi-hat from level 5+
+      if(musicLevel >= 5 && step % 2 === 0 && step !== 0 && step !== 8){
+        scheduleHihat(t + MUSIC_16TH * 0.5, 0.012);
+      }
+    }
+
+    // ── Pad chords (from level 4) ──
+    if(useChords && step % 8 === 0){
+      // Dm chord voicing: D F A
+      const chord = [SCALE[0], SCALE[1], SCALE[3]]; // D F A
+      for(const freq of chord){
+        scheduleNote(freq * 2, t, MUSIC_BEAT * 3.5, 0.018, 'sine', (Math.random()-0.5)*8);
+      }
+    }
+  }
+}
+
+function scheduleKick(t, vol){
+  if(!audioCtx || !musicGain) return;
+  // Sine wave pitch-drops from 150→40Hz — classic kick
+  const osc = audioCtx.createOscillator();
+  const g   = audioCtx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(150, t);
+  osc.frequency.exponentialRampToValueAtTime(40, t + 0.08);
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+  osc.connect(g); g.connect(musicGain);
+  osc.start(t); osc.stop(t + 0.2);
+  musicNodes.push(osc);
+}
+
+function scheduleSnare(t, vol){
+  if(!audioCtx || !musicGain) return;
+  // Noise burst + tone for snare crack
+  const bufSize = audioCtx.sampleRate * 0.12;
+  const buf = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for(let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1);
+  const src = audioCtx.createBufferSource();
+  const g   = audioCtx.createGain();
+  const flt = audioCtx.createBiquadFilter();
+  src.buffer = buf;
+  flt.type = 'highpass'; flt.frequency.value = 1500;
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+  src.connect(flt); flt.connect(g); g.connect(musicGain);
+  src.start(t); src.stop(t + 0.13);
+  musicNodes.push(src);
+}
+
+function scheduleHihat(t, vol){
+  if(!audioCtx || !musicGain) return;
+  const bufSize = audioCtx.sampleRate * 0.04;
+  const buf = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for(let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1);
+  const src = audioCtx.createBufferSource();
+  const g   = audioCtx.createGain();
+  const flt = audioCtx.createBiquadFilter();
+  src.buffer = buf;
+  flt.type = 'highpass'; flt.frequency.value = 6000;
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.035);
+  src.connect(flt); flt.connect(g); g.connect(musicGain);
+  src.start(t); src.stop(t + 0.04);
+  musicNodes.push(src);
+}
+
+
+
+// ── Black hole drone: ominous, scales with size ──
+function startBHDrone(bh){
+  if(!audioCtx)return;
+  const osc1=audioCtx.createOscillator(), osc2=audioCtx.createOscillator();
+  const gain=audioCtx.createGain(), filter=audioCtx.createBiquadFilter();
+  const dist=audioCtx.createWaveShaper();
+  osc1.type='sawtooth'; osc1.frequency.value=30;
+  osc2.type='square'; osc2.frequency.value=31.5;
+  filter.type='lowpass'; filter.frequency.value=80; filter.Q.value=6;
+  const curve=new Float32Array(256);
+  for(let i=0;i<256;i++){const x=(i/128)-1;curve[i]=(Math.PI+3)*x/(Math.PI+3*Math.abs(x));}
+  dist.curve=curve; dist.oversample='2x';
+  gain.gain.value=0;
+  osc1.connect(dist); osc2.connect(dist); dist.connect(filter); filter.connect(gain); gain.connect(masterGain);
+  osc1.start(); osc2.start();
+  // Tremolo
+  const trem=audioCtx.createOscillator(), tremG=audioCtx.createGain();
+  trem.type='sine'; trem.frequency.value=2; tremG.gain.value=0.01;
+  trem.connect(tremG); tremG.connect(gain.gain); trem.start();
+  bhDrones.set(bh,{osc1,osc2,gain,filter,dist,trem,tremG});
+}
+
+function updateBHDrone(bh){
+  const d=bhDrones.get(bh); if(!d||!audioCtx)return;
+  const sf=Math.min(1,bh.r/bh.maxR);
+  const ff=bh.forming?bh.opacity:1;
+  const skf=bh.shrinking?Math.max(0,bh.opacity):1;
+  const f=sf*ff*skf;
+  const tv=Math.min(0.09,f*0.08);
+  d.gain.gain.linearRampToValueAtTime(tv,audioCtx.currentTime+0.1);
+  const bf=45-sf*20;
+  d.osc1.frequency.linearRampToValueAtTime(bf,audioCtx.currentTime+0.1);
+  d.osc2.frequency.linearRampToValueAtTime(bf*1.05,audioCtx.currentTime+0.1);
+  d.filter.frequency.linearRampToValueAtTime(60+sf*200,audioCtx.currentTime+0.1);
+  d.trem.frequency.linearRampToValueAtTime(1.5+sf*6,audioCtx.currentTime+0.1);
+  d.tremG.gain.linearRampToValueAtTime(0.005+sf*0.03,audioCtx.currentTime+0.1);
+}
+
+function stopBHDrone(bh){
+  const d=bhDrones.get(bh); if(!d)return;
+  try{d.gain.gain.linearRampToValueAtTime(0,audioCtx.currentTime+0.12);
+  setTimeout(()=>{try{d.osc1.stop();}catch(e){}try{d.osc2.stop();}catch(e){}try{d.trem.stop();}catch(e){}},180);}catch(e){}
+  bhDrones.delete(bh);
+}
+
+function stopAllBHDrones(){for(const[bh]of bhDrones)stopBHDrone(bh);}
+
+// ── Comical POP ──
+function playPopSound(x){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+  const pan=audioCtx.createStereoPanner();
+  pan.pan.value=Math.max(-1,Math.min(1,(x/W)*2-1));
+  // Main pop: fast sine pitch drop
+  const o1=audioCtx.createOscillator(), g1=audioCtx.createGain();
+  o1.type='sine';
+  o1.frequency.setValueAtTime(950,now);
+  o1.frequency.exponentialRampToValueAtTime(130,now+0.14);
+  o1.frequency.exponentialRampToValueAtTime(55,now+0.3);
+  g1.gain.setValueAtTime(0.28,now);
+  g1.gain.linearRampToValueAtTime(0.35,now+0.025);
+  g1.gain.exponentialRampToValueAtTime(0.001,now+0.35);
+  o1.connect(g1); g1.connect(pan); pan.connect(masterGain);
+  o1.start(now); o1.stop(now+0.4);
+  // Boing harmonic
+  const o2=audioCtx.createOscillator(), g2=audioCtx.createGain();
+  o2.type='triangle';
+  o2.frequency.setValueAtTime(1500,now);
+  o2.frequency.exponentialRampToValueAtTime(180,now+0.12);
+  g2.gain.setValueAtTime(0.14,now);
+  g2.gain.exponentialRampToValueAtTime(0.001,now+0.2);
+  o2.connect(g2); g2.connect(pan);
+  o2.start(now); o2.stop(now+0.25);
+  // Bubble noise burst
+  const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*0.07,audioCtx.sampleRate);
+  const data=buf.getChannelData(0);
+  for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,4);
+  const ns=audioCtx.createBufferSource(), ng=audioCtx.createGain(), nf=audioCtx.createBiquadFilter();
+  ns.buffer=buf; nf.type='bandpass'; nf.frequency.value=2200; nf.Q.value=2;
+  ng.gain.setValueAtTime(0.12,now); ng.gain.exponentialRampToValueAtTime(0.001,now+0.09);
+  ns.connect(nf); nf.connect(ng); ng.connect(pan);
+  ns.start(now);
+}
+
+// ── Swipe hit ──
+function playSwipeHit(x){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+  const pan=audioCtx.createStereoPanner();
+  pan.pan.value=Math.max(-1,Math.min(1,(x/W)*2-1));
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain(), f=audioCtx.createBiquadFilter();
+  o.type='square';
+  o.frequency.setValueAtTime(700+Math.random()*500,now);
+  o.frequency.exponentialRampToValueAtTime(180,now+0.1);
+  g.gain.setValueAtTime(0.07,now); g.gain.exponentialRampToValueAtTime(0.001,now+0.12);
+  f.type='highpass'; f.frequency.value=400;
+  o.connect(f); f.connect(g); g.connect(pan); pan.connect(masterGain);
+  o.start(now); o.stop(now+0.15);
+}
+
+// ── Consume sound ──
+function playConsumeSound(){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type='sine'; o.frequency.setValueAtTime(280,now); o.frequency.exponentialRampToValueAtTime(35,now+0.22);
+  g.gain.setValueAtTime(0.05,now); g.gain.exponentialRampToValueAtTime(0.001,now+0.25);
+  o.connect(g); g.connect(masterGain); o.start(now); o.stop(now+0.3);
+}
+
+// ── BH spawn whoosh ──
+function playSpawnSound(){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain(), f=audioCtx.createBiquadFilter();
+  o.type='sawtooth';
+  o.frequency.setValueAtTime(18,now); o.frequency.exponentialRampToValueAtTime(75,now+0.7); o.frequency.exponentialRampToValueAtTime(30,now+1.2);
+  f.type='lowpass'; f.frequency.setValueAtTime(35,now); f.frequency.linearRampToValueAtTime(280,now+0.5); f.frequency.linearRampToValueAtTime(50,now+1.2); f.Q.value=5;
+  g.gain.setValueAtTime(0,now); g.gain.linearRampToValueAtTime(0.055,now+0.35); g.gain.linearRampToValueAtTime(0.035,now+0.7); g.gain.exponentialRampToValueAtTime(0.001,now+1.3);
+  o.connect(f); f.connect(g); g.connect(masterGain); o.start(now); o.stop(now+1.4);
+}
+
+// ── Level complete chime ──
+function playLevelComplete(){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+  [523.25,659.25,783.99,1046.5].forEach((fr,i)=>{
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='sine'; o.frequency.value=fr;
+    const t=now+i*0.12;
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.11,t+0.02); g.gain.exponentialRampToValueAtTime(0.001,t+0.5);
+    o.connect(g); g.connect(masterGain); o.start(t); o.stop(t+0.55);
+  });
+}
+
+// ── Game over ──
+function playGameOverSound(){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+  [200,175,140,90].forEach((fr,i)=>{
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='triangle'; o.frequency.value=fr;
+    const t=now+i*0.28;
+    g.gain.setValueAtTime(0.09,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.65);
+    o.connect(g); g.connect(masterGain); o.start(t); o.stop(t+0.7);
+  });
+}
+
+// ── Victory fanfare ──
+function playVictorySound(){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+  [523.25,659.25,783.99,1046.5,1318.5,1568.0].forEach((fr,i)=>{
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type=i<4?'sine':'triangle'; o.frequency.value=fr;
+    const t=now+i*0.1;
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.11,t+0.02);
+    g.gain.setValueAtTime(0.11,t+0.3); g.gain.exponentialRampToValueAtTime(0.001,t+0.8);
+    o.connect(g); g.connect(masterGain); o.start(t); o.stop(t+0.85);
+  });
+}
+
+// ── Epic celestial horn (welcome screen) ──
+function playCelestialHorn(){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+
+  // Layer 1: Deep brass foundation — sawtooth through resonant filter
+  const horn1=audioCtx.createOscillator(), g1=audioCtx.createGain(), f1=audioCtx.createBiquadFilter();
+  horn1.type='sawtooth';
+  horn1.frequency.setValueAtTime(110,now); // A2
+  horn1.frequency.linearRampToValueAtTime(146.83,now+0.6); // D3 — rising fifth
+  horn1.frequency.setValueAtTime(146.83,now+0.6);
+  horn1.frequency.linearRampToValueAtTime(220,now+1.8); // A3 — octave resolve
+  f1.type='lowpass'; f1.frequency.setValueAtTime(300,now);
+  f1.frequency.linearRampToValueAtTime(900,now+1.0);
+  f1.frequency.linearRampToValueAtTime(500,now+3.0); f1.Q.value=3;
+  g1.gain.setValueAtTime(0,now);
+  g1.gain.linearRampToValueAtTime(0.12,now+0.3);
+  g1.gain.setValueAtTime(0.12,now+2.0);
+  g1.gain.linearRampToValueAtTime(0.08,now+3.0);
+  g1.gain.exponentialRampToValueAtTime(0.001,now+4.5);
+  horn1.connect(f1); f1.connect(g1); g1.connect(masterGain);
+  horn1.start(now); horn1.stop(now+4.6);
+
+  // Layer 2: Octave above — power
+  const horn2=audioCtx.createOscillator(), g2=audioCtx.createGain(), f2=audioCtx.createBiquadFilter();
+  horn2.type='sawtooth';
+  horn2.frequency.setValueAtTime(220,now+0.15);
+  horn2.frequency.linearRampToValueAtTime(293.66,now+0.75);
+  horn2.frequency.linearRampToValueAtTime(440,now+1.95);
+  f2.type='lowpass'; f2.frequency.setValueAtTime(400,now);
+  f2.frequency.linearRampToValueAtTime(1200,now+1.2);
+  f2.frequency.linearRampToValueAtTime(600,now+3.2); f2.Q.value=2;
+  g2.gain.setValueAtTime(0,now);
+  g2.gain.linearRampToValueAtTime(0.07,now+0.5);
+  g2.gain.setValueAtTime(0.07,now+2.2);
+  g2.gain.exponentialRampToValueAtTime(0.001,now+4.5);
+  horn2.connect(f2); f2.connect(g2); g2.connect(masterGain);
+  horn2.start(now+0.15); horn2.stop(now+4.6);
+
+  // Layer 3: Fifth harmony — richness
+  const horn3=audioCtx.createOscillator(), g3=audioCtx.createGain(), f3=audioCtx.createBiquadFilter();
+  horn3.type='sawtooth';
+  horn3.frequency.setValueAtTime(165,now+0.3);
+  horn3.frequency.linearRampToValueAtTime(220,now+0.9);
+  horn3.frequency.linearRampToValueAtTime(330,now+2.1);
+  f3.type='lowpass'; f3.frequency.value=700; f3.Q.value=2;
+  g3.gain.setValueAtTime(0,now);
+  g3.gain.linearRampToValueAtTime(0.05,now+0.6);
+  g3.gain.setValueAtTime(0.05,now+2.3);
+  g3.gain.exponentialRampToValueAtTime(0.001,now+4.5);
+  horn3.connect(f3); f3.connect(g3); g3.connect(masterGain);
+  horn3.start(now+0.3); horn3.stop(now+4.6);
+
+  // Layer 4: Sub-bass rumble underneath
+  const sub=audioCtx.createOscillator(), gSub=audioCtx.createGain();
+  sub.type='sine'; sub.frequency.value=55;
+  gSub.gain.setValueAtTime(0,now);
+  gSub.gain.linearRampToValueAtTime(0.1,now+0.5);
+  gSub.gain.setValueAtTime(0.1,now+2.5);
+  gSub.gain.exponentialRampToValueAtTime(0.001,now+4.5);
+  sub.connect(gSub); gSub.connect(masterGain);
+  sub.start(now); sub.stop(now+4.6);
+
+  // Layer 5: Ethereal shimmer — sine cluster high up
+  [880,1108.73,1318.5,1760].forEach((fr,i)=>{
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='sine'; o.frequency.value=fr; o.detune.value=(Math.random()-0.5)*10;
+    const t=now+0.8+i*0.15;
+    g.gain.setValueAtTime(0,t);
+    g.gain.linearRampToValueAtTime(0.015,t+0.4);
+    g.gain.setValueAtTime(0.015,t+1.5);
+    g.gain.exponentialRampToValueAtTime(0.001,t+3.5);
+    o.connect(g); g.connect(masterGain);
+    o.start(t); o.stop(t+3.6);
+  });
+
+  // Layer 6: Breathy noise sweep for cinematic air
+  const noiseBuf=audioCtx.createBuffer(1,audioCtx.sampleRate*3,audioCtx.sampleRate);
+  const nd=noiseBuf.getChannelData(0);
+  for(let i=0;i<nd.length;i++)nd[i]=(Math.random()*2-1);
+  const nSrc=audioCtx.createBufferSource(), nGain=audioCtx.createGain(), nFilt=audioCtx.createBiquadFilter();
+  nSrc.buffer=noiseBuf;
+  nFilt.type='bandpass'; nFilt.frequency.setValueAtTime(200,now);
+  nFilt.frequency.linearRampToValueAtTime(800,now+1.5);
+  nFilt.frequency.linearRampToValueAtTime(300,now+3.5); nFilt.Q.value=1;
+  nGain.gain.setValueAtTime(0,now);
+  nGain.gain.linearRampToValueAtTime(0.02,now+0.8);
+  nGain.gain.setValueAtTime(0.02,now+2.0);
+  nGain.gain.exponentialRampToValueAtTime(0.001,now+3.8);
+  nSrc.connect(nFilt); nFilt.connect(nGain); nGain.connect(masterGain);
+  nSrc.start(now);
+}
+
+// ── Mega comet explosion — punchy, dramatic, quick ──
+function playCometExplosion(){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+  // Impact hit — sharp attack
+  const hit=audioCtx.createOscillator(), hg=audioCtx.createGain();
+  hit.type='sawtooth';
+  hit.frequency.setValueAtTime(200,now);
+  hit.frequency.exponentialRampToValueAtTime(30,now+0.25);
+  hg.gain.setValueAtTime(0.35,now);
+  hg.gain.exponentialRampToValueAtTime(0.001,now+0.4);
+  hit.connect(hg); hg.connect(masterGain);
+  hit.start(now); hit.stop(now+0.45);
+  // Bright crack
+  const crack=audioCtx.createOscillator(), cg=audioCtx.createGain();
+  crack.type='square';
+  crack.frequency.setValueAtTime(2000,now);
+  crack.frequency.exponentialRampToValueAtTime(100,now+0.08);
+  cg.gain.setValueAtTime(0.2,now);
+  cg.gain.exponentialRampToValueAtTime(0.001,now+0.1);
+  crack.connect(cg); cg.connect(masterGain);
+  crack.start(now); crack.stop(now+0.12);
+  // Explosion rumble noise
+  const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*0.5,audioCtx.sampleRate);
+  const d=buf.getChannelData(0);
+  for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2);
+  const ns=audioCtx.createBufferSource(), ng=audioCtx.createGain(), nf=audioCtx.createBiquadFilter();
+  ns.buffer=buf; nf.type='lowpass'; nf.frequency.value=600; nf.Q.value=1;
+  ng.gain.setValueAtTime(0.25,now);
+  ng.gain.exponentialRampToValueAtTime(0.001,now+0.5);
+  ns.connect(nf); nf.connect(ng); ng.connect(masterGain);
+  ns.start(now);
+  // Shimmering aftermath
+  [660,880,1100].forEach((fr,i)=>{
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='sine'; o.frequency.value=fr;
+    const t=now+0.05+i*0.03;
+    g.gain.setValueAtTime(0.06,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.35);
+    o.connect(g); g.connect(masterGain); o.start(t); o.stop(t+0.4);
+  });
+}
+
+let hornPlayed=false;
+
+// ═══════════════════════════════════════
+// ─── CANVAS ───
+const canvas=document.getElementById('game');
+const ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+window.addEventListener('resize',resize); resize();
+
+// ─── CONSTANTS ───
+const ROUND_DURATION=30, MAX_LEVEL=10, BH_SPAWN_INTERVAL=5;
+const LEVEL_NAMES=['Singularity Detected','Gravitational Anomaly','Event Horizon','Spaghettification','Hawking Radiation','Ergosphere','Accretion Storm','Quasar Surge','Cosmic Collapse','Heat Death'];
+
+// ─── STATE ───
+const STATE={MENU:0,PLAYING:1,LEVEL_TRANS:2,OVER:3,PAUSED:4,CUTSCENE:5,WARP:6};
+let state=STATE.MENU, currentLevel=1, totalScore=0, score=0, totalBHDestroyed=0;
+let timeLeft=ROUND_DURATION, gameTimer=0;
+let levelRetries=0; // retries used on the current level (max 3)
+let blackHoles=[], celestials=[], particles=[], stars=[], swipeTrails=[];
+let lastTime=0, bhSpawnTimer=0, celSpawnTimer=0, totalBHArea=0, screenArea=0;
+let bhDestroyedThisLevel=0;
+let megaComet=null; // the special once-per-level comet
+let megaCometSpawned=false; // has it spawned this level?
+let megaCometTimer=0; // random delay before spawning
+let megaCometDelay=0; // chosen delay for this level
+let screenFlash=0; // white flash on explosion
+
+// ─── VOYADUR 1 ───
+let voyager=null;
+let voyagerSurvivedRound=false;
+
+// ─── STARS ───
+function initStars(){
+  stars=[];
+  // Three depth layers — far (slow, dim, tiny), mid, close (faster, brighter, larger)
+  const layers=[
+    {count:220,rMin:0.25,rMax:0.7, briMin:0.25,briMax:0.55, speedMin:2, speedMax:5 },  // far
+    {count:130,rMin:0.6, rMax:1.2, briMin:0.4, briMax:0.75, speedMin:6, speedMax:12},  // mid
+    {count:50, rMin:1.0, rMax:1.8, briMin:0.6, briMax:1.0,  speedMin:14,speedMax:22},  // close
+  ];
+  for(const l of layers){
+    for(let i=0;i<l.count;i++){
+      const r=l.rMin+Math.random()*(l.rMax-l.rMin);
+      stars.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r, brightness:l.briMin+Math.random()*(l.briMax-l.briMin),
+        twinkleSpeed:Math.random()*1.5+0.3, phase:Math.random()*Math.PI*2,
+        speed:l.speedMin+Math.random()*(l.speedMax-l.speedMin), // px/sec downward drift
+      });
+    }
+  }
+}
+function updateStars(dt){
+  for(const s of stars){
+    s.y+=s.speed*dt;
+    if(s.y>H+s.r*2) s.y=-(s.r*2); // wrap to top when off bottom
+  }
+}
+function drawStars(t){
+  for(const s of stars){
+    const b=0.3+0.7*(0.5+0.5*Math.sin(t*s.twinkleSpeed+s.phase));
+    const a=s.brightness*b;
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(200,220,255,${a*0.8})`;ctx.fill();
+    if(s.r>1){ctx.beginPath();ctx.arc(s.x,s.y,s.r*3,0,Math.PI*2);ctx.fillStyle=`rgba(180,210,255,${a*0.08})`;ctx.fill();}
+  }
+}
+
+// ─── NEBULA ───
+let nebulaCanvas,nebulaCtx;
+function generateNebula(){
+  nebulaCanvas=document.createElement('canvas');nebulaCanvas.width=W;nebulaCanvas.height=H;
+  nebulaCtx=nebulaCanvas.getContext('2d');
+  const colors=[{r:80,g:20,b:120},{r:20,g:40,b:100},{r:120,g:30,b:60},{r:20,g:80,b:100}];
+  for(let i=0;i<6;i++){
+    const c=colors[Math.floor(Math.random()*colors.length)];
+    const x=Math.random()*W,y=Math.random()*H,r=Math.random()*400+200;
+    const grad=nebulaCtx.createRadialGradient(x,y,0,x,y,r);
+    grad.addColorStop(0,`rgba(${c.r},${c.g},${c.b},0.06)`);
+    grad.addColorStop(0.5,`rgba(${c.r},${c.g},${c.b},0.02)`);
+    grad.addColorStop(1,`rgba(${c.r},${c.g},${c.b},0)`);
+    nebulaCtx.fillStyle=grad;nebulaCtx.fillRect(0,0,W,H);
+  }
+}
+
+// ─── CELESTIALS ───
+const CEL_TYPES=[
+  {name:'asteroid',minR:8,maxR:18,bonus:5},
+  {name:'planet',minR:20,maxR:40,bonus:25},
+  {name:'sun',minR:30,maxR:50,bonus:50},
+  {name:'spaceship',minR:10,maxR:16,bonus:15},
+  {name:'nebula_cloud',minR:35,maxR:60,bonus:35},
+  {name:'comet',minR:8,maxR:14,bonus:10},
+  {name:'space_station',minR:18,maxR:28,bonus:30},
+  {name:'dwarf_star',minR:14,maxR:22,bonus:20},
+];
+
+// Floating score popups
+let scorePopups=[];
+function addScorePopup(x,y,pts,color){
+  scorePopups.push({x,y,pts,color:color||'rgba(255,200,50,1)',life:1,vy:-60});
+}
+function updateScorePopups(dt){
+  for(let i=scorePopups.length-1;i>=0;i--){
+    const p=scorePopups[i]; p.y+=p.vy*dt; p.life-=dt*0.8;
+    if(p.life<=0)scorePopups.splice(i,1);
+  }
+}
+function drawScorePopups(){
+  for(const p of scorePopups){
+    ctx.save();
+    ctx.globalAlpha=Math.max(0,Math.min(1,p.life));
+    ctx.font=p.isText?'bold 12px Orbitron, monospace':'bold 16px Orbitron, monospace';
+    ctx.textAlign='center';
+    ctx.fillStyle=p.color;
+    ctx.shadowColor=p.color;
+    ctx.shadowBlur=8;
+    ctx.fillText(p.isText?p.pts:`+${p.pts}`,p.x,p.y);
+    ctx.restore();
+  }
+}
+
+function spawnCelestial(){
+  const type=CEL_TYPES[Math.floor(Math.random()*CEL_TYPES.length)];
+  const r=type.minR+Math.random()*(type.maxR-type.minR);
+  const side=Math.floor(Math.random()*4);
+  let x,y,vx,vy; const speed=15+Math.random()*30;
+  if(side===0){x=-r;y=Math.random()*H;vx=speed;vy=(Math.random()-0.5)*speed*0.5;}
+  else if(side===1){x=W+r;y=Math.random()*H;vx=-speed;vy=(Math.random()-0.5)*speed*0.5;}
+  else if(side===2){x=Math.random()*W;y=-r;vx=(Math.random()-0.5)*speed*0.5;vy=speed;}
+  else{x=Math.random()*W;y=H+r;vx=(Math.random()-0.5)*speed*0.5;vy=-speed;}
+  celestials.push({x,y,r,vx,vy,type:type.name,rotation:Math.random()*Math.PI*2,
+    rotSpeed:(Math.random()-0.5)*2,beingSucked:null,suckProgress:0,opacity:1,
+    rings:type.name==='planet'&&Math.random()>0.5,tailAngle:Math.atan2(vy,vx),phase:Math.random()*Math.PI*2});
+}
+
+// ─── VOYADUR 1 ───
+function spawnVoyager(){
+  const margin=140;
+  const sx=margin+Math.random()*(W-margin*2);
+  const sy=margin+Math.random()*(H-margin*2);
+  voyager={
+    x:sx,y:sy,
+    vx:(Math.random()-0.5)*8,
+    vy:(Math.random()-0.5)*8,
+    r:28, // double size
+    rotation:Math.random()*Math.PI*2,
+    rotSpeed:0.15,
+    beingSucked:null,
+    suckProgress:0,
+    opacity:0, // starts invisible, fades in from wormhole
+    alive:true,
+    blinkPhase:Math.random()*Math.PI*2,
+    // Wormhole animation
+    wormhole:true,
+    wormholeTimer:0,
+    wormholeDuration:2.0,
+    wormholeX:sx,
+    wormholeY:sy,
+  };
+  voyagerSurvivedRound=true;
+}
+
+function drawWormhole(v,t){
+  if(!v||!v.wormhole)return;
+  const progress=Math.min(1,v.wormholeTimer/v.wormholeDuration);
+  const wx=v.wormholeX,wy=v.wormholeY;
+
+  // Outer swirl
+  const maxR=50;
+  const r=maxR*(1-progress*0.6);
+  const alpha=(1-progress);
+
+  // Swirling rings
+  ctx.save();
+  ctx.translate(wx,wy);
+  ctx.rotate(t*3);
+  for(let i=0;i<3;i++){
+    const ringR=r*(0.6+i*0.25);
+    const ringAlpha=alpha*(0.4-i*0.1);
+    ctx.beginPath();
+    ctx.ellipse(0,0,ringR,ringR*0.6,i*0.5,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(100,200,255,${ringAlpha})`;
+    ctx.lineWidth=2-i*0.4;
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // Inner glow
+  const glow=ctx.createRadialGradient(wx,wy,0,wx,wy,r);
+  glow.addColorStop(0,`rgba(150,220,255,${alpha*0.4})`);
+  glow.addColorStop(0.4,`rgba(80,150,220,${alpha*0.2})`);
+  glow.addColorStop(0.7,`rgba(40,80,180,${alpha*0.08})`);
+  glow.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=glow;
+  ctx.beginPath();ctx.arc(wx,wy,r,0,Math.PI*2);ctx.fill();
+
+  // Center bright spot
+  ctx.beginPath();ctx.arc(wx,wy,3*(1-progress),0,Math.PI*2);
+  ctx.fillStyle=`rgba(200,240,255,${alpha*0.8})`;
+  ctx.fill();
+
+  // Sparkle particles spiraling in
+  for(let i=0;i<8;i++){
+    const a=t*5+i*0.785;
+    const sd=r*(0.3+0.7*(1-progress))*Math.sin(t*3+i*2);
+    const sx=wx+Math.cos(a)*sd,sy=wy+Math.sin(a)*sd*0.6;
+    ctx.beginPath();ctx.arc(sx,sy,1+Math.sin(t*6+i)*0.5,0,Math.PI*2);
+    ctx.fillStyle=`rgba(180,220,255,${alpha*0.5})`;ctx.fill();
+  }
+}
+
+function drawVoyager(v,t){
+  if(!v||!v.alive)return;
+
+  // Draw wormhole if still animating
+  if(v.wormhole)drawWormhole(v,t);
+
+  ctx.save();
+  ctx.globalAlpha=v.opacity;
+  ctx.translate(v.x,v.y);
+
+  // Scale factor for double-size drawing
+  const s=2;
+  ctx.scale(s,s);
+  ctx.rotate(v.rotation);
+
+  // ── Main bus (central body) ──
+  ctx.fillStyle='#c8cdd4';
+  ctx.fillRect(-4,-5,8,10);
+
+  // Antenna dish (top)
+  ctx.fillStyle='#e0e4ea';
+  ctx.beginPath();
+  ctx.arc(0,-8,6,Math.PI,Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle='#a0a8b4';
+  ctx.lineWidth=0.5;
+  ctx.stroke();
+  // Dish feed
+  ctx.beginPath();ctx.moveTo(0,-8);ctx.lineTo(0,-13);
+  ctx.strokeStyle='#888';ctx.lineWidth=0.8;ctx.stroke();
+  ctx.beginPath();ctx.arc(0,-13,1,0,Math.PI*2);
+  ctx.fillStyle='#aab';ctx.fill();
+
+  // ── RTG boom (extending down-right) ──
+  ctx.beginPath();ctx.moveTo(3,4);ctx.lineTo(12,12);
+  ctx.strokeStyle='#999';ctx.lineWidth=1;ctx.stroke();
+  ctx.fillStyle='#555';
+  ctx.fillRect(10,10,5,4);
+
+  // ── Magnetometer boom (extending down-left) ──
+  ctx.beginPath();ctx.moveTo(-3,3);ctx.lineTo(-14,10);
+  ctx.strokeStyle='#888';ctx.lineWidth=0.6;ctx.stroke();
+
+  // ── Solar/science boom (left) ──
+  ctx.beginPath();ctx.moveTo(-4,0);ctx.lineTo(-16,-2);
+  ctx.strokeStyle='#777';ctx.lineWidth=0.6;ctx.stroke();
+
+  // ── Voyager golden record (small circle on body) ──
+  ctx.beginPath();ctx.arc(0,0,2.5,0,Math.PI*2);
+  ctx.fillStyle='#d4a520';ctx.fill();
+  ctx.strokeStyle='#b8860b';ctx.lineWidth=0.5;ctx.stroke();
+
+  // ── Thrusters (small nozzles at bottom) ──
+  ctx.fillStyle='#778';
+  ctx.fillRect(-2,5,1.5,3);
+  ctx.fillRect(0.5,5,1.5,3);
+
+  ctx.restore();
+
+  // ── Status indicator glow (outside rotation/scale) ──
+  const blink=0.4+0.6*Math.abs(Math.sin(t*2+v.blinkPhase));
+  ctx.beginPath();
+  ctx.arc(v.x,v.y-36,3,0,Math.PI*2);
+  ctx.fillStyle=`rgba(50,255,120,${blink*v.opacity})`;
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(v.x,v.y-36,7,0,Math.PI*2);
+  ctx.fillStyle=`rgba(50,255,120,${blink*0.12*v.opacity})`;
+  ctx.fill();
+
+  // Label
+  ctx.save();
+  ctx.globalAlpha=v.opacity*0.6;
+  ctx.font='9px Orbitron, monospace';
+  ctx.textAlign='center';
+  ctx.fillStyle='rgba(150,220,180,0.8)';
+  ctx.fillText('VOYADUR 1',v.x,v.y+40);
+  ctx.restore();
+
+  // Double points aura when alive
+  if(v.alive&&v.opacity>0.5){
+    const auraR=36+Math.sin(t*3)*4;
+    ctx.beginPath();ctx.arc(v.x,v.y,auraR,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(50,255,120,${0.12+0.06*Math.sin(t*4)})`;
+    ctx.lineWidth=1.5;ctx.stroke();
+  }
+}
+
+function destroyVoyager(){
+  if(!voyager||!voyager.alive)return;
+  voyager.alive=false;
+  voyagerSurvivedRound=false;
+  emitParticles(voyager.x,voyager.y,'rgba(200,220,180,1)',25,140);
+  emitParticles(voyager.x,voyager.y,'rgba(255,200,50,1)',15,100);
+  addScorePopup(voyager.x,voyager.y-30,0,'rgba(255,100,100,1)');
+  scorePopups.push({x:voyager.x,y:voyager.y-50,pts:'VOYADUR LOST \u2022 NO x2 THIS ROUND',color:'rgba(255,80,80,1)',life:2,vy:-25,isText:true});
+}
+
+// ─── BLACK HOLE ───
+function spawnBlackHole(){
+  const r=20+Math.random()*15, margin=80;
+  const x=margin+Math.random()*(W-margin*2), y=margin+Math.random()*(H-margin*2);
+  const baseGrow=18+currentLevel*6;
+  const bh={x,y,r,maxR:150+currentLevel*20,growRate:baseGrow+Math.random()*8,
+    swipeHits:0,hitsToKill:3+Math.floor(currentLevel*0.5),
+    rotation:0,rotSpeed:0.8+Math.random()*1.2,pulsePhase:Math.random()*Math.PI*2,
+    formingTimer:0,forming:true,formDuration:Math.max(0.4,1.2-currentLevel*0.06),
+    opacity:0,shrinking:false,shrinkSpeed:0,consumed:0};
+  blackHoles.push(bh);
+  startBHDrone(bh);
+  playSpawnSound();
+}
+
+function spawnBlackHoleBatch(){
+  const count=1+Math.floor(Math.random()*currentLevel);
+  for(let i=0;i<count;i++)spawnBlackHole();
+}
+
+// ─── MEGA COMET (once per level) ───
+function spawnMegaComet(){
+  const r=16;
+  // Always cross through the middle area so it's visible
+  // Pick entry from one edge, exit toward opposite side
+  const side=Math.floor(Math.random()*4);
+  let x,y,tx,ty;
+  const margin=50;
+  if(side===0){      // enter left
+    x=-margin; y=H*0.2+Math.random()*H*0.6;
+    tx=W+margin; ty=H*0.2+Math.random()*H*0.6;
+  } else if(side===1){ // enter right
+    x=W+margin; y=H*0.2+Math.random()*H*0.6;
+    tx=-margin; ty=H*0.2+Math.random()*H*0.6;
+  } else if(side===2){ // enter top
+    x=W*0.2+Math.random()*W*0.6; y=-margin;
+    tx=W*0.2+Math.random()*W*0.6; ty=H+margin;
+  } else {             // enter bottom
+    x=W*0.2+Math.random()*W*0.6; y=H+margin;
+    tx=W*0.2+Math.random()*W*0.6; ty=-margin;
+  }
+  const dx=tx-x, dy=ty-y;
+  const dist=Math.sqrt(dx*dx+dy*dy);
+  const speed=40+Math.random()*25; // much slower — takes ~5-8 seconds to cross
+  const vx=(dx/dist)*speed, vy=(dy/dist)*speed;
+  megaComet={
+    x,y,r,vx,vy,
+    rotation:0,rotSpeed:2,
+    tailAngle:Math.atan2(vy,vx),
+    opacity:1,
+    active:true,
+    trail:[], // position history for the long tail
+  };
+}
+
+function drawMegaComet(mc,t){
+  if(!mc||!mc.active)return;
+  ctx.save();
+
+  // Tail points OPPOSITE to travel direction
+  // Velocity is (vx, vy), so tail direction is (-vx, -vy) normalized
+  const vMag=Math.sqrt(mc.vx*mc.vx+mc.vy*mc.vy);
+  const tdx=-mc.vx/vMag, tdy=-mc.vy/vMag;
+  // Perpendicular to tail (for width)
+  const tpx=-tdy, tpy=tdx;
+
+  // ── LONG FLOWING TAIL ──
+  const tailLen=mc.r*35;
+
+  // Wide outer tail glow
+  for(let layer=0;layer<3;layer++){
+    const width=mc.r*(3-layer*0.7);
+    const alpha=[0.08,0.12,0.2][layer];
+    const colors=[
+      [`rgba(80,120,255,${alpha})`,`rgba(60,80,200,${alpha*0.3})`,`rgba(40,40,150,0)`],
+      [`rgba(100,180,255,${alpha})`,`rgba(60,120,220,${alpha*0.4})`,`rgba(30,60,180,0)`],
+      [`rgba(200,220,255,${alpha})`,`rgba(120,180,255,${alpha*0.5})`,`rgba(60,100,220,0)`],
+    ][layer];
+    const len=tailLen*(1-layer*0.15);
+
+    ctx.beginPath();
+    // Start at one side of the comet head
+    ctx.moveTo(mc.x+tpx*width,mc.y+tpy*width);
+    // Curve outward then taper to tail tip
+    const cx1=mc.x+tdx*len*0.3+tpx*width*1.5;
+    const cy1=mc.y+tdy*len*0.3+tpy*width*1.5;
+    const cx2=mc.x+tdx*len*0.7+tpx*width*0.3;
+    const cy2=mc.y+tdy*len*0.7+tpy*width*0.3;
+    const ex=mc.x+tdx*len, ey=mc.y+tdy*len;
+    ctx.bezierCurveTo(cx1,cy1,cx2,cy2,ex,ey);
+    // Other side — mirror
+    const cx3=mc.x+tdx*len*0.7-tpx*width*0.3;
+    const cy3=mc.y+tdy*len*0.7-tpy*width*0.3;
+    const cx4=mc.x+tdx*len*0.3-tpx*width*1.5;
+    const cy4=mc.y+tdy*len*0.3-tpy*width*1.5;
+    ctx.bezierCurveTo(cx3,cy3,cx4,cy4,mc.x-tpx*width,mc.y-tpy*width);
+    ctx.closePath();
+
+    const grad=ctx.createLinearGradient(mc.x,mc.y,ex,ey);
+    grad.addColorStop(0,colors[0]);
+    grad.addColorStop(0.4,colors[1]);
+    grad.addColorStop(1,colors[2]);
+    ctx.fillStyle=grad;
+    ctx.fill();
+  }
+
+  // Bright inner plasma stream
+  ctx.beginPath();
+  ctx.moveTo(mc.x,mc.y);
+  const innerLen=tailLen*0.7;
+  const wave1=Math.sin(t*5)*mc.r*0.5;
+  const wave2=Math.sin(t*7+2)*mc.r*0.3;
+  const imx=mc.x+tdx*innerLen*0.5+tpx*wave1;
+  const imy=mc.y+tdy*innerLen*0.5+tpy*wave1;
+  const iex=mc.x+tdx*innerLen+tpx*wave2;
+  const iey=mc.y+tdy*innerLen+tpy*wave2;
+  ctx.quadraticCurveTo(imx,imy,iex,iey);
+  ctx.strokeStyle='rgba(180,220,255,0.35)';
+  ctx.lineWidth=mc.r*0.8;
+  ctx.lineCap='round';
+  ctx.stroke();
+
+  // Secondary thin stream with slight offset
+  ctx.beginPath();
+  ctx.moveTo(mc.x+tpx*mc.r*0.3,mc.y+tpy*mc.r*0.3);
+  const s2x=mc.x+tdx*innerLen*0.6+tpx*(wave2+mc.r*0.3);
+  const s2y=mc.y+tdy*innerLen*0.6+tpy*(wave2+mc.r*0.3);
+  ctx.quadraticCurveTo(
+    mc.x+tdx*innerLen*0.3+tpx*mc.r*0.5,mc.y+tdy*innerLen*0.3+tpy*mc.r*0.5,
+    s2x,s2y);
+  ctx.strokeStyle='rgba(100,160,255,0.2)';
+  ctx.lineWidth=mc.r*0.4;
+  ctx.lineCap='round';
+  ctx.stroke();
+
+  // ── Dust tail (angled slightly off main tail) ──
+  const dustAngle=Math.atan2(tdy,tdx)+0.25;
+  const dustLen=tailLen*0.5;
+  const ddx=Math.cos(dustAngle), ddy=Math.sin(dustAngle);
+  const dpx=-ddy, dpy=ddx; // dust perpendicular
+  ctx.beginPath();
+  ctx.moveTo(mc.x,mc.y);
+  ctx.quadraticCurveTo(
+    mc.x+ddx*dustLen*0.5+dpx*mc.r*2,mc.y+ddy*dustLen*0.5+dpy*mc.r*2,
+    mc.x+ddx*dustLen,mc.y+ddy*dustLen);
+  ctx.strokeStyle='rgba(200,180,120,0.1)';
+  ctx.lineWidth=mc.r*2;
+  ctx.lineCap='round';
+  ctx.stroke();
+
+  // ── COMA (bright halo around head) ──
+  const coma=ctx.createRadialGradient(mc.x,mc.y,mc.r*0.5,mc.x,mc.y,mc.r*6);
+  coma.addColorStop(0,'rgba(255,240,200,0.4)');
+  coma.addColorStop(0.2,'rgba(200,220,255,0.15)');
+  coma.addColorStop(0.5,'rgba(100,150,255,0.05)');
+  coma.addColorStop(1,'rgba(50,80,200,0)');
+  ctx.fillStyle=coma;
+  ctx.beginPath();ctx.arc(mc.x,mc.y,mc.r*6,0,Math.PI*2);ctx.fill();
+
+  // ── NUCLEUS (bright core) ──
+  const core=ctx.createRadialGradient(mc.x,mc.y,0,mc.x,mc.y,mc.r);
+  core.addColorStop(0,'rgba(255,255,240,1)');
+  core.addColorStop(0.3,'#ffee88');
+  core.addColorStop(0.7,'#ffaa33');
+  core.addColorStop(1,'rgba(255,120,20,0.6)');
+  ctx.fillStyle=core;
+  ctx.beginPath();ctx.arc(mc.x,mc.y,mc.r,0,Math.PI*2);ctx.fill();
+
+  // Inner bright spot
+  ctx.beginPath();ctx.arc(mc.x,mc.y,mc.r*0.4,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,255,255,0.8)';ctx.fill();
+
+  // ── Sparkle particles around head ──
+  for(let i=0;i<10;i++){
+    const a=t*3+i*0.63;
+    const sparkDist=mc.r*(1.5+Math.sin(t*5+i*1.7)*1.2);
+    const sx=mc.x+Math.cos(a)*sparkDist;
+    const sy=mc.y+Math.sin(a)*sparkDist;
+    const sr=1+Math.sin(t*8+i*2.3)*0.8;
+    ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,220,${0.3+0.3*Math.sin(t*6+i)})`;ctx.fill();
+  }
+
+  ctx.restore();
+}
+
+function triggerCometExplosion(){
+  if(!megaComet)return;
+  const cx=megaComet.x, cy=megaComet.y;
+
+  // Screen flash
+  screenFlash=1;
+
+  // Massive particle burst — multi-colored
+  emitParticles(cx,cy,'rgba(255,255,200,1)',50,400);
+  emitParticles(cx,cy,'rgba(255,150,50,1)',40,300);
+  emitParticles(cx,cy,'rgba(255,100,200,1)',30,250);
+  emitParticles(cx,cy,'rgba(100,200,255,1)',20,350);
+
+  // Sound
+  playCometExplosion();
+  if(window.nativeHaptic)window.nativeHaptic('comet');
+
+  // Score: bonus for every BH and celestial destroyed
+  let explosionScore=0;
+
+  // Destroy all black holes
+  for(const bh of blackHoles){
+    const pts=Math.floor(bh.r*3)+bh.consumed*15+currentLevel*10;
+    explosionScore+=pts;
+    emitParticles(bh.x,bh.y,'rgba(255,200,100,1)',15,150);
+    stopBHDrone(bh);
+    bhDestroyedThisLevel++;totalBHDestroyed++;
+  }
+
+  // Destroy all celestials for bonus
+  for(const cel of celestials){
+    const celType=CEL_TYPES.find(t=>t.name===cel.type);
+    const pts=celType?celType.bonus*currentLevel*2:10*currentLevel;
+    explosionScore+=pts;
+    emitParticles(cel.x,cel.y,'rgba(200,220,255,1)',4,80);
+  }
+
+  // Comet swipe bonus
+  explosionScore+=100*currentLevel;
+
+  score+=explosionScore;
+  addScorePopup(cx,cy-30,explosionScore,'rgba(255,255,100,1)');
+
+  blackHoles=[];
+  celestials=[];
+  megaComet.active=false;
+  megaComet=null;
+}
+
+// ─── DRAW BLACK HOLE ───
+function drawBlackHole(bh,t){
+  const alpha=bh.opacity; if(alpha<=0)return;
+  const pulse=1+0.04*Math.sin(t*3+bh.pulsePhase), drawR=bh.r*pulse;
+  const glowR=drawR*3;
+  const glow=ctx.createRadialGradient(bh.x,bh.y,drawR*0.5,bh.x,bh.y,glowR);
+  glow.addColorStop(0,`rgba(255,100,30,${0.15*alpha})`);glow.addColorStop(0.3,`rgba(200,50,80,${0.08*alpha})`);
+  glow.addColorStop(0.6,`rgba(100,20,150,${0.03*alpha})`);glow.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=glow;ctx.beginPath();ctx.arc(bh.x,bh.y,glowR,0,Math.PI*2);ctx.fill();
+  ctx.save();ctx.translate(bh.x,bh.y);ctx.rotate(bh.rotation);
+  for(let i=0;i<3;i++){const ringR=drawR*(1.4+i*0.35);ctx.beginPath();ctx.ellipse(0,0,ringR,ringR*0.3,0,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(255,${120+i*40},${30+i*30},${(0.3-i*0.08)*alpha})`;ctx.lineWidth=2-i*0.4;ctx.stroke();}
+  ctx.restore();
+  const ig=ctx.createRadialGradient(bh.x,bh.y,0,bh.x,bh.y,drawR);
+  ig.addColorStop(0,`rgba(0,0,0,${alpha})`);ig.addColorStop(0.7,`rgba(0,0,0,${alpha})`);
+  ig.addColorStop(0.85,`rgba(10,5,20,${alpha*0.9})`);ig.addColorStop(1,`rgba(40,10,60,${alpha*0.5})`);
+  ctx.fillStyle=ig;ctx.beginPath();ctx.arc(bh.x,bh.y,drawR,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(bh.x,bh.y,drawR*1.05,0,Math.PI*2);
+  ctx.strokeStyle=`rgba(255,180,100,${0.5*alpha})`;ctx.lineWidth=1.5;ctx.stroke();
+  if(bh.swipeHits>0){const pct=bh.swipeHits/bh.hitsToKill;ctx.beginPath();
+    ctx.arc(bh.x,bh.y,drawR+8,-Math.PI/2,-Math.PI/2+Math.PI*2*pct);
+    ctx.strokeStyle=`rgba(0,255,200,${0.7*alpha})`;ctx.lineWidth=2;ctx.stroke();}
+}
+
+// ─── DRAW CELESTIAL ───
+function drawCelestial(obj,t){
+  ctx.save();ctx.globalAlpha=obj.opacity;ctx.translate(obj.x,obj.y);ctx.rotate(obj.rotation);
+  const tp=obj.type;
+  if(tp==='asteroid'){ctx.beginPath();for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2,w=0.7+0.3*Math.sin(i*2.7+1.3);const px=Math.cos(a)*obj.r*w,py=Math.sin(a)*obj.r*w;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);}ctx.closePath();const g=ctx.createRadialGradient(0,0,0,0,0,obj.r);g.addColorStop(0,'#a09080');g.addColorStop(1,'#5a4d40');ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='rgba(0,0,0,0.3)';ctx.lineWidth=1;ctx.stroke();}
+  else if(tp==='planet'){const g=ctx.createRadialGradient(-obj.r*0.3,-obj.r*0.3,obj.r*0.1,0,0,obj.r);g.addColorStop(0,'#6ab4e8');g.addColorStop(0.5,'#3a7db8');g.addColorStop(1,'#1a3d5c');ctx.beginPath();ctx.arc(0,0,obj.r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();ctx.beginPath();ctx.arc(0,0,obj.r*1.08,0,Math.PI*2);ctx.strokeStyle='rgba(100,180,255,0.2)';ctx.lineWidth=2;ctx.stroke();if(obj.rings){ctx.beginPath();ctx.ellipse(0,0,obj.r*1.8,obj.r*0.3,0.3,0,Math.PI*2);ctx.strokeStyle='rgba(200,180,150,0.5)';ctx.lineWidth=3;ctx.stroke();}}
+  else if(tp==='sun'){const g=ctx.createRadialGradient(0,0,0,0,0,obj.r*2);g.addColorStop(0,'rgba(255,255,200,0.9)');g.addColorStop(0.3,'rgba(255,200,50,0.6)');g.addColorStop(0.6,'rgba(255,100,20,0.15)');g.addColorStop(1,'rgba(255,50,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,obj.r*2,0,Math.PI*2);ctx.fill();const c=ctx.createRadialGradient(0,0,0,0,0,obj.r);c.addColorStop(0,'#ffffee');c.addColorStop(0.6,'#ffcc44');c.addColorStop(1,'#ff8800');ctx.fillStyle=c;ctx.beginPath();ctx.arc(0,0,obj.r,0,Math.PI*2);ctx.fill();for(let i=0;i<5;i++){const a=t*0.5+i*1.26;ctx.beginPath();ctx.arc(Math.cos(a)*obj.r*1.1,Math.sin(a)*obj.r*1.1,3+Math.sin(t*3+i)*2,0,Math.PI*2);ctx.fillStyle='rgba(255,220,100,0.6)';ctx.fill();}}
+  else if(tp==='spaceship'){ctx.fillStyle='#dde8f0';ctx.beginPath();ctx.moveTo(obj.r,0);ctx.lineTo(-obj.r*0.7,-obj.r*0.5);ctx.lineTo(-obj.r*0.4,0);ctx.lineTo(-obj.r*0.7,obj.r*0.5);ctx.closePath();ctx.fill();ctx.strokeStyle='rgba(100,150,200,0.5)';ctx.lineWidth=1;ctx.stroke();ctx.beginPath();ctx.arc(-obj.r*0.5,0,obj.r*0.25,0,Math.PI*2);ctx.fillStyle=`rgba(50,150,255,${0.5+0.3*Math.sin(t*8)})`;ctx.fill();}
+  else if(tp==='nebula_cloud'){for(let i=0;i<4;i++){const ox=Math.sin(i*1.7)*obj.r*0.3,oy=Math.cos(i*2.3)*obj.r*0.3,cr=obj.r*(0.5+i*0.15);const g=ctx.createRadialGradient(ox,oy,0,ox,oy,cr);g.addColorStop(0,'rgba(160,80,200,0.15)');g.addColorStop(0.5,'rgba(100,40,160,0.06)');g.addColorStop(1,'rgba(60,20,100,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(ox,oy,cr,0,Math.PI*2);ctx.fill();}ctx.beginPath();ctx.arc(0,0,obj.r*0.3,0,Math.PI*2);ctx.fillStyle='rgba(180,120,220,0.3)';ctx.fill();}
+  else if(tp==='comet'){ctx.save();ctx.rotate(-obj.tailAngle-obj.rotation);const tg=ctx.createLinearGradient(0,0,-obj.r*5,0);tg.addColorStop(0,'rgba(170,230,255,0.5)');tg.addColorStop(0.5,'rgba(100,180,255,0.1)');tg.addColorStop(1,'rgba(100,180,255,0)');ctx.fillStyle=tg;ctx.beginPath();ctx.moveTo(0,-obj.r*0.4);ctx.lineTo(-obj.r*5,-obj.r*1.5);ctx.lineTo(-obj.r*5,obj.r*1.5);ctx.lineTo(0,obj.r*0.4);ctx.closePath();ctx.fill();ctx.restore();const g=ctx.createRadialGradient(0,0,0,0,0,obj.r);g.addColorStop(0,'#eeffff');g.addColorStop(1,'#88ccee');ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,obj.r,0,Math.PI*2);ctx.fill();}
+  else if(tp==='space_station'){ctx.fillStyle='#c0c8d0';ctx.fillRect(-obj.r*0.3,-obj.r*0.3,obj.r*0.6,obj.r*0.6);ctx.fillStyle='#3366aa';ctx.fillRect(-obj.r,-obj.r*0.15,obj.r*0.6,obj.r*0.3);ctx.fillRect(obj.r*0.4,-obj.r*0.15,obj.r*0.6,obj.r*0.3);ctx.strokeStyle='#889098';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(-obj.r*0.3,0);ctx.lineTo(-obj.r,0);ctx.moveTo(obj.r*0.3,0);ctx.lineTo(obj.r,0);ctx.stroke();ctx.fillStyle=`rgba(255,200,50,${0.5+0.5*Math.sin(t*4)})`;ctx.beginPath();ctx.arc(0,0,2,0,Math.PI*2);ctx.fill();}
+  else if(tp==='dwarf_star'){const g=ctx.createRadialGradient(0,0,0,0,0,obj.r*1.5);g.addColorStop(0,'rgba(255,200,180,0.8)');g.addColorStop(0.4,'rgba(255,100,60,0.4)');g.addColorStop(1,'rgba(255,50,20,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,obj.r*1.5,0,Math.PI*2);ctx.fill();const c=ctx.createRadialGradient(0,0,0,0,0,obj.r);c.addColorStop(0,'#ffddcc');c.addColorStop(1,'#cc4422');ctx.fillStyle=c;ctx.beginPath();ctx.arc(0,0,obj.r,0,Math.PI*2);ctx.fill();}
+  ctx.restore();
+}
+
+// ─── PARTICLES ───
+function emitParticles(x,y,color,count,speed){
+  for(let i=0;i<count;i++){const a=Math.random()*Math.PI*2,s=Math.random()*speed;
+    particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,r:1+Math.random()*3,life:1,decay:0.01+Math.random()*0.03,color});}
+}
+function updateParticles(dt){
+  for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=p.decay;p.r*=0.995;if(p.life<=0)particles.splice(i,1);}
+}
+function drawParticles(){
+  for(const p of particles){ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color.replace('1)',`${p.life})`);ctx.fill();}
+}
+function drawSwipeTrails(t){
+  for(let i=swipeTrails.length-1;i>=0;i--){const tr=swipeTrails[i];tr.life-=0.03;if(tr.life<=0){swipeTrails.splice(i,1);continue;}if(tr.points.length<2)continue;
+    ctx.beginPath();ctx.moveTo(tr.points[0].x,tr.points[0].y);for(let j=1;j<tr.points.length;j++)ctx.lineTo(tr.points[j].x,tr.points[j].y);
+    ctx.strokeStyle=`rgba(0,255,200,${tr.life*0.6})`;ctx.lineWidth=3*tr.life;ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke();}
+}
+
+// ─── INPUT ───
+let isDown=false,swipeStart=null,currentTrail=null;
+function getPos(e){if(e.touches)return{x:e.touches[0].clientX,y:e.touches[0].clientY};return{x:e.clientX,y:e.clientY};}
+
+function onDown(e){
+  if(state!==STATE.PLAYING)return;
+  isDown=true;const pos=getPos(e);swipeStart=pos;
+  currentTrail={points:[pos],life:1};swipeTrails.push(currentTrail);
+}
+function onMove(e){
+  if(!isDown||state!==STATE.PLAYING)return;e.preventDefault();
+  const pos=getPos(e);if(currentTrail)currentTrail.points.push(pos);
+  for(const bh of blackHoles){
+    if(bh.forming||bh.shrinking)continue;
+    const dx=pos.x-bh.x,dy=pos.y-bh.y;
+    if(Math.sqrt(dx*dx+dy*dy)<bh.r*1.5&&swipeStart){
+      const sdx=pos.x-swipeStart.x,sdy=pos.y-swipeStart.y;
+      if(Math.sqrt(sdx*sdx+sdy*sdy)>20){
+        bh.swipeHits++;
+        emitParticles(pos.x,pos.y,'rgba(0,255,200,1)',8,100);
+        playSwipeHit(pos.x);
+        if(window.nativeHaptic)window.nativeHaptic('swipe');
+        swipeStart=pos;
+        if(bh.swipeHits>=bh.hitsToKill){
+          bh.shrinking=true;bh.shrinkSpeed=80;
+          score+=Math.floor(bh.r*2)+bh.consumed*10+currentLevel*5;
+          bhDestroyedThisLevel++;totalBHDestroyed++;
+          emitParticles(bh.x,bh.y,'rgba(255,200,100,1)',30,200);
+          playPopSound(bh.x);
+          if(window.nativeHaptic)window.nativeHaptic('destroy');
+          stopBHDrone(bh);
+        }
+      }
+    }
+  }
+  // Check mega comet swipe
+  if(megaComet&&megaComet.active&&swipeStart){
+    const dx=pos.x-megaComet.x,dy=pos.y-megaComet.y;
+    if(Math.sqrt(dx*dx+dy*dy)<megaComet.r*3){
+      const sdx=pos.x-swipeStart.x,sdy=pos.y-swipeStart.y;
+      if(Math.sqrt(sdx*sdx+sdy*sdy)>15){
+        triggerCometExplosion();
+        swipeStart=pos;
+      }
+    }
+  }
+  // Check Voyager swipe — push it in swipe direction
+  if(voyager&&voyager.alive&&!voyager.wormhole&&swipeStart){
+    const vdx=pos.x-voyager.x,vdy=pos.y-voyager.y;
+    if(Math.sqrt(vdx*vdx+vdy*vdy)<voyager.r*2){
+      const sdx=pos.x-swipeStart.x,sdy=pos.y-swipeStart.y;
+      const swipeDist=Math.sqrt(sdx*sdx+sdy*sdy);
+      if(swipeDist>15){
+        // Push Voyager in swipe direction
+        const pushStrength=240;
+        voyager.vx=sdx/swipeDist*pushStrength;
+        voyager.vy=sdy/swipeDist*pushStrength;
+        // Break free from being sucked
+        if(voyager.beingSucked){
+          voyager.beingSucked=null;
+          voyager.suckProgress=0;
+          voyager.opacity=1;
+        }
+        emitParticles(voyager.x,voyager.y,'rgba(50,255,120,1)',6,60);
+        if(window.nativeHaptic)window.nativeHaptic('voyagerPush');
+        swipeStart=pos;
+      }
+    }
+  }
+}
+function onUp(){isDown=false;swipeStart=null;currentTrail=null;}
+canvas.addEventListener('mousedown',onDown);
+canvas.addEventListener('mousemove',onMove);
+canvas.addEventListener('mouseup',onUp);
+canvas.addEventListener('touchstart',onDown,{passive:false});
+canvas.addEventListener('touchmove',onMove,{passive:false});
+canvas.addEventListener('touchend',onUp);
+
+// ─── PAUSE (spacebar) ───
+let prePauseState=null;
+function togglePause(){
+  if(state===STATE.PLAYING){
+    prePauseState=STATE.PLAYING;
+    state=STATE.PAUSED;
+    document.getElementById('pause-overlay').classList.add('show');
+    // Mute audio while paused
+    if(masterGain&&!audioMuted)masterGain.gain.linearRampToValueAtTime(0.05,audioCtx.currentTime+0.2);
+  } else if(state===STATE.PAUSED){
+    state=prePauseState||STATE.PLAYING;
+    prePauseState=null;
+    document.getElementById('pause-overlay').classList.remove('show');
+    if(masterGain&&!audioMuted)masterGain.gain.linearRampToValueAtTime(0.5,audioCtx.currentTime+0.2);
+  }
+}
+document.addEventListener('keydown',(e)=>{
+  if(e.code==='Space'){
+    e.preventDefault();
+    if(state===STATE.PLAYING||state===STATE.PAUSED)togglePause();
+  }
+});
+
+// ─── LEVEL BANNER ───
+function showLevelBanner(level,callback){
+  const banner=document.getElementById('level-banner');
+  document.getElementById('level-announce-text').textContent=`Level ${level}`;
+  document.getElementById('level-announce-sub').textContent=LEVEL_NAMES[level-1]||'';
+  document.getElementById('level-announce-warn').textContent=level>1?`Up to ${level} black holes per wave`:'';
+  banner.classList.add('show');
+  setTimeout(()=>{banner.classList.remove('show');if(callback)callback();},2000);
+}
+
+// ─── GAME FLOW ───
+function startGame(){
+  initAudio();
+  if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();
+  currentLevel=1;totalScore=0;score=0;totalBHDestroyed=0;levelRetries=0;
+  voyager=null;
+  document.getElementById('screen-overlay').classList.add('hidden');
+  document.getElementById('darkness-overlay').style.opacity=0;
+  initStars();generateNebula();
+  startAmbient();
+  startMusic();
+  startLevel(currentLevel);
+}
+
+function startLevel(level){
+  state=STATE.LEVEL_TRANS;
+  stopAllBHDrones();
+  blackHoles=[];celestials=[];particles=[];swipeTrails=[];scorePopups=[];
+  bhSpawnTimer=0;celSpawnTimer=0;gameTimer=0;timeLeft=ROUND_DURATION;
+  bhDestroyedThisLevel=0;score=0;
+  megaComet=null;megaCometSpawned=false;megaCometTimer=0;
+  megaCometDelay=8+Math.random()*15;
+  screenFlash=0;
+  voyager=null;voyagerSurvivedRound=false;
+  for(let i=0;i<10+level;i++)spawnCelestial();
+  spawnVoyager(); // spawn if still alive
+  showLevelBanner(level,()=>{state=STATE.PLAYING;});
+  setMusicIntensity(level);
+}
+
+function completeLevel(){
+  // Check if Voyager survived this round
+  const vSurvived=voyager&&voyager.alive;
+  if(vSurvived){
+    const doubleBonus=score; // double the entire round score
+    score+=doubleBonus;
+    addScorePopup(W/2,H/2,doubleBonus,'rgba(50,255,120,1)');
+    scorePopups.push({x:W/2,y:H/2-40,pts:'VOYADUR BONUS x2',color:'rgba(50,255,120,1)',life:2,vy:-25,isText:true});
+  }
+  totalScore+=score;
+  levelRetries=0; // reset retry counter for next level
+  playLevelComplete();
+  if(window.nativeHaptic)window.nativeHaptic('levelComplete');
+  if(currentLevel>=MAX_LEVEL){startEndCutscene();return;}
+  currentLevel++;
+  // Clear the field, then warp to the next level
+  blackHoles=[];celestials=[];particles=[];swipeTrails=[];scorePopups=[];
+  stopAllBHDrones();
+  startWarp(()=>startLevel(currentLevel));
+}
+
+// ════════════════════════════════════════════════════
+// ─── END CUTSCENE: Random Galaxy Formation
+// Four types: spiral · elliptical · lenticular · irregular
+// BH always forms first at centre, then the galaxy builds around it.
+// ════════════════════════════════════════════════════
+let cutscene=null;
+
+// ── Galaxy type definitions ──
+// Each type drives particle spawning + colour palette + render shape.
+const GALAXY_TYPES=['spiral','elliptical','lenticular','irregular'];
+
+function pickGalaxyType(){
+  return GALAXY_TYPES[Math.floor(Math.random()*GALAXY_TYPES.length)];
+}
+
+// Colour palettes per galaxy type
+const GALAXY_PALETTES={
+  spiral:   ['rgba(150,180,255,','rgba(200,210,255,','rgba(255,200,220,','rgba(180,220,255,','rgba(255,255,220,'],
+  elliptical:['rgba(255,220,170,','rgba(255,200,140,','rgba(240,190,130,','rgba(255,235,180,','rgba(220,180,120,'],
+  lenticular:['rgba(200,210,240,','rgba(180,190,230,','rgba(220,210,200,','rgba(200,190,210,','rgba(210,200,220,'],
+  irregular: ['rgba(180,255,200,','rgba(255,180,120,','rgba(120,200,255,','rgba(255,140,180,','rgba(200,255,160,'],
+};
+
+// Galaxy label shown in phase 2
+const GALAXY_LABELS={
+  spiral:    'Spiral Galaxy',
+  elliptical:'Elliptical Galaxy',
+  lenticular:'Lenticular Galaxy',
+  irregular: 'Irregular Galaxy',
+};
+
+function startEndCutscene(){
+  state=STATE.CUTSCENE;
+  stopAllBHDrones();
+  stopAmbient();
+  stopMusic();
+  blackHoles=[];celestials=[];particles=[];swipeTrails=[];scorePopups=[];
+  document.getElementById('darkness-overlay').style.opacity=0;
+  document.getElementById('ui-overlay').style.opacity='0';
+
+  const galaxyType=pickGalaxyType();
+
+  cutscene={
+    time:0, phase:0,
+    galaxyType,
+    bhR:0, bhMaxR:18, bhGrowSpeed:14,
+    bhX:W/2, bhY:H/2, bhRotation:0,
+    orbiters:[],
+    textAlpha:0, textPhase:0,
+    fadeAlpha:0, galaxyGlow:0,
+    spawnTimer:0, armParticles:[],
+    // elliptical / lenticular bulge seed (randomise axes each run)
+    ellipseA: 0.55+Math.random()*0.35,   // x-axis scale 0.55–0.90
+    ellipseB: 0.28+Math.random()*0.28,   // y-axis scale (flattening) 0.28–0.56
+    ellipseTilt: Math.random()*Math.PI,   // tilt angle for elliptical/lenticular
+    // irregular — pre-seeded offset vectors so the shape is stable each frame
+    irregularSeeds: Array.from({length:8},()=>({
+      angle:Math.random()*Math.PI*2,
+      radiusMult:0.5+Math.random()*1.2,
+      drift:(Math.random()-0.5)*0.4,
+    })),
+    // barred spiral variant
+    hasBar: galaxyType==='spiral' && Math.random()>0.45,
+  };
+
+  // ── Soundtrack ──
+  if(audioCtx){
+    const now=audioCtx.currentTime;
+    const o1=audioCtx.createOscillator(),g1=audioCtx.createGain();
+    o1.type='sine';o1.frequency.value=55;
+    g1.gain.setValueAtTime(0,now);g1.gain.linearRampToValueAtTime(0.08,now+3);
+    g1.gain.setValueAtTime(0.08,now+12);g1.gain.linearRampToValueAtTime(0,now+16);
+    o1.connect(g1);g1.connect(masterGain);o1.start(now);o1.stop(now+17);
+
+    const o2=audioCtx.createOscillator(),g2=audioCtx.createGain();
+    o2.type='sine';o2.frequency.value=110;
+    g2.gain.setValueAtTime(0,now);g2.gain.linearRampToValueAtTime(0.04,now+4);
+    g2.gain.setValueAtTime(0.04,now+12);g2.gain.linearRampToValueAtTime(0,now+16);
+    o2.connect(g2);g2.connect(masterGain);o2.start(now);o2.stop(now+17);
+
+    const o3=audioCtx.createOscillator(),g3=audioCtx.createGain(),f3=audioCtx.createBiquadFilter();
+    o3.type='sawtooth';o3.frequency.setValueAtTime(80,now);o3.frequency.linearRampToValueAtTime(220,now+10);
+    f3.type='lowpass';f3.frequency.setValueAtTime(100,now);f3.frequency.linearRampToValueAtTime(500,now+10);f3.Q.value=2;
+    g3.gain.setValueAtTime(0,now+2);g3.gain.linearRampToValueAtTime(0.03,now+6);
+    g3.gain.setValueAtTime(0.03,now+11);g3.gain.linearRampToValueAtTime(0,now+15);
+    o3.connect(f3);f3.connect(g3);g3.connect(masterGain);o3.start(now);o3.stop(now+16);
+
+    [440,554.37,659.25,880].forEach((fr,i)=>{
+      const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+      o.type='sine';o.frequency.value=fr;
+      const t=now+8+i*0.8;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.025,t+1);
+      g.gain.setValueAtTime(0.025,t+3);g.gain.linearRampToValueAtTime(0,t+6);
+      o.connect(g);g.connect(masterGain);o.start(t);o.stop(t+7);
+    });
+  }
+}
+
+// ── Particle spawners — one per galaxy type ──
+
+function spawnSpiralParticle(cs,armCount){
+  // Classic log-spiral with optional bar down the centre
+  const arm=Math.floor(Math.random()*armCount);
+  let baseAngle=(arm/armCount)*Math.PI*2+cs.time*0.3;
+  const dist=30+Math.random()*Math.min(280,(cs.time-3)*50);
+  // Bar: particles within bar zone placed along x-axis instead of spiral
+  let spiralAngle, px, py;
+  if(cs.hasBar && dist<70){
+    const sign=Math.random()>0.5?1:-1;
+    px=cs.bhX + sign*(dist*0.8)+(Math.random()-0.5)*10;
+    py=cs.bhY + (Math.random()-0.5)*18;
+    spiralAngle=Math.atan2(py-cs.bhY,px-cs.bhX);
+  } else {
+    spiralAngle=baseAngle+dist*0.009;
+    const spread=(Math.random()-0.5)*28;
+    px=cs.bhX+Math.cos(spiralAngle)*(dist+spread);
+    py=cs.bhY+Math.sin(spiralAngle)*(dist+spread)*0.52;
+  }
+  const colors=GALAXY_PALETTES.spiral;
+  return{x:px,y:py,baseAngle:spiralAngle,dist,
+    orbitSpeed:0.15+0.3/(1+dist*0.005),
+    size:0.5+Math.random()*2,brightness:0.3+Math.random()*0.7,
+    col:colors[Math.floor(Math.random()*colors.length)],
+    twinkle:Math.random()*Math.PI*2,twinkleSpeed:2+Math.random()*3,
+    yScale:0.52,
+  };
+}
+
+function spawnEllipticalParticle(cs){
+  // Smooth ellipsoidal blob — randomly elongated, tilted, older star palette
+  const angle=Math.random()*Math.PI*2;
+  // Density falls off with radius (de Vaucouleurs-ish: more stars near centre)
+  const r=Math.pow(Math.random(),0.5)*Math.min(280,(cs.time-3)*50+30);
+  const tilt=cs.ellipseTilt;
+  const ax=r*cs.ellipseA, ay=r*cs.ellipseB;
+  const px=cs.bhX + Math.cos(angle)*ax*Math.cos(tilt) - Math.sin(angle)*ay*Math.sin(tilt);
+  const py=cs.bhY + Math.cos(angle)*ax*Math.sin(tilt) + Math.sin(angle)*ay*Math.cos(tilt);
+  const colors=GALAXY_PALETTES.elliptical;
+  return{x:px,y:py,baseAngle:angle,dist:r,
+    orbitSpeed:0.04+0.06*Math.random(), // slow drift — old stars, not much rotation
+    size:0.4+Math.random()*1.5,brightness:0.35+Math.random()*0.65,
+    col:colors[Math.floor(Math.random()*colors.length)],
+    twinkle:Math.random()*Math.PI*2,twinkleSpeed:0.5+Math.random()*1.5,
+    yScale:cs.ellipseB/cs.ellipseA, tilt:cs.ellipseTilt,
+    useEllipse:true, ellipseA:cs.ellipseA, ellipseB:cs.ellipseB,
+  };
+}
+
+function spawnLenticularParticle(cs){
+  // Disk + bulge but NO spiral arms — smooth gradient, muted palette
+  const angle=Math.random()*Math.PI*2;
+  const maxDist=Math.min(260,(cs.time-3)*48+20);
+  // Bias towards equatorial plane (disk) with small vertical scatter
+  const r=Math.pow(Math.random(),0.6)*maxDist;
+  const diskFlatten=0.18+Math.random()*0.08; // very flat disk
+  const px=cs.bhX + Math.cos(angle)*r;
+  const py=cs.bhY + Math.sin(angle)*r*diskFlatten;
+  const colors=GALAXY_PALETTES.lenticular;
+  return{x:px,y:py,baseAngle:angle,dist:r,
+    orbitSpeed:0.10+0.18/(1+r*0.006),
+    size:0.4+Math.random()*1.5,brightness:0.3+Math.random()*0.6,
+    col:colors[Math.floor(Math.random()*colors.length)],
+    twinkle:Math.random()*Math.PI*2,twinkleSpeed:0.8+Math.random()*1.5,
+    yScale:diskFlatten,
+  };
+}
+
+function spawnIrregularParticle(cs,seeds){
+  // Chaotic clumps — no symmetry, bright star-forming colours, multiple off-centre blobs
+  const seed=seeds[Math.floor(Math.random()*seeds.length)];
+  const maxDist=Math.min(260,(cs.time-3)*46+20);
+  const r=(0.2+Math.random()*0.8)*maxDist*seed.radiusMult;
+  const angle=seed.angle+seed.drift*cs.time+(Math.random()-0.5)*1.2;
+  const scatter=(Math.random()-0.5)*60;
+  const px=cs.bhX+Math.cos(angle)*(r+scatter);
+  const py=cs.bhY+Math.sin(angle)*(r+scatter)*(0.5+Math.random()*0.5);
+  const colors=GALAXY_PALETTES.irregular;
+  return{x:px,y:py,baseAngle:angle,dist:r,
+    orbitSpeed:0.05+(Math.random()-0.5)*0.25, // some counter-rotate!
+    size:0.5+Math.random()*2.5,brightness:0.4+Math.random()*0.7,
+    col:colors[Math.floor(Math.random()*colors.length)],
+    twinkle:Math.random()*Math.PI*2,twinkleSpeed:1.5+Math.random()*3.5,
+    yScale:0.5+Math.random()*0.5,
+  };
+}
+
+function updateCutscene(dt){
+  if(!cutscene)return;
+  const cs=cutscene;
+  cs.time+=dt;
+
+  if(cs.time<3){
+    cs.phase=0;
+    cs.bhR=Math.min(cs.bhMaxR,cs.bhR+cs.bhGrowSpeed*dt);
+    cs.bhRotation+=1.5*dt;
+  }
+  else if(cs.time<10){
+    cs.phase=1;
+    cs.bhRotation+=0.8*dt;
+    cs.galaxyGlow=Math.min(1,(cs.time-3)/4);
+
+    cs.spawnTimer+=dt;
+    const spawnRate= cs.galaxyType==='elliptical'?0.05:0.08; // elliptical spawns denser
+    if(cs.spawnTimer>spawnRate){
+      cs.spawnTimer=0;
+
+      const batchSize= cs.galaxyType==='elliptical'?6:
+                       cs.galaxyType==='lenticular'?5:
+                       cs.galaxyType==='irregular'?5:4; // spiral=4 arms
+
+      for(let i=0;i<batchSize;i++){
+        let p;
+        switch(cs.galaxyType){
+          case 'spiral':    p=spawnSpiralParticle(cs,4); break;
+          case 'elliptical':p=spawnEllipticalParticle(cs); break;
+          case 'lenticular':p=spawnLenticularParticle(cs); break;
+          case 'irregular': p=spawnIrregularParticle(cs,cs.irregularSeeds); break;
+        }
+        if(p) cs.armParticles.push(p);
+      }
+
+      // Occasional orbiting celestials — fewer for elliptical (old stars, no young objects)
+      const spawnChance= cs.galaxyType==='elliptical'?0.06:
+                         cs.galaxyType==='lenticular'?0.09:0.15;
+      if(Math.random()<spawnChance){
+        const dist=80+Math.random()*200;
+        const angle=Math.random()*Math.PI*2;
+        // Elliptical: only old-type stars; spiral/irregular: full mix
+        const types= cs.galaxyType==='elliptical'
+          ?['dwarf_star','sun','asteroid']
+          :['planet','sun','dwarf_star','nebula_cloud','asteroid'];
+        const type=types[Math.floor(Math.random()*types.length)];
+        const r=type==='sun'?4+Math.random()*5:type==='planet'?3+Math.random()*4:type==='nebula_cloud'?6+Math.random()*6:2+Math.random()*2;
+        const yScale= cs.galaxyType==='elliptical'?cs.ellipseB/cs.ellipseA:
+                      cs.galaxyType==='lenticular'?0.22:0.52;
+        cs.orbiters.push({
+          type,baseAngle:angle,dist,
+          orbitSpeed:0.10+0.22/(1+dist*0.005),
+          r,x:0,y:0,rotation:Math.random()*Math.PI*2,
+          rotSpeed:(Math.random()-0.5)*2,
+          rings:type==='planet'&&Math.random()>0.6,
+          yScale,tilt:cs.ellipseTilt||0,
+        });
+      }
+    }
+  }
+  else if(cs.time<13){
+    cs.phase=2;
+    cs.bhRotation+=0.5*dt;
+    cs.galaxyGlow=1;
+    if(cs.time<11.5)cs.textPhase=1;else cs.textPhase=2;
+    cs.textAlpha=Math.min(1,(cs.time-10)*2);
+  }
+  else if(cs.time<15){
+    cs.phase=3;
+    cs.fadeAlpha=Math.min(1,(cs.time-13)/2);
+    cs.bhRotation+=0.3*dt;
+  }
+  else{
+    cutscene=null;
+    document.getElementById('ui-overlay').style.opacity='1';
+    showVictoryScreen();
+    return;
+  }
+
+  // Update particles — each type orbits differently
+  for(const p of cs.armParticles){
+    p.baseAngle+=p.orbitSpeed*dt;
+    if(p.useEllipse){
+      // Elliptical: re-derive position from ellipse axes + tilt
+      p.x=cs.bhX+Math.cos(p.baseAngle)*p.ellipseA*p.dist*Math.cos(p.tilt)-Math.sin(p.baseAngle)*p.ellipseB*p.dist*Math.sin(p.tilt);
+      p.y=cs.bhY+Math.cos(p.baseAngle)*p.ellipseA*p.dist*Math.sin(p.tilt)+Math.sin(p.baseAngle)*p.ellipseB*p.dist*Math.cos(p.tilt);
+    } else {
+      p.x=cs.bhX+Math.cos(p.baseAngle)*p.dist;
+      p.y=cs.bhY+Math.sin(p.baseAngle)*p.dist*(p.yScale||0.52);
+    }
+  }
+
+  for(const o of cs.orbiters){
+    o.baseAngle+=o.orbitSpeed*dt;
+    if(o.tilt){
+      o.x=cs.bhX+Math.cos(o.baseAngle)*o.dist*Math.cos(o.tilt)-Math.sin(o.baseAngle)*o.dist*o.yScale*Math.sin(o.tilt);
+      o.y=cs.bhY+Math.cos(o.baseAngle)*o.dist*Math.sin(o.tilt)+Math.sin(o.baseAngle)*o.dist*o.yScale*Math.cos(o.tilt);
+    } else {
+      o.x=cs.bhX+Math.cos(o.baseAngle)*o.dist;
+      o.y=cs.bhY+Math.sin(o.baseAngle)*o.dist*(o.yScale||0.52);
+    }
+    o.rotation+=o.rotSpeed*dt;
+  }
+}
+
+// ── Galaxy-type-specific background glow renderer ──
+function renderGalaxyGlow(cs){
+  const {bhX,bhY,galaxyGlow,galaxyType,ellipseA,ellipseB,ellipseTilt}=cs;
+  if(galaxyGlow<=0)return;
+
+  ctx.save();
+  ctx.globalAlpha=galaxyGlow;
+
+  if(galaxyType==='spiral'){
+    // Two-tone disc glow — blue-purple core, wider haze
+    const gg=ctx.createRadialGradient(bhX,bhY,10,bhX,bhY,340);
+    gg.addColorStop(0,`rgba(70,55,120,0.18)`);
+    gg.addColorStop(0.35,`rgba(40,30,85,0.10)`);
+    gg.addColorStop(0.7,`rgba(20,15,55,0.05)`);
+    gg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=gg;
+    ctx.save();ctx.translate(bhX,bhY);ctx.scale(1,0.52);ctx.translate(-bhX,-bhY);
+    ctx.beginPath();ctx.arc(bhX,bhY,340,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+  else if(galaxyType==='elliptical'){
+    // Warm golden-orange blob, tilted ellipse
+    const gg=ctx.createRadialGradient(bhX,bhY,15,bhX,bhY,300);
+    gg.addColorStop(0,`rgba(180,130,60,0.18)`);
+    gg.addColorStop(0.4,`rgba(130,90,40,0.09)`);
+    gg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=gg;
+    ctx.save();
+    ctx.translate(bhX,bhY);ctx.rotate(ellipseTilt);
+    ctx.scale(ellipseA,(ellipseB/ellipseA));
+    ctx.translate(-bhX,-bhY);
+    ctx.beginPath();ctx.arc(bhX,bhY,300,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+  else if(galaxyType==='lenticular'){
+    // Cool silver-grey, very flat disc
+    const gg=ctx.createRadialGradient(bhX,bhY,12,bhX,bhY,280);
+    gg.addColorStop(0,`rgba(130,130,160,0.18)`);
+    gg.addColorStop(0.5,`rgba(80,80,110,0.08)`);
+    gg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=gg;
+    ctx.save();ctx.translate(bhX,bhY);ctx.scale(1,0.18);ctx.translate(-bhX,-bhY);
+    ctx.beginPath();ctx.arc(bhX,bhY,280,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+    // central bulge — slightly rounder
+    const bg=ctx.createRadialGradient(bhX,bhY,0,bhX,bhY,90);
+    bg.addColorStop(0,`rgba(180,170,200,0.14)`);
+    bg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=bg;ctx.beginPath();ctx.arc(bhX,bhY,90,0,Math.PI*2);ctx.fill();
+  }
+  else if(galaxyType==='irregular'){
+    // Multi-blob chaotic glow from seed positions
+    for(const seed of cs.irregularSeeds){
+      const bx=bhX+Math.cos(seed.angle+seed.drift*cs.time)*seed.radiusMult*110;
+      const by=bhY+Math.sin(seed.angle+seed.drift*cs.time)*seed.radiusMult*70;
+      const r=60+seed.radiusMult*80;
+      const ig=ctx.createRadialGradient(bx,by,0,bx,by,r);
+      ig.addColorStop(0,`rgba(60,120,80,0.10)`);
+      ig.addColorStop(0.5,`rgba(80,60,120,0.06)`);
+      ig.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=ig;ctx.beginPath();ctx.arc(bx,by,r,0,Math.PI*2);ctx.fill();
+    }
+  }
+
+  ctx.restore();
+}
+
+function renderCutscene(t){
+  if(!cutscene)return;
+  const cs=cutscene;
+  const secs=t/1000;
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#020206';ctx.fillRect(0,0,W,H);
+  drawStars(secs);
+
+  // Galaxy-type background glow
+  renderGalaxyGlow(cs);
+
+  // ── Arm / body particles ──
+  for(const p of cs.armParticles){
+    const tw=0.5+0.5*Math.sin(secs*p.twinkleSpeed+p.twinkle);
+    const a=p.brightness*tw*cs.galaxyGlow;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fillStyle=p.col+a+')';ctx.fill();
+    if(p.size>1.2){
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size*3,0,Math.PI*2);
+      ctx.fillStyle=p.col+(a*0.08)+')';ctx.fill();
+    }
+  }
+
+  // ── Orbiting celestials ──
+  for(const o of cs.orbiters){
+    ctx.save();ctx.globalAlpha=cs.galaxyGlow;
+    ctx.translate(o.x,o.y);ctx.rotate(o.rotation);
+    if(o.type==='sun'){
+      const sg=ctx.createRadialGradient(0,0,0,0,0,o.r*2);
+      sg.addColorStop(0,'rgba(255,255,200,0.8)');sg.addColorStop(0.4,'rgba(255,200,50,0.4)');sg.addColorStop(1,'rgba(255,100,20,0)');
+      ctx.fillStyle=sg;ctx.beginPath();ctx.arc(0,0,o.r*2,0,Math.PI*2);ctx.fill();
+      const sc=ctx.createRadialGradient(0,0,0,0,0,o.r);
+      sc.addColorStop(0,'#ffffee');sc.addColorStop(1,'#ff8800');
+      ctx.fillStyle=sc;ctx.beginPath();ctx.arc(0,0,o.r,0,Math.PI*2);ctx.fill();
+    } else if(o.type==='planet'){
+      const pg=ctx.createRadialGradient(-o.r*0.2,-o.r*0.2,0,0,0,o.r);
+      pg.addColorStop(0,'#6ab4e8');pg.addColorStop(1,'#1a3d5c');
+      ctx.fillStyle=pg;ctx.beginPath();ctx.arc(0,0,o.r,0,Math.PI*2);ctx.fill();
+      if(o.rings){ctx.beginPath();ctx.ellipse(0,0,o.r*1.6,o.r*0.25,0.3,0,Math.PI*2);ctx.strokeStyle='rgba(200,180,150,0.4)';ctx.lineWidth=1;ctx.stroke();}
+    } else if(o.type==='dwarf_star'){
+      const dg=ctx.createRadialGradient(0,0,0,0,0,o.r*1.3);
+      dg.addColorStop(0,'rgba(255,200,180,0.7)');dg.addColorStop(1,'rgba(255,50,20,0)');
+      ctx.fillStyle=dg;ctx.beginPath();ctx.arc(0,0,o.r*1.3,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#ffddcc';ctx.beginPath();ctx.arc(0,0,o.r*0.6,0,Math.PI*2);ctx.fill();
+    } else if(o.type==='nebula_cloud'){
+      const ng=ctx.createRadialGradient(0,0,0,0,0,o.r);
+      ng.addColorStop(0,'rgba(160,80,200,0.12)');ng.addColorStop(1,'rgba(60,20,100,0)');
+      ctx.fillStyle=ng;ctx.beginPath();ctx.arc(0,0,o.r,0,Math.PI*2);ctx.fill();
+    } else {
+      ctx.fillStyle='#8a7d6b';ctx.beginPath();ctx.arc(0,0,o.r,0,Math.PI*2);ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // ── Central black hole (identical across all types) ──
+  if(cs.bhR>0){
+    const agR=cs.bhR*2.8;
+    const ag=ctx.createRadialGradient(cs.bhX,cs.bhY,cs.bhR*0.3,cs.bhX,cs.bhY,agR);
+    ag.addColorStop(0,`rgba(255,160,60,${0.55*Math.min(1,cs.bhR/10)})`);
+    ag.addColorStop(0.3,`rgba(220,90,140,${0.25*Math.min(1,cs.bhR/10)})`);
+    ag.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=ag;ctx.beginPath();ctx.arc(cs.bhX,cs.bhY,agR,0,Math.PI*2);ctx.fill();
+
+    ctx.save();ctx.translate(cs.bhX,cs.bhY);ctx.rotate(cs.bhRotation);
+    for(let i=0;i<3;i++){
+      const rr=cs.bhR*(1.4+i*0.35);
+      ctx.beginPath();ctx.ellipse(0,0,rr,rr*0.22,0,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(255,${150+i*35},${60+i*40},${0.55-i*0.1})`;
+      ctx.lineWidth=1.8-i*0.3;ctx.stroke();
+    }
+    ctx.restore();
+
+    const ehg=ctx.createRadialGradient(cs.bhX,cs.bhY,0,cs.bhX,cs.bhY,cs.bhR);
+    ehg.addColorStop(0,'rgba(0,0,0,1)');ehg.addColorStop(0.7,'rgba(0,0,0,1)');
+    ehg.addColorStop(0.9,'rgba(10,5,20,0.9)');ehg.addColorStop(1,'rgba(40,10,60,0.4)');
+    ctx.fillStyle=ehg;ctx.beginPath();ctx.arc(cs.bhX,cs.bhY,cs.bhR,0,Math.PI*2);ctx.fill();
+
+    ctx.beginPath();ctx.arc(cs.bhX,cs.bhY,cs.bhR*1.08,0,Math.PI*2);
+    ctx.strokeStyle='rgba(255,210,130,0.6)';ctx.lineWidth=1.2;ctx.stroke();
+  }
+
+  // ── Text overlays: galaxy type label + "from destruction / comes creation" ──
+  if(cs.textPhase>=1&&cs.time<14){
+    ctx.save();
+    const textFade=cs.textAlpha*(cs.phase===3?1-cs.fadeAlpha:1);
+    ctx.globalAlpha=textFade;
+    ctx.textAlign='center';
+
+    // Galaxy type label — appears first in phase 1, stays through phase 2
+    ctx.font='700 '+Math.floor(Math.min(13,W*0.022))+'px "Orbitron", monospace';
+    ctx.fillStyle='rgba(200,220,255,0.55)';
+    ctx.fillText(GALAXY_LABELS[cs.galaxyType].toUpperCase(),cs.bhX,cs.bhY-160);
+
+    // "From destruction..." line
+    ctx.font='300 '+Math.floor(Math.min(22,W*0.038))+'px "Exo 2", sans-serif';
+    if(cs.textPhase===1){
+      ctx.fillStyle='rgba(200,180,255,0.8)';
+      ctx.fillText('From destruction...',cs.bhX,cs.bhY+155);
+    } else {
+      ctx.fillStyle='rgba(200,180,255,0.65)';
+      ctx.fillText('From destruction...',cs.bhX,cs.bhY+148);
+      ctx.fillStyle='rgba(255,220,180,0.9)';
+      ctx.fillText('...comes creation',cs.bhX,cs.bhY+180);
+    }
+    ctx.restore();
+  }
+
+  // ── Fade to black ──
+  if(cs.fadeAlpha>0){
+    ctx.fillStyle=`rgba(0,0,0,${cs.fadeAlpha})`;
+    ctx.fillRect(0,0,W,H);
+  }
+}
+
+
+// ═══════════════════════════════════════════════════
+// ─── LEADERBOARD  (Claude persistent shared storage)
+// ═══════════════════════════════════════════════════
+const LB_KEY = 'stu_leaderboard_v1'; // shared key — all players read/write this
+
+async function lbLoad(){
+  try{
+    const res = await window.storage.get(LB_KEY, true); // shared=true
+    return res ? JSON.parse(res.value) : [];
+  }catch(e){ return []; }
+}
+
+async function lbSave(entries){
+  try{
+    await window.storage.set(LB_KEY, JSON.stringify(entries), true);
+  }catch(e){}
+}
+
+async function lbSubmit(name, score, retries){
+  const entries = await lbLoad();
+  entries.push({
+    name: name.trim().slice(0,20),
+    score,
+    retries,
+    date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
+  });
+  // Sort descending, keep top 20
+  entries.sort((a,b) => b.score - a.score);
+  entries.splice(20);
+  await lbSave(entries);
+  return entries;
+}
+
+function lbRenderTable(entries, highlightName, highlightScore){
+  if(!entries.length){
+    return `<div style="color:rgba(180,210,255,0.3);font-size:13px;letter-spacing:3px;padding:20px 0;">No scores yet — you're first!</div>`;
+  }
+  let rows = '';
+  entries.forEach((e,i) => {
+    const isYou = e.name === highlightName && e.score === highlightScore;
+    const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
+    const rankColor = i===0?'#ffcc00':i===1?'#c0c0c0':i===2?'#cd7f32':'rgba(180,210,255,0.5)';
+    rows += `<tr style="
+        background:${isYou?'rgba(100,255,180,0.08)':'transparent'};
+        border-bottom:1px solid rgba(255,255,255,0.04);
+        ${isYou?'box-shadow:0 0 12px rgba(100,255,180,0.1)':''}">
+      <td style="padding:8px 10px;font-family:'Orbitron',monospace;font-size:13px;color:${rankColor};width:36px;">${medal||'#'+(i+1)}</td>
+      <td style="padding:8px 10px;font-family:'Exo 2',sans-serif;font-size:14px;
+          color:${isYou?'rgba(100,255,180,0.95)':'rgba(220,230,255,0.85)'};
+          font-weight:${isYou?600:400};">
+          ${e.name}${isYou?' ◀ you':''}
+      </td>
+      <td style="padding:8px 10px;font-family:'Orbitron',monospace;font-size:14px;
+          color:${isYou?'#ffcc00':'rgba(255,210,100,0.7)'};text-align:right;">${e.score.toLocaleString()}</td>
+      <td style="padding:8px 6px;font-family:'Exo 2',sans-serif;font-size:10px;
+          color:rgba(180,210,255,0.3);text-align:right;">${e.date}</td>
+    </tr>`;
+  });
+  return `<table style="width:100%;border-collapse:collapse;">${rows}</table>`;
+}
+
+function showVictoryScreen(){
+  state=STATE.OVER;totalScore+=score;
+  stopAmbient();stopAllBHDrones();stopMusic();
+  playVictorySound();
+
+  const finalScore = totalScore;
+  const finalRetries = levelRetries;
+  const voyagerStatus=voyagerSurvivedRound
+    ?'<div style="color:rgba(50,255,120,0.7);font-size:13px;letter-spacing:3px;margin-bottom:16px;">&#x1f6f0; VoyaDur 1 survived the final level!</div>'
+    :'<div style="color:rgba(255,100,100,0.5);font-size:13px;letter-spacing:3px;margin-bottom:16px;">VoyaDur 1 was lost in the final battle</div>';
+
+  const o = document.getElementById('screen-overlay');
+  o.classList.remove('hidden');
+
+  // ── Step 1: show score + name entry ──
+  const savedName = localStorage.getItem('stu_player_name') || '';
+  o.innerHTML = `
+    <div class="screen-title title-main" style="font-size:clamp(24px,4.5vw,48px);">Fingularity Contained!</div>
+    <div class="title-sub" style="color:rgba(100,255,200,0.7);margin-bottom:8px;">All 10 levels conquered</div>
+    ${voyagerStatus}
+    <div class="screen-score">${finalScore.toLocaleString()}</div>
+    <div class="screen-score-label">Total Score</div>
+    <div class="final-stats" style="margin-bottom:28px;">
+      <div class="stat-item"><span class="stat-val">${totalBHDestroyed}</span><span class="stat-label">Black Holes Destroyed</span></div>
+      <div class="stat-item"><span class="stat-val">10</span><span class="stat-label">Levels Cleared</span></div>
+      ${finalRetries>0?`<div class="stat-item"><span class="stat-val" style="color:rgba(255,180,100,0.8);">${finalRetries}</span><span class="stat-label">Level Retr${finalRetries===1?'y':'ies'}</span></div>`:''}
+    </div>
+    <div style="margin-bottom:24px;">
+      <div style="font-family:'Exo 2',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(180,210,255,0.5);margin-bottom:10px;">Enter your name for the leaderboard</div>
+      <input id="lb-name-input" type="text" maxlength="20" placeholder="Your name..."
+        value="${savedName}"
+        style="font-family:'Orbitron',monospace;font-size:16px;font-weight:700;letter-spacing:3px;
+          background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.2);
+          color:#e0eaff;padding:12px 20px;border-radius:4px;outline:none;
+          text-align:center;width:260px;max-width:80vw;" />
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+      <button class="btn" data-action="submit" style="border-color:rgba(100,255,180,0.4);color:rgba(100,255,200,0.9);">Submit Score</button>
+      <button class="btn" data-action="skip" style="background:rgba(0,0,0,0.2);color:rgba(180,210,255,0.4);font-size:12px;padding:12px 24px;">Skip</button>
+    </div>
+    <div style="font-family:'Exo 2',sans-serif;font-size:12px;font-weight:300;letter-spacing:4px;color:rgba(180,210,255,0.3);margin-top:28px;text-transform:uppercase;">Thanks for playing a Team Sinigang game!</div>`;
+
+  // Focus the input
+  setTimeout(()=>{ const inp=document.getElementById('lb-name-input'); if(inp)inp.focus(); }, 100);
+
+  async function submitScore(skip){
+    const inp = document.getElementById('lb-name-input');
+    const name = skip ? 'Anonymous' : (inp ? inp.value.trim() : '') || 'Anonymous';
+    if(!skip) localStorage.setItem('stu_player_name', name);
+
+    // Show loading state
+    o.innerHTML = `
+      <div class="screen-title title-main" style="font-size:clamp(24px,4.5vw,48px);">Fingularity Contained!</div>
+      <div style="font-family:'Exo 2',sans-serif;font-size:13px;letter-spacing:4px;color:rgba(180,210,255,0.5);margin-top:20px;">Loading leaderboard...</div>`;
+
+    // Submit and load
+    let entries = [];
+    if(!skip){
+      entries = await lbSubmit(name, finalScore, finalRetries);
+    } else {
+      entries = await lbLoad();
+    }
+
+    // ── Step 2: show leaderboard ──
+    const table = lbRenderTable(entries, name, finalScore);
+    o.innerHTML = `
+      <div class="screen-title title-main" style="font-size:clamp(22px,4vw,42px);margin-bottom:4px;">🏆 Leaderboard</div>
+      <div style="font-family:'Exo 2',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;
+          color:rgba(180,210,255,0.4);margin-bottom:20px;">Fingularity! · Top 20</div>
+      <div style="width:min(520px,92vw);max-height:45vh;overflow-y:auto;
+          border:1px solid rgba(255,255,255,0.08);border-radius:6px;
+          background:rgba(0,0,0,0.3);margin-bottom:24px;
+          scrollbar-width:thin;scrollbar-color:rgba(100,160,255,0.3) transparent;">
+        ${table}
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+        <button class="btn" data-action="newgame" style="border-color:rgba(100,255,180,0.35);color:rgba(100,255,200,0.9);">Play Again</button>
+      </div>
+      <div style="font-family:'Exo 2',sans-serif;font-size:12px;font-weight:300;letter-spacing:4px;
+          color:rgba(180,210,255,0.3);margin-top:24px;text-transform:uppercase;">Thanks for playing a Team Sinigang game!</div>`;
+
+    // Scroll to player's row
+    setTimeout(()=>{
+      const rows = o.querySelectorAll('tr');
+      for(const r of rows){ if(r.textContent.includes('◀ you')){ r.scrollIntoView({block:'center',behavior:'smooth'}); break; } }
+    }, 200);
+
+    o.addEventListener('click', function handler(e){
+      if(!e.target.closest('[data-action]')) return;
+      o.removeEventListener('click', handler);
+      startGame();
+    });
+  }
+
+  o.addEventListener('click', function handler(e){
+    const action = e.target.closest('[data-action]');
+    if(!action) return;
+    o.removeEventListener('click', handler);
+    if(action.dataset.action === 'submit') submitScore(false);
+    else if(action.dataset.action === 'skip') submitScore(true);
+  });
+
+  // Allow Enter key to submit
+  o.addEventListener('keydown', function kHandler(e){
+    if(e.key === 'Enter'){
+      o.removeEventListener('keydown', kHandler);
+      submitScore(false);
+    }
+  });
+}
+
+
+
+const MAX_RETRIES=3;
+
+function retryLevel(){
+  levelRetries++;
+  document.getElementById('screen-overlay').classList.add('hidden');
+  document.getElementById('darkness-overlay').style.opacity=0;
+  // Remove the failed level's score that was added in endGame
+  totalScore-=score;
+  score=0;
+  stopAllBHDrones();
+  startAmbient();
+  startMusic();
+  startLevel(currentLevel);
+}
+
+function endGame(reason){
+  state=STATE.OVER;totalScore+=score;
+  stopAmbient();stopAllBHDrones();stopMusic();
+  playGameOverSound();
+  if(window.nativeHaptic)window.nativeHaptic('gameOver');
+
+  const retriesLeft=MAX_RETRIES-levelRetries;
+  const canRetry=retriesLeft>0;
+
+  // Retry dots
+  let dots='';
+  for(let i=0;i<MAX_RETRIES;i++){
+    const used=i<levelRetries;
+    dots+=`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 4px;
+      background:${used?'rgba(255,100,100,0.7)':'rgba(100,180,255,0.5)'};
+      box-shadow:${used?'0 0 6px rgba(255,100,100,0.4)':'0 0 6px rgba(100,180,255,0.3)'};"></span>`;
+  }
+  const retryBadge=`<div style="margin-bottom:20px;">
+    <div style="font-family:'Exo 2',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(180,210,255,0.45);margin-bottom:8px;">Level Retries</div>
+    <div>${dots}</div>
+    <div style="font-family:'Exo 2',sans-serif;font-size:11px;letter-spacing:2px;color:${canRetry?'rgba(255,180,100,0.6)':'rgba(255,100,100,0.5)'};margin-top:6px;">
+      ${canRetry?`${retriesLeft} retr${retriesLeft>1?'ies':'y'} remaining for Level ${currentLevel}`:'No retries left for this level'}
+    </div>
+  </div>`;
+
+  const voyagerStatus=(voyager&&voyager.alive)
+    ?'<div style="color:rgba(50,255,120,0.5);font-size:12px;letter-spacing:3px;margin-bottom:12px;">&#x1f6f0; VoyaDur 1 still drifts on...</div>'
+    :'<div style="color:rgba(255,100,100,0.4);font-size:12px;letter-spacing:3px;margin-bottom:12px;">VoyaDur 1 was lost to the void</div>';
+
+  const o=document.getElementById('screen-overlay');
+  o.classList.remove('hidden');
+  o.innerHTML=`
+    <div class="screen-title title-main">Game Over</div>
+    <div class="game-over-reason">${reason}</div>
+    <div class="level-stats">Died on Level ${currentLevel} of ${MAX_LEVEL}</div>
+    ${voyagerStatus}
+    <div class="screen-score">${totalScore}</div>
+    <div class="screen-score-label">Total Score</div>
+    <div class="final-stats">
+      <div class="stat-item"><span class="stat-val">${totalBHDestroyed}</span><span class="stat-label">Black Holes Destroyed</span></div>
+      <div class="stat-item"><span class="stat-val">${currentLevel}</span><span class="stat-label">Level Reached</span></div>
+    </div>
+    ${retryBadge}
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+      ${canRetry?`<button class="btn" data-action="retry" style="border-color:rgba(255,180,100,0.4);color:rgba(255,220,160,0.9);">↺ &nbsp;Retry Level ${currentLevel}</button>`:''}
+      <button class="btn" data-action="newgame" style="${canRetry?'background:rgba(0,0,0,0.2);color:rgba(180,210,255,0.5);font-size:12px;padding:12px 28px;':''}">New Game</button>
+    </div>
+    <div style="font-family:'Exo 2',sans-serif;font-size:12px;font-weight:300;letter-spacing:4px;color:rgba(180,210,255,0.4);margin-top:32px;text-transform:uppercase;">Thanks for playing a Team Sinigang game!</div>`;
+
+  // Single delegated listener — no getElementById needed, no cross-fire possible
+  o.addEventListener('click', function handler(e){
+    const action = e.target.closest('[data-action]');
+    if(!action) return;
+    o.removeEventListener('click', handler); // remove immediately so it can't double-fire
+    if(action.dataset.action === 'retry') retryLevel();
+    else startGame();
+  });
+}
+
+// ─── UPDATE ───
+function update(dt){
+  if(state!==STATE.PLAYING)return;
+  updateStars(dt);
+  gameTimer+=dt; timeLeft=Math.max(0,ROUND_DURATION-gameTimer);
+  if(timeLeft<=0){completeLevel();return;}
+
+  bhSpawnTimer+=dt;
+  if(bhSpawnTimer>=BH_SPAWN_INTERVAL){bhSpawnTimer=0;spawnBlackHoleBatch();}
+
+  celSpawnTimer+=dt;
+  const celInterval=Math.max(0.25,1.0-currentLevel*0.06);
+  if(celSpawnTimer>=celInterval){celSpawnTimer=0;spawnCelestial();}
+
+  // Mega comet — once per level at random time
+  if(!megaCometSpawned){
+    megaCometTimer+=dt;
+    if(megaCometTimer>=megaCometDelay){
+      megaCometSpawned=true;
+      spawnMegaComet();
+    }
+  }
+  // Update mega comet
+  if(megaComet&&megaComet.active){
+    megaComet.x+=megaComet.vx*dt;
+    megaComet.y+=megaComet.vy*dt;
+    megaComet.rotation+=megaComet.rotSpeed*dt;
+    // Large margin so tail is fully offscreen before removing
+    const m=600;
+    if(megaComet.x<-m||megaComet.x>W+m||megaComet.y<-m||megaComet.y>H+m){
+      megaComet.active=false;megaComet=null;
+    }
+  }
+  // Screen flash decay
+  if(screenFlash>0)screenFlash=Math.max(0,screenFlash-dt*4);
+
+  screenArea=W*H;totalBHArea=0;
+  for(let i=blackHoles.length-1;i>=0;i--){
+    const bh=blackHoles[i];
+    if(bh.forming){
+      bh.formingTimer+=dt;bh.opacity=Math.min(1,bh.formingTimer/bh.formDuration);
+      if(bh.formingTimer>=bh.formDuration){bh.forming=false;bh.opacity=1;}
+    } else if(bh.shrinking){
+      bh.r-=bh.shrinkSpeed*dt;bh.opacity=Math.max(0,bh.r/30);
+      if(bh.r<=0){blackHoles.splice(i,1);continue;}
+    } else {
+      if(bh.r<bh.maxR)bh.r+=bh.growRate*dt;
+    }
+    bh.rotation+=bh.rotSpeed*dt;
+    totalBHArea+=Math.PI*bh.r*bh.r;
+    // Update drone sound
+    updateBHDrone(bh);
+  }
+
+  const darknessPct=totalBHArea/screenArea;
+  document.getElementById('darkness-overlay').style.opacity=Math.min(0.85,darknessPct*3);
+  if(darknessPct>0.45){endGame('The darkness consumed everything');return;}
+
+  for(let i=celestials.length-1;i>=0;i--){
+    const cel=celestials[i];
+    if(cel.beingSucked){
+      const bh=cel.beingSucked;
+      if(!blackHoles.includes(bh)){cel.beingSucked=null;cel.suckProgress=0;continue;}
+      cel.suckProgress+=dt*1.5;
+      const dx=bh.x-cel.x,dy=bh.y-cel.y,dist=Math.sqrt(dx*dx+dy*dy);
+      const pull=200+cel.suckProgress*300;
+      cel.vx+=(dx/dist)*pull*dt;cel.vy+=(dy/dist)*pull*dt;
+      cel.r*=(1-dt*1.5);cel.opacity=Math.max(0,1-cel.suckProgress);
+      cel.rotation+=cel.rotSpeed*dt*(1+cel.suckProgress*5);
+      if(dist<bh.r*0.5||cel.r<1||cel.opacity<=0){
+        bh.consumed++;bh.r+=cel.r*0.15;
+        // Bonus points for allowing object to be sucked in
+        const celType=CEL_TYPES.find(t=>t.name===cel.type);
+        const bonus=celType?celType.bonus*currentLevel:5*currentLevel;
+        score+=bonus;
+        addScorePopup(cel.x,cel.y,bonus,'rgba(255,180,50,1)');
+        emitParticles(cel.x,cel.y,'rgba(255,150,50,1)',6,60);
+        playConsumeSound();
+        celestials.splice(i,1);continue;
+      }
+    } else {
+      for(const bh of blackHoles){
+        if(bh.forming||bh.shrinking)continue;
+        const dx=bh.x-cel.x,dy=bh.y-cel.y,dist=Math.sqrt(dx*dx+dy*dy);
+        const pullRange=bh.r*4;
+        if(dist<pullRange&&bh.r>cel.r){
+          const strength=(1-dist/pullRange)*100;
+          cel.vx+=(dx/dist)*strength*dt;cel.vy+=(dy/dist)*strength*dt;
+          if(dist<bh.r*1.5){cel.beingSucked=bh;cel.suckProgress=0;}
+        }
+      }
+    }
+    cel.x+=cel.vx*dt;cel.y+=cel.vy*dt;cel.rotation+=cel.rotSpeed*dt;
+    if(!cel.beingSucked){const m=100;if(cel.x<-m||cel.x>W+m||cel.y<-m||cel.y>H+m)celestials.splice(i,1);}
+  }
+
+  // ── Update VoyaDur 1 ──
+  if(voyager&&voyager.alive){
+    // Wormhole entrance animation
+    if(voyager.wormhole){
+      voyager.wormholeTimer+=dt;
+      voyager.opacity=Math.min(1,voyager.wormholeTimer/voyager.wormholeDuration);
+      if(voyager.wormholeTimer>=voyager.wormholeDuration){
+        voyager.wormhole=false;
+        voyager.opacity=1;
+      }
+    }
+
+    // Drift gently with drag
+    voyager.vx*=0.995;
+    voyager.vy*=0.995;
+    voyager.x+=voyager.vx*dt;
+    voyager.y+=voyager.vy*dt;
+    voyager.rotation+=voyager.rotSpeed*dt;
+    // Bounce off screen edges to keep it in play
+    if(voyager.x<30){voyager.x=30;voyager.vx=Math.abs(voyager.vx);}
+    if(voyager.x>W-30){voyager.x=W-30;voyager.vx=-Math.abs(voyager.vx);}
+    if(voyager.y<60){voyager.y=60;voyager.vy=Math.abs(voyager.vy);}
+    if(voyager.y>H-40){voyager.y=H-40;voyager.vy=-Math.abs(voyager.vy);}
+
+    // Black hole gravity affects Voyager
+    if(!voyager.beingSucked){
+      for(const bh of blackHoles){
+        if(bh.forming||bh.shrinking)continue;
+        const dx=bh.x-voyager.x,dy=bh.y-voyager.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        const pullRange=bh.r*4;
+        if(dist<pullRange&&bh.r>voyager.r){
+          const strength=(1-dist/pullRange)*80;
+          voyager.vx+=(dx/dist)*strength*dt;
+          voyager.vy+=(dy/dist)*strength*dt;
+          if(dist<bh.r*1.5){
+            voyager.beingSucked=bh;
+            voyager.suckProgress=0;
+          }
+        }
+      }
+    } else {
+      const bh=voyager.beingSucked;
+      if(!blackHoles.includes(bh)||bh.shrinking){
+        voyager.beingSucked=null;voyager.suckProgress=0;
+      } else {
+        voyager.suckProgress+=dt*1.2;
+        const dx=bh.x-voyager.x,dy=bh.y-voyager.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        const pull=150+voyager.suckProgress*250;
+        voyager.vx+=(dx/dist)*pull*dt;
+        voyager.vy+=(dy/dist)*pull*dt;
+        voyager.opacity=Math.max(0,1-voyager.suckProgress*0.8);
+        if(dist<bh.r*0.5||voyager.opacity<=0.05){
+          destroyVoyager();
+        }
+      }
+    }
+  }
+
+  updateParticles(dt);
+  updateScorePopups(dt);
+  document.getElementById('score-display').textContent=totalScore+score;
+  document.getElementById('level-display').textContent=currentLevel;
+  document.getElementById('time-display').textContent=Math.ceil(timeLeft);
+  document.getElementById('bh-display').textContent=blackHoles.filter(b=>!b.forming&&!b.shrinking).length;
+  document.getElementById('timer-bar').style.width=`${(timeLeft/ROUND_DURATION)*100}%`;
+  // Voyager HUD
+  const vhud=document.getElementById('voyager-hud');
+  if(voyager&&voyager.alive){
+    vhud.style.color='rgba(50,255,120,0.6)';
+    vhud.textContent='\u{1F6F0} VoyaDur 1 active \u2022 x2 points if it survives';
+  } else {
+    vhud.style.color='rgba(255,100,100,0.3)';
+    vhud.textContent='VoyaDur 1 lost \u2022 no x2 this round';
+  }
+}
+
+// ─── RENDER ───
+function render(t){
+  const secs=t/1000;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#030308';ctx.fillRect(0,0,W,H);
+  if(nebulaCanvas)ctx.drawImage(nebulaCanvas,0,0);
+  drawStars(secs);
+  for(const bh of blackHoles){
+    if(bh.forming&&bh.opacity<0.3)continue;
+    for(let i=0;i<12;i++){const a=secs*bh.rotSpeed*0.3+(i/12)*Math.PI*2,r1=bh.r*1.2,r2=bh.r*3;
+      ctx.beginPath();ctx.moveTo(bh.x+Math.cos(a)*r1,bh.y+Math.sin(a)*r1);
+      const ca=a+0.3*Math.sin(secs+i);
+      ctx.quadraticCurveTo(bh.x+Math.cos(a+0.2)*(r1+r2)*0.5,bh.y+Math.sin(a+0.2)*(r1+r2)*0.5,bh.x+Math.cos(ca)*r2,bh.y+Math.sin(ca)*r2);
+      ctx.strokeStyle=`rgba(100,60,150,${0.08*bh.opacity})`;ctx.lineWidth=1;ctx.stroke();}
+  }
+  for(const cel of celestials)drawCelestial(cel,secs);
+  // Draw VoyaDur 1
+  if(voyager&&voyager.alive)drawVoyager(voyager,secs);
+  for(const bh of blackHoles)drawBlackHole(bh,secs);
+  // Mega comet (drawn on top of everything)
+  if(megaComet&&megaComet.active)drawMegaComet(megaComet,secs);
+  drawParticles();drawSwipeTrails(secs);drawScorePopups();
+  // Screen flash from comet explosion
+  if(screenFlash>0){
+    ctx.save();
+    ctx.globalAlpha=screenFlash*0.7;
+    ctx.fillStyle='#fff';
+    ctx.fillRect(0,0,W,H);
+    ctx.restore();
+  }
+}
+
+// ════════════════════════════════════════════════════
+// ─── WARP SEQUENCE (light-speed travel between levels)
+// ════════════════════════════════════════════════════
+let warp=null;
+
+function playWarpSound(){
+  if(!audioCtx)return;
+  const now=audioCtx.currentTime;
+
+  // Deep rumble build
+  const rumble=audioCtx.createOscillator(), rG=audioCtx.createGain(), rF=audioCtx.createBiquadFilter();
+  rumble.type='sawtooth'; rumble.frequency.setValueAtTime(40,now); rumble.frequency.linearRampToValueAtTime(120,now+0.8);
+  rF.type='lowpass'; rF.frequency.value=200; rF.Q.value=3;
+  rG.gain.setValueAtTime(0,now); rG.gain.linearRampToValueAtTime(0.12,now+0.4);
+  rG.gain.setValueAtTime(0.12,now+0.9); rG.gain.linearRampToValueAtTime(0,now+1.4);
+  rumble.connect(rF); rF.connect(rG); rG.connect(masterGain); rumble.start(now); rumble.stop(now+1.5);
+
+  // Doppler whoosh — pitch rockets up then fades
+  const whoosh=audioCtx.createOscillator(), wG=audioCtx.createGain(), wF=audioCtx.createBiquadFilter();
+  whoosh.type='sawtooth'; whoosh.frequency.setValueAtTime(80,now+0.1); whoosh.frequency.linearRampToValueAtTime(1800,now+0.9);
+  wF.type='bandpass'; wF.frequency.setValueAtTime(300,now+0.1); wF.frequency.linearRampToValueAtTime(2000,now+0.9); wF.Q.value=1.5;
+  wG.gain.setValueAtTime(0,now+0.1); wG.gain.linearRampToValueAtTime(0.09,now+0.5);
+  wG.gain.setValueAtTime(0.09,now+0.8); wG.gain.linearRampToValueAtTime(0,now+1.3);
+  whoosh.connect(wF); wF.connect(wG); wG.connect(masterGain); whoosh.start(now+0.1); whoosh.stop(now+1.4);
+
+  // High shimmer burst at peak warp
+  const shimmer=audioCtx.createOscillator(), shG=audioCtx.createGain();
+  shimmer.type='sine'; shimmer.frequency.value=1200;
+  shG.gain.setValueAtTime(0,now+0.6); shG.gain.linearRampToValueAtTime(0.04,now+0.8);
+  shG.gain.linearRampToValueAtTime(0,now+1.5);
+  shimmer.connect(shG); shG.connect(masterGain); shimmer.start(now+0.6); shimmer.stop(now+1.6);
+
+  // Exit thud — arrival
+  const thud=audioCtx.createOscillator(), tG=audioCtx.createGain();
+  thud.type='sine'; thud.frequency.setValueAtTime(120,now+1.5); thud.frequency.linearRampToValueAtTime(40,now+2.0);
+  tG.gain.setValueAtTime(0.1,now+1.5); tG.gain.linearRampToValueAtTime(0,now+2.2);
+  thud.connect(tG); tG.connect(masterGain); thud.start(now+1.5); thud.stop(now+2.3);
+}
+
+function startWarp(onComplete){
+  state=STATE.WARP;
+  // Hide HUD during warp
+  document.getElementById('ui-overlay').style.opacity='0';
+
+  // Build streak pool — stars become stretched light trails
+  const streaks=[];
+  const cx=W/2, cy=H/2;
+  for(let i=0;i<260;i++){
+    const angle=Math.random()*Math.PI*2;
+    const startDist=20+Math.random()*Math.max(W,H)*0.15;
+    streaks.push({
+      angle,
+      dist:startDist,
+      speed:0,                         // accelerates over time
+      baseSpeed:180+Math.random()*320,
+      length:4+Math.random()*8,        // grows during warp
+      width:0.5+Math.random()*1.0,
+      hue:Math.random()<0.7?210+Math.random()*40:Math.random()*30, // blue-white or warm
+      brightness:0.5+Math.random()*0.5,
+    });
+  }
+
+  // Also scatter a few chunky bright streaks for drama
+  for(let i=0;i<30;i++){
+    const angle=Math.random()*Math.PI*2;
+    streaks.push({
+      angle, dist:10+Math.random()*60,
+      speed:0, baseSpeed:400+Math.random()*600,
+      length:12+Math.random()*30, width:1.0+Math.random()*2,
+      hue:190+Math.random()*50, brightness:0.9,
+    });
+  }
+
+  warp={
+    time:0,
+    totalDuration:2.4,   // seconds: 0.8 build, 0.8 peak, 0.8 exit
+    streaks,
+    flashAlpha:0,
+    onComplete,
+    cx,cy,
+  };
+
+  playWarpSound();
+}
+
+function updateWarp(dt){
+  if(!warp)return;
+  warp.time+=dt;
+  const t=warp.time;
+  const dur=warp.totalDuration;
+
+  // Phase: 0→0.7 build, 0.7→1.6 full warp, 1.6→2.4 exit flash + fade
+  let speedMult;
+  if(t<0.7){
+    speedMult=Math.pow(t/0.7,2.5);            // ease in (exponential)
+  } else if(t<1.6){
+    speedMult=1.0;                             // full warp
+  } else {
+    speedMult=Math.max(0,1-(t-1.6)/0.5);      // quick decel
+  }
+
+  // White flash at peak (t~1.0) and fade-to-black at exit (t~1.8)
+  if(t>=0.85&&t<1.1){
+    warp.flashAlpha=Math.min(1,(t-0.85)/0.18);
+  } else if(t>=1.1&&t<1.5){
+    warp.flashAlpha=Math.max(0,1-(t-1.1)/0.35);
+  } else if(t>=1.6){
+    warp.flashAlpha=Math.min(1,(t-1.6)/0.35); // fade to black for transition
+  } else {
+    warp.flashAlpha=0;
+  }
+
+  for(const s of warp.streaks){
+    s.speed=s.baseSpeed*speedMult;
+    s.dist+=s.speed*dt;
+    // Stretch length proportional to speed
+    s.length=( 4+Math.random()*4 ) + s.speed*0.045;
+  }
+
+  if(t>=dur){
+    const cb=warp.onComplete;
+    warp=null;
+    document.getElementById('ui-overlay').style.opacity='1';
+    state=STATE.LEVEL_TRANS;
+    if(cb)cb();
+  }
+}
+
+function renderWarp(t){
+  if(!warp)return;
+  const {cx,cy,streaks,flashAlpha,time}=warp;
+
+  // Deep space black
+  ctx.fillStyle='#000005';
+  ctx.fillRect(0,0,W,H);
+
+  // Draw nebula hint during build phase (fades out as we accelerate)
+  if(nebulaCanvas&&time<0.8){
+    ctx.save();
+    ctx.globalAlpha=(1-time/0.8)*0.4;
+    ctx.drawImage(nebulaCanvas,0,0);
+    ctx.restore();
+  }
+
+  // Draw star streaks radiating from center
+  for(const s of streaks){
+    if(s.dist<=0)continue;
+    const x1=cx+Math.cos(s.angle)*s.dist;
+    const y1=cy+Math.sin(s.angle)*s.dist;
+    const x0=cx+Math.cos(s.angle)*(s.dist-s.length);
+    const y0=cy+Math.sin(s.angle)*(s.dist-s.length);
+
+    // Skip if both points off screen
+    if(x1<-50&&x0<-50)continue;
+    if(x1>W+50&&x0>W+50)continue;
+    if(y1<-50&&y0<-50)continue;
+    if(y1>H+50&&y0>H+50)continue;
+
+    const speedFrac=Math.min(1,s.speed/800);
+    const alpha=s.brightness*(0.4+0.6*speedFrac);
+
+    const grad=ctx.createLinearGradient(x0,y0,x1,y1);
+    grad.addColorStop(0,'rgba(0,0,0,0)');
+    if(s.hue>100&&s.hue<260){
+      // Blue-white
+      grad.addColorStop(0.6,`hsla(${s.hue},80%,85%,${alpha*0.5})`);
+      grad.addColorStop(1,`hsla(${s.hue},90%,98%,${alpha})`);
+    } else {
+      // Warm orange/white
+      grad.addColorStop(0.6,`hsla(${s.hue},90%,80%,${alpha*0.5})`);
+      grad.addColorStop(1,`hsla(${s.hue},100%,98%,${alpha})`);
+    }
+    ctx.beginPath();
+    ctx.moveTo(x0,y0);
+    ctx.lineTo(x1,y1);
+    ctx.strokeStyle=grad;
+    ctx.lineWidth=s.width*(0.5+speedFrac*1.5);
+    ctx.stroke();
+  }
+
+  // Central glow at peak warp
+  if(time>0.5&&time<1.6){
+    const glowIntensity=Math.min(1,(time-0.5)/0.4)*Math.max(0,1-(time-1.2)/0.4);
+    const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,W*0.35);
+    grd.addColorStop(0,`rgba(180,220,255,${0.18*glowIntensity})`);
+    grd.addColorStop(0.4,`rgba(100,160,255,${0.08*glowIntensity})`);
+    grd.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=grd;
+    ctx.beginPath();ctx.arc(cx,cy,W*0.35,0,Math.PI*2);ctx.fill();
+  }
+
+  // White flash overlay
+  if(flashAlpha>0){
+    ctx.fillStyle=`rgba(230,240,255,${flashAlpha})`;
+    ctx.fillRect(0,0,W,H);
+  }
+}
+
+// ─── LOOP ───
+function gameLoop(timestamp){
+  const dt=Math.min(0.05,(timestamp-lastTime)/1000);lastTime=timestamp;
+  if(state===STATE.CUTSCENE){
+    updateStars(dt);
+    updateCutscene(dt);
+    renderCutscene(timestamp);
+  } else if(state===STATE.WARP){
+    updateWarp(dt);
+    renderWarp(timestamp);
+  } else {
+    if(state!==STATE.PLAYING)updateStars(dt); // menu, over, paused — keep stars drifting
+    update(dt);render(timestamp);
+  }
+  requestAnimationFrame(gameLoop);
+}
+
+document.getElementById('screen-overlay').addEventListener('click', function handler(e){
+  if(!e.target.closest('#start-btn')) return;
+  document.getElementById('screen-overlay').removeEventListener('click', handler);
+  startGame();
+});
+
+// Play celestial horn on first interaction with the welcome screen
+function playWelcomeHorn(){
+  if(hornPlayed)return;
+  hornPlayed=true;
+  initAudio();
+  if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();
+  playCelestialHorn();
+}
+// Trigger horn on any first touch/click/mousemove on the welcome overlay
+document.getElementById('screen-overlay').addEventListener('click',playWelcomeHorn,{once:false});
+document.getElementById('screen-overlay').addEventListener('touchstart',playWelcomeHorn,{once:false});
+document.getElementById('screen-overlay').addEventListener('mouseenter',function once(){playWelcomeHorn();this.removeEventListener('mouseenter',once);});
+
+initStars();generateNebula();lastTime=performance.now();
+requestAnimationFrame(gameLoop);
+</script>
+</body>
+</html>

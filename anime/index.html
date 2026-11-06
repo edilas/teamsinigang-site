@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-57W3NKSFTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-57W3NKSFTE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-6614135487817952">
+<title>Anime Is Not a Genre — A Field Guide, with Akira at the Center</title>
+<link rel="canonical" href="https://www.teamsinigang.com/anime/index.html">
+<meta name="description" content="What anime actually is, why it isn&#x27;t a genre, and a field guide to five essential series and films — with Akira at the center. Team Sinigang anime notes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/anime/styles.css?v=2">
+<style>
+  /* home-only tweaks */
+  .slide-track{
+    position:absolute; left:-10%; width:120%; top:64%; height:2px;
+    background:linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent2) 55%, transparent 90%);
+    opacity:0; animation: slideacross 3.2s ease-out 0.4s 1;
+  }
+  @keyframes slideacross{
+    0%{ opacity:0; transform:translateX(-40%) scaleX(0.3);}
+    15%{ opacity:1; }
+    70%{ opacity:0.9; transform:translateX(0%) scaleX(1);}
+    100%{ opacity:0; transform:translateX(10%) scaleX(1);}
+  }
+  .scroll-cue{ position:absolute; bottom:36px; left:50%; transform:translateX(-50%); font-size:11px; letter-spacing:0.2em; color:var(--paper-dim); z-index:2; }
+
+  .def-grid{ display:grid; grid-template-columns: 1fr 1.4fr; gap:64px; }
+  @media (max-width:860px){ .def-grid{ grid-template-columns:1fr; } }
+  .def-lead{ font-size:26px; line-height:1.45; font-weight:600; }
+  .def-lead .hl{ color:var(--accent2); }
+  .def-body p{ color:var(--paper-dim); line-height:1.75; font-size:16px; margin:0 0 20px; }
+  .def-body strong{ color:var(--paper); font-weight:600; }
+
+  .akira-feature{
+    background: radial-gradient(ellipse at 30% 20%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 55%), var(--ink-2);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .akira-layout{ display:grid; grid-template-columns: 0.9fr 1.1fr; gap:72px; align-items:center; }
+  @media (max-width:900px){ .akira-layout{ grid-template-columns:1fr; gap:48px; } }
+
+  .akira-orb-wrap{ position:relative; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; }
+  .akira-orb{
+    position:absolute; width:78%; height:78%; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #ff6b5e, var(--accent) 45%, var(--accent-dim) 78%, #2a0a08 100%);
+    box-shadow: 0 0 90px color-mix(in srgb, var(--accent) 55%, transparent), inset -20px -20px 60px rgba(0,0,0,0.4);
+  }
+  .akira-ring{ position:absolute; border:1px solid color-mix(in srgb, var(--accent2) 35%, transparent); border-radius:50%; animation: spin 22s linear infinite; }
+  .akira-ring.r1{ width:100%; height:100%; }
+  .akira-ring.r2{ width:88%; height:88%; border-style:dashed; animation-duration:34s; animation-direction:reverse; opacity:0.5; }
+  @keyframes spin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
+  .akira-year-label{ position:absolute; bottom:6%; z-index:3; font-size:13px; letter-spacing:0.3em; color:var(--paper); background:rgba(10,10,13,0.55); padding:6px 14px; border:1px solid rgba(236,231,222,0.25); border-radius:999px; }
+
+  .akira-copy .tag{ font-size:12px; letter-spacing:0.28em; color:var(--accent2); margin-bottom:14px; display:block; }
+  .akira-copy h3{ font-family:'Anton', sans-serif; font-size:clamp(40px,6vw,72px); line-height:0.95; margin:0 0 20px; text-transform:uppercase; }
+  .akira-copy p{ color:var(--paper-dim); line-height:1.75; font-size:16px; margin:0 0 18px; }
+  .akira-copy p strong{ color:var(--paper); }
+  .read-more{
+    display:inline-flex; align-items:center; gap:10px; margin-top:18px; padding:12px 20px;
+    border:1px solid var(--accent); border-radius:999px; text-decoration:none; color:var(--paper);
+    font-size:13px; letter-spacing:0.08em; transition:background .2s, color .2s;
+  }
+  .read-more:hover{ background:var(--accent); color:var(--ink); }
+
+  .top5-note{ margin-top:20px; font-size:13px; color:var(--paper-dim); }
+  .also-card{ margin-top:28px; border:1px dashed var(--line); border-radius:10px; padding:22px 24px; }
+  .also-card .k{ font-size:11px; letter-spacing:0.16em; color:var(--paper-dim); }
+  .also-card h5{ font-family:'Anton', sans-serif; font-size:18px; margin:8px 0; text-transform:uppercase; }
+  .also-card p{ color:var(--paper-dim); font-size:14px; line-height:1.6; margin:0; }
+</style>
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+</head>
+<body data-theme="akira">
+
+<div class="grain"></div>
+<div class="scanlines"></div>
+
+<nav>
+  <a href="/anime/index.html" class="logo mono"><span class="dot"></span> ANIME NOTES</a>
+  <div class="navlinks mono">
+    <a href="/index.html">← TEAM SINIGANG</a>
+    <a href="#what-is-anime">WHAT IS ANIME</a>
+    <a href="#akira">AKIRA</a>
+    <a href="#top5">TOP 5</a>
+    <a href="#influence">INFLUENCE</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero show-hero">
+  <div class="show-glow"></div>
+  <div class="slide-track"></div>
+  <p class="eyebrow mono">永遠のメディア — AN ETERNAL MEDIUM</p>
+  <h1 class="display">ANIME IS NOT<br><span class="accent">A GENRE.</span></h1>
+  <p class="sub">It's a medium — Japanese animation, in every style from watercolor melancholy to
+    chrome-plated cyberpunk. What holds it together isn't a look. It's a country's
+    entire animation industry, and forty years of the rest of the world catching up to it.</p>
+  <p class="scroll-cue mono">SCROLL ↓</p>
+</header>
+
+<!-- WHAT IS ANIME -->
+<section id="what-is-anime">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag mono">FIELD NOTES</span>
+      <h2 class="display">What Anime Actually Is</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="def-grid">
+      <div class="def-lead reveal">
+        The word just means <span class="hl">"animation"</span> in Japanese. Outside Japan, it's come to mean
+        one specific thing: animation <em>produced in Japan</em>, regardless of subject, audience, or style.
+      </div>
+      <div class="def-body reveal">
+        <p>That distinction matters more than it sounds. In the West, "cartoon" implies an audience —
+          kids. Anime never made that assumption. A single week of Japanese television might air a show
+          about giant robots, a slow character drama about grief, a raunchy comedy, and a children's
+          adventure — all animated, all called anime, none of them the same genre.</p>
+        <p>The medium grew out of <strong>manga</strong> (serialized comics) and a production system built
+          for television budgets: fewer frames per second than Disney-style animation, but compensated
+          for with held frames, dramatic stillness, expressive linework, and camera moves that do the
+          acting a full 24fps would otherwise carry. That constraint became a style — and the style
+          became, eventually, an aesthetic vocabulary the rest of the world started borrowing from.</p>
+        <p>Formats range from <strong>TV series</strong> running hundreds of episodes, to tightly-budgeted
+          <strong>OVAs</strong> (original video animation) made straight for home release, to
+          <strong>theatrical films</strong> given the full resources of a studio like Ghibli or Madhouse —
+          which is the category that produced the film at the center of this page.</p>
+      </div>
+    </div>
+
+    <div class="stat-row reveal">
+      <div class="stat"><div class="n">1917</div><div class="l mono">EARLIEST JAPANESE ANIMATED FILMS</div></div>
+      <div class="stat"><div class="n">1963</div><div class="l mono">ASTRO BOY — FIRST WEEKLY TV ANIME</div></div>
+      <div class="stat"><div class="n">1988</div><div class="l mono">AKIRA — THE FILM THAT WENT GLOBAL</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AKIRA TEASER -->
+<section id="akira" class="akira-feature">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag mono">THE FEATURE</span>
+      <h2 class="display">Start Here, Always</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="akira-layout">
+      <div class="akira-orb-wrap reveal">
+        <div class="akira-ring r1"></div>
+        <div class="akira-ring r2"></div>
+        <div class="akira-orb"></div>
+        <div class="akira-year-label mono">NEO-TOKYO, 2019</div>
+      </div>
+
+      <div class="akira-copy reveal">
+        <span class="tag mono">KATSUHIRO OTOMO, 1988</span>
+        <h3>Akira</h3>
+        <p><strong>This is the one.</strong> Before most of the world had a word for "anime," it had
+          <em>Akira</em> — a biker gang, a collapsing megacity, a boy whose power outgrows his body and
+          his government's ability to contain it. It's about corrupted authority and adolescent rage
+          wearing the skin of a sci-fi action film, and it never once slows down to explain itself to you.</p>
+        <p>Its influence is now so total it's invisible. That red pill-shaped motorcycle, the
+          neon-drenched megacity skyline, the slow-motion bike slide — you've seen it in <strong>The
+          Matrix</strong>, in Kanye West's "Stronger" video, in <strong>Stranger Things</strong>'
+          title card, in a hundred cyberpunk games that never credit it.</p>
+        <a class="read-more mono" href="/anime/akira.html">READ THE FULL FEATURE →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOP 5 -->
+<section id="top5">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag mono">THE WIDER FIELD</span>
+      <h2 class="display">Top 5 Anime of the Past 50 Years</h2>
+      <div class="rule"></div>
+    </div>
+    <p class="top5-note">Ranked here by cultural reach, not by personal ranking — each one changed what
+      the medium was allowed to be, in its own decade. Click through for the full write-up on each.</p>
+
+    <div class="cards" style="margin-top:32px;">
+      <a class="card linked reveal" href="/anime/akira.html">
+        <div class="card-top">
+          <h4>Akira</h4>
+          <span class="badge jp mono">JP · 1988</span>
+        </div>
+        <p>The film that proved anime could be cinema — dense, violent, political, and taken seriously
+          by adults who'd never have walked into an animated film otherwise.</p>
+        <span class="goto mono">READ FEATURE →</span>
+      </a>
+
+      <a class="card linked reveal" href="/anime/evangelion.html">
+        <div class="card-top">
+          <h4>Neon Genesis Evangelion</h4>
+          <span class="badge jp mono">JP · 1995</span>
+        </div>
+        <p>Giant robots as a delivery system for a story about depression and self-worth. Reshaped what
+          a mecha anime was allowed to be about.</p>
+        <span class="goto mono">READ FEATURE →</span>
+      </a>
+
+      <a class="card linked reveal" href="/anime/cowboy-bebop.html">
+        <div class="card-top">
+          <h4>Cowboy Bebop</h4>
+          <span class="badge jp mono">JP · 1998</span>
+        </div>
+        <p>Jazz-scored bounty hunting in space. The show most credited with hooking a generation of
+          American teenagers on anime through late-night cable.</p>
+        <span class="goto mono">READ FEATURE →</span>
+      </a>
+
+      <a class="card linked reveal" href="/anime/spirited-away.html">
+        <div class="card-top">
+          <h4>Spirited Away</h4>
+          <span class="badge jp mono">JP · 2001</span>
+        </div>
+        <p>Studio Ghibli's Oscar-winning fable. Proof the medium could be gentle, painterly, and still
+          gross hundreds of millions worldwide.</p>
+        <span class="goto mono">READ FEATURE →</span>
+      </a>
+
+      <a class="card linked reveal" href="/anime/attack-on-titan.html">
+        <div class="card-top">
+          <h4>Attack on Titan</h4>
+          <span class="badge jp mono">JP · 2013</span>
+        </div>
+        <p>The show that reignited a global mainstream anime boom in the streaming era, one shocking
+          reveal at a time.</p>
+        <span class="goto mono">READ FEATURE →</span>
+      </a>
+
+      <div class="card reveal">
+        <div class="card-top">
+          <h4>One Piece</h4>
+          <span class="badge jp mono">JP · 1999–</span>
+        </div>
+        <p>Still airing, still drawing new fans decade after decade — the clearest example of anime's
+          TV-serial format built to run for a lifetime. Honorable mention, no page (yet).</p>
+      </div>
+    </div>
+
+    <div class="also-card reveal">
+      <span class="k mono">WORTH KNOWING, NOT PART OF THE FIVE</span>
+      <h5>X-Men '97 (US · 2024)</h5>
+      <p>Not Japanese-made, so not anime by the strict definition — but a Western series whose
+        character acting, color-timed lighting, and action staging are openly borrowed from anime's
+        playbook. Included here because it shows how far the vocabulary has traveled, not because it
+        belongs on this list.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INFLUENCE -->
+<section id="influence">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag mono">WHY IT MATTERS</span>
+      <h2 class="display">How Anime Reshapes Culture</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="influence-grid">
+      <div class="infl reveal">
+        <span class="tag mono">FASHION</span>
+        <h5>Streetwear</h5>
+        <p>Character graphics, Sailor Moon color palettes, and Akira's red capsule logo show up on
+          runway collections and streetwear drops with zero irony intended.</p>
+      </div>
+      <div class="infl reveal">
+        <span class="tag mono">MUSIC</span>
+        <h5>Album Art & Video</h5>
+        <p>From Kanye West to Billie Eilish, anime imagery has become shorthand for a specific kind
+          of emotional intensity in music videos and cover art.</p>
+      </div>
+      <div class="infl reveal">
+        <span class="tag mono">FILM &amp; TV</span>
+        <h5>Visual Language</h5>
+        <p>Bullet-time, neon-noir cityscapes, and dramatic freeze-frame reveals all trace back to
+          techniques anime perfected first, on a fraction of a Hollywood budget.</p>
+      </div>
+      <div class="infl reveal">
+        <span class="tag mono">FANDOM</span>
+        <h5>Conventions & Community</h5>
+        <p>Cosplay culture, fansubbing, and the modern anime convention built an entire self-sustaining
+          fan economy years before "fandom" was a mainstream word.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="fmark mono">MADE FOR SOMEONE WHO STARTS THE CONVERSATION AT <span>AKIRA</span> · NEO-TOKYO, ALWAYS</p>
+  <div class="ft-links mono">
+    <a href="/index.html">HOME</a><a href="/index.html#games">GAMES</a><a href="/recipes.html">RECIPES</a><a href="/sinigaming/index.html">SINIGAMING</a><a href="/anime/index.html">ANIME</a><a href="/blog/index.html">BLOG</a><a href="/about.html">ABOUT</a><a href="/contact.html">CONTACT</a><a href="/privacy.html">PRIVACY</a><a href="/terms.html">TERMS</a>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

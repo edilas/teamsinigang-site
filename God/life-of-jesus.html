@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0A0704">
+<title>The Light of the World — The Life of Jesus Christ</title>
+<style>
+  html { background: #0A0704; }
+  :root {
+    --gold: #E8C060;
+    --gold-light: #FFE090;
+    --gold-pale: #FFF0C8;
+    --dark: #0A0704;
+    --deep: #12100A;
+    --ink: #1C180F;
+    --parchment: #F0E8D8;
+    --cream: #F5F0E8;
+    --red: #8B1A1A;
+    --blue-deep: #0D1B3E;
+    --font-display: 'Cinzel Decorative', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    --font-heading: 'Cinzel', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    --font-body: 'EB Garamond', Garamond, 'Times New Roman', Georgia, serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  html, body {
+    background: #0A0704 !important;
+  }
+
+  body {
+    background-color: #0A0704;
+    color: var(--parchment);
+    font-family: var(--font-body);
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.85;
+    overflow-x: hidden;
+  }
+
+  /* ── STARFIELD CANVAS ── */
+  #stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 50% 40%, rgba(201,168,76,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 50% 20%, rgba(201,168,76,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cross-symbol {
+    font-size: 64px;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeDown 1.4s ease 0.3s forwards;
+    text-shadow: 0 0 40px rgba(201,168,76,0.6), 0 0 80px rgba(201,168,76,0.3);
+    letter-spacing: 4px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: fadeDown 1.2s ease 0.6s forwards;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 6vw, 5rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.15;
+    text-shadow: 0 2px 30px rgba(201,168,76,0.4);
+    opacity: 0;
+    animation: fadeDown 1.4s ease 0.8s forwards;
+    max-width: 900px;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--gold-pale);
+    opacity: 0;
+    animation: fadeDown 1.2s ease 1.2s forwards;
+    margin-top: 20px;
+    max-width: 600px;
+  }
+
+  .hero-verse {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 30px;
+    opacity: 0;
+    animation: fadeDown 1s ease 1.6s forwards;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeDown 1s ease 2.2s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(232,192,96,0.8);
+    font-family: var(--font-heading);
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .scroll-cue::after {
+    content: '';
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.5), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 10px 0;
+    margin: 10px auto;
+    max-width: 500px;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .divider span {
+    color: var(--gold);
+    font-size: 18px;
+  }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 28px 80px;
+    background: transparent;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 72px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-family: var(--font-heading);
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .section h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .section p {
+    color: var(--parchment);
+    margin-bottom: 16px;
+    font-size: 1.05rem;
+  }
+
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ── QUOTE BLOCK ── */
+  .quote-block {
+    border-left: 2px solid var(--gold);
+    padding: 16px 28px;
+    margin: 32px 0;
+    background: rgba(201,168,76,0.05);
+    position: relative;
+  }
+
+  .quote-block::before {
+    content: '\201C';
+    font-family: 'EB Garamond', serif;
+    font-size: 72px;
+    color: rgba(201,168,76,0.2);
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    line-height: 1;
+  }
+
+  .quote-block p {
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--gold-pale);
+    margin: 0 0 8px !important;
+  }
+
+  .quote-block cite {
+    font-family: var(--font-heading);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 32px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 36px;
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -27px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 10px rgba(201,168,76,0.6);
+  }
+
+  .timeline-item h3 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+  .timeline-item p {
+    font-size: 0.98rem;
+    color: rgba(255,255,255,0.95);
+    margin: 0 !important;
+  }
+
+  /* ── PILLARS ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin: 32px 0;
+  }
+
+  .pillar {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .pillar:hover {
+    background: rgba(201,168,76,0.1);
+    border-color: rgba(232,192,96,0.8);
+  }
+
+  .pillar-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(201,168,76,0.5));
+  }
+
+  .pillar h3 {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .pillar p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.92);
+    margin: 0 !important;
+    line-height: 1.6;
+  }
+
+  /* ── SOUL SECTION ── */
+  .soul-section {
+    background: linear-gradient(135deg, rgba(13,27,62,0.6) 0%, rgba(10,7,4,0.8) 100%);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 48px 40px;
+    margin: 40px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .soul-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .soul-section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--gold-light);
+    margin-bottom: 24px;
+  }
+
+  .soul-section p {
+    max-width: 680px;
+    margin: 0 auto 16px;
+    font-size: 1.05rem;
+    color: var(--parchment);
+  }
+
+  /* ── CLOSING ── */
+  .closing {
+    text-align: center;
+    padding: 60px 20px;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    margin-top: 20px;
+  }
+
+  .closing .cross-big {
+    font-size: 48px;
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(201,168,76,0.5);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .closing h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--gold-light);
+    margin-bottom: 20px;
+  }
+
+  .closing p {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.9);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    main { padding: 20px 18px 60px; }
+    .soul-section { padding: 36px 22px; }
+    .quote-block { padding: 14px 20px; }
+    .pillars { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="cross-symbol">✝</div>
+  <p class="hero-eyebrow">From Bethlehem to Eternity</p>
+  <h1>The Life & Light of Jesus Christ</h1>
+  <p class="hero-subtitle">Son of God. Saviour of the World. Hope of the Immortal Soul.</p>
+  <p class="hero-verse">"I am the way, the truth, and the life." — John 14:6</p>
+  <div class="scroll-cue">Scroll</div>
+</header>
+
+<main>
+
+  <!-- BIRTH -->
+  <section class="section">
+    <p class="section-label">Chapter I</p>
+    <h2>The Incarnation — God Enters the World</h2>
+    <div class="divider"><span>✦</span></div>
+    <p>
+      Nearly two thousand years ago, in the small town of <strong style="color:var(--gold-light)">Bethlehem</strong> in Judea, 
+      a child was born in a humble stable — not to royalty or power, but to Mary, a young woman of faith, 
+      and Joseph, a carpenter. His birth was announced by angels, celebrated by shepherds, and honored by 
+      wise men who followed a star across the desert.
+    </p>
+    <p>
+      Christians believe this was no ordinary birth. This was God entering human history — taking on flesh, 
+      breathing our air, and walking our earth. The eternal Word made mortal. This event, celebrated each 
+      year as Christmas, is the hinge of all history.
+    </p>
+    <div class="quote-block">
+      <p>For unto us a child is born, unto us a son is given; and the government shall be upon his shoulder, and his name shall be called Wonderful, Counsellor, The Mighty God, The Everlasting Father, The Prince of Peace.</p>
+      <cite>Isaiah 9:6</cite>
+    </div>
+  </section>
+
+  <!-- LIFE -->
+  <section class="section">
+    <p class="section-label">Chapter II</p>
+    <h2>A Life Unlike Any Other</h2>
+    <div class="divider"><span>✦</span></div>
+    <p>
+      Jesus grew up in <strong style="color:var(--gold-light)">Nazareth</strong>, working as a carpenter until, 
+      around the age of thirty, he began his public ministry. For approximately three years, he traversed 
+      the land of Judea and Galilee — teaching, healing, and transforming lives.
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Baptism & Calling</h3>
+        <p>Baptised by his cousin John in the River Jordan, a voice from heaven declared him the beloved Son of God. He then endured forty days of fasting and temptation in the wilderness — and emerged to begin his mission.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Teaching the Kingdom of God</h3>
+        <p>Through parables — the Prodigal Son, the Good Samaritan, the Lost Sheep — Jesus painted a portrait of a God who relentlessly pursues the lost and loves without condition. His Sermon on the Mount redefined human ethics: blessed are the poor in spirit, the merciful, the peacemakers.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Miracles of Compassion</h3>
+        <p>He healed the blind, cleansed lepers, gave the lame their legs, and raised the dead. These were not performances — they were signs that the Kingdom of God had arrived, that suffering was not the final word.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Radical Love in Action</h3>
+        <p>Jesus ate with outcasts, forgave adulterers, befriended tax collectors, and touched the untouchable. He turned the social order upside down, declaring that the last shall be first, and the servant shall be greatest.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>The Twelve Apostles</h3>
+        <p>He gathered twelve ordinary men — fishermen, a tax collector, a zealot — and entrusted them with the continuation of his mission. Their testimony would change the world forever.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEATH -->
+  <section class="section">
+    <p class="section-label">Chapter III</p>
+    <h2>The Cross — The Greatest Act of Love</h2>
+    <div class="divider"><span>✦</span></div>
+    <p>
+      Jesus' ministry challenged the religious authorities of his day. Accused of blasphemy and political 
+      subversion, he was betrayed by one of his own disciples, arrested, tried unjustly, and condemned 
+      to death by crucifixion under the Roman governor Pontius Pilate.
+    </p>
+    <p>
+      On a hill called <strong style="color:var(--gold-light)">Golgotha</strong> — "the Place of the Skull" — 
+      Jesus was nailed to a wooden cross between two criminals. He suffered, and he died. But Christians 
+      believe this was not a defeat. It was a sacrifice.
+    </p>
+    <p>
+      The cross stands at the heart of Christian faith as the supreme act of divine love: God himself, 
+      in the person of Jesus, bearing the weight of human sin, brokenness, and death — so that we 
+      would not have to bear it alone. As the Apostle Paul wrote, "God demonstrates his own love for us 
+      in this: while we were still sinners, Christ died for us."
+    </p>
+    <div class="quote-block">
+      <p>For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.</p>
+      <cite>John 3:16</cite>
+    </div>
+  </section>
+
+  <!-- RESURRECTION -->
+  <section class="section">
+    <p class="section-label">Chapter IV</p>
+    <h2>The Resurrection — Death Defeated</h2>
+    <div class="divider"><span>✦</span></div>
+    <p>
+      Three days after his burial, something utterly unprecedented occurred. The tomb was found empty. 
+      Mary Magdalene, then the apostles, then more than five hundred witnesses encountered Jesus — 
+      alive, risen, transformed. Not resuscitated, not a ghost, but bodily and gloriously raised from 
+      the dead.
+    </p>
+    <p>
+      The Resurrection is the cornerstone of Christian belief. It declares that death is not the end. 
+      It is proof that Jesus was who he claimed to be — that his sacrifice was accepted, that the grave 
+      has been conquered, and that a new kind of life is available to every human soul.
+    </p>
+    <p>
+      Forty days later, he ascended into heaven, promising to return — and sending the Holy Spirit 
+      to dwell within those who follow him.
+    </p>
+    <div class="quote-block">
+      <p>I am the resurrection and the life. The one who believes in me will live, even though they die; and whoever lives by believing in me will never die.</p>
+      <cite>John 11:25–26</cite>
+    </div>
+  </section>
+
+  <!-- WHY IT MATTERS -->
+  <section class="section">
+    <p class="section-label">Chapter V</p>
+    <h2>Why Jesus Matters — For You and Your Soul</h2>
+    <div class="divider"><span>✦</span></div>
+    <p>
+      We are more than bodies. Every human being carries within them something that no science can 
+      fully measure — a soul, an interior life, a longing for meaning that outlasts all earthly 
+      pleasures. History's greatest thinkers have asked the same questions: <em>Why am I here? 
+      Is there more? What happens when I die?</em>
+    </p>
+    <p>
+      Jesus speaks directly to these questions — not with philosophy alone, but with a life lived, 
+      a death endured, and a resurrection witnessed.
+    </p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-icon">🕊️</span>
+        <h3>Forgiveness</h3>
+        <p>Jesus offers complete forgiveness of sin — not earned, but freely given to all who turn to him with an honest heart.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">♾️</span>
+        <h3>Eternal Life</h3>
+        <p>He promises that death is not the end. Those who trust in him are given the gift of eternal life — a resurrection like his own.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">❤️</span>
+        <h3>Unconditional Love</h3>
+        <p>You are known, valued, and loved — not for what you do, but for who you are. No soul is beyond his reach.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">✨</span>
+        <h3>Transformation</h3>
+        <p>Jesus does not merely save — he renews. He offers a new identity, a new purpose, and the power to become who you were made to be.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🌿</span>
+        <h3>Peace & Rest</h3>
+        <p>"Come to me, all who are weary and burdened, and I will give you rest." A soul at peace with God need fear nothing.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🌅</span>
+        <h3>Hope</h3>
+        <p>Even in darkness, grief, or suffering — his resurrection declares that light wins, that the story is not over, that hope is real.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOUL SECTION -->
+  <div class="soul-section section">
+    <h2>The Immortal Soul</h2>
+    <div class="divider"><span>✦</span></div>
+    <p>
+      Every human soul is eternal. It does not dissolve at death. What we do with the life we are given — 
+      the loves we choose, the truths we pursue, the God we accept or reject — echoes into forever.
+    </p>
+    <p>
+      Jesus came precisely for this reason. Not merely to give us good advice, or a moral code, 
+      or an inspiring example — but to bridge the gap between a holy God and a broken humanity, 
+      so that our souls might find their way home.
+    </p>
+    <p>
+      His invitation is simple, radical, and open to all: <em>"Follow me."</em> To accept that 
+      invitation is to enter a relationship with the Living God — one that begins now, 
+      and lasts beyond all measure of time.
+    </p>
+    <div class="quote-block" style="text-align:left; margin: 28px auto; max-width: 580px; background: rgba(201,168,76,0.06);">
+      <p>What good is it for someone to gain the whole world, yet forfeit their soul?</p>
+      <cite>Mark 8:36</cite>
+    </div>
+    <p>
+      This question — asked by Jesus himself — echoes across every generation. 
+      Wealth, fame, power, pleasure: none of it satisfies the deepest hunger of the soul. 
+      Only the One who made it can fill it.
+    </p>
+  </div>
+
+  <!-- HIS LEGACY -->
+  <section class="section">
+    <p class="section-label">Chapter VI</p>
+    <h2>His Legacy — A World Transformed</h2>
+    <div class="divider"><span>✦</span></div>
+    <p>
+      Jesus wrote no books. He commanded no armies. He ruled no nation. 
+      Yet two thousand years after his death, more than two billion people on earth call him Lord — 
+      making him the most influential figure in all of human history.
+    </p>
+    <p>
+      His teachings gave birth to hospitals, universities, and the abolition of slavery. 
+      Artists, composers, poets, and architects have spent two millennia trying to capture 
+      what words alone cannot hold. The calendar of the Western world is measured from his birth.
+    </p>
+    <p>
+      But his legacy is not merely cultural. It is personal. Across every continent and every century, 
+      ordinary men and women have encountered him — in prayer, in scripture, in moments of desperate 
+      need — and found their lives, and their souls, forever changed.
+    </p>
+    <div class="quote-block">
+      <p>Jesus Christ is the same yesterday and today and forever.</p>
+      <cite>Hebrews 13:8</cite>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing section">
+    <span class="cross-big">✝</span>
+    <h2>The Invitation Stands</h2>
+    <div class="divider"><span>✦</span></div>
+    <p>
+      Across the centuries, across every nation and tongue, the invitation of Jesus Christ 
+      remains open — not to the perfect, but to the seeking. Not to those who have it all together, 
+      but to those who know they do not. His arms are still outstretched. The tomb is still empty. 
+      And your soul was made for this.
+    </p>
+    <p style="margin-top:24px; color: var(--gold-pale); font-style: normal; font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;">
+      ✦ &nbsp; Gloria in Excelsis Deo &nbsp; ✦
+    </p>
+  </div>
+
+</main>
+
+<script>
+  // ── STARFIELD ──
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < 220; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.2 + 0.2,
+        alpha: Math.random() * 0.7 + 0.1,
+        speed: Math.random() * 0.3 + 0.05,
+        flicker: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  function drawStars(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.flicker += s.speed * 0.02;
+      const a = s.alpha * (0.7 + 0.3 * Math.sin(s.flicker));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(240, 208, 128, ${a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+
+  resize();
+  initStars();
+  drawStars();
+  window.addEventListener('resize', () => { resize(); initStars(); });
+
+  // ── SCROLL REVEAL ──
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

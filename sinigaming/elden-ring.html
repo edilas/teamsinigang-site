@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-57W3NKSFTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-57W3NKSFTE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-6614135487817952">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<meta name="description" content="Elden Ring beginner guide — tips, Vigor, Spirit Ashes, and Shadow of the Erdtree DLC advice. Sinigaming rating: 10/10.">
+<title>Elden Ring Guide — Tips, Stats & DLC Advice | Sinigaming</title>
+<link rel="canonical" href="https://www.teamsinigang.com/sinigaming/elden-ring.html">
+
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;
+  --text:#e8e8f0;--muted:#888899;--accent:#f0a500;--accent2:#e05c3a;
+  --green:#4caf7d;--purple:#9b7fe8;--radius:10px;
+  --font:'Inter',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto}
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:.5rem;position:sticky;top:0;z-index:100}
+.nav-brand{font-weight:700;font-size:1.1rem;color:var(--text);padding:1rem 0;white-space:nowrap}
+.nav-brand span{color:var(--accent)}
+nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.2rem;padding:.5rem 0}
+nav ul li a{color:var(--muted);padding:.4rem .75rem;border-radius:6px;font-size:.9rem;
+  transition:color .2s,background .2s;display:block}
+nav ul li a:hover,nav ul li a.active{color:var(--text);background:var(--surface2);text-decoration:none}
+.container{max-width:900px;margin:0 auto;padding:0 1.5rem}
+.hero{padding:4rem 0 3rem;text-align:center;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.75rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:.85rem}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:620px;margin:0 auto 1.5rem}
+section{padding:2.5rem 0}
+section+section{border-top:1px solid var(--border)}
+.sec-label{font-size:.78rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--accent);margin-bottom:.6rem}
+h2{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;margin-bottom:1.1rem}
+h3{font-size:1.05rem;font-weight:600;margin-bottom:.4rem}
+p{color:var(--muted);margin-bottom:.9rem}
+p:last-child{margin-bottom:0}
+strong{color:var(--text)}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;padding:.22rem .55rem;border-radius:4px}
+.b-gold{background:rgba(240,165,0,.15);color:var(--accent)}
+.b-red{background:rgba(224,92,58,.15);color:var(--accent2)}
+.b-green{background:rgba(76,175,125,.15);color:var(--green)}
+.b-purple{background:rgba(155,127,232,.15);color:var(--purple)}
+.b-muted{background:var(--surface2);color:var(--muted)}
+.btn{display:inline-block;background:var(--accent);color:#000;font-weight:700;
+  padding:.75rem 1.6rem;border-radius:8px;font-size:.95rem;transition:opacity .2s}
+.btn:hover{opacity:.85;text-decoration:none}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-out:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem}
+.card:hover{border-color:var(--accent)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.grid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.tip-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.tip-list li{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem 1.2rem;display:flex;gap:1rem;align-items:flex-start}
+.tip-n{font-size:.83rem;font-weight:700;color:var(--accent);min-width:1.6rem;padding-top:.1rem}
+.tip-b strong{color:var(--text);display:block;margin-bottom:.2rem;font-size:.95rem}
+.tip-b span{color:var(--muted);font-size:.88rem;line-height:1.55}
+.tbl-wrap{overflow-x:auto;margin:1rem 0}
+table{width:100%;border-collapse:collapse;font-size:.87rem}
+th{background:var(--surface2);color:var(--text);font-weight:600;text-align:left;
+  padding:.7rem 1rem;border:1px solid var(--border)}
+td{padding:.6rem 1rem;border:1px solid var(--border);color:var(--muted);vertical-align:top}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.verdict{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.4rem}
+.verdict ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.verdict ul li{font-size:.91rem;color:var(--muted)}
+.breadcrumb{font-size:.82rem;color:var(--muted);padding:1.2rem 0 0}
+.breadcrumb a{color:var(--muted)}
+.breadcrumb a:hover{color:var(--accent)}
+.meta-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.5rem}
+.info-box{border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0}
+.info-box.purple{background:rgba(155,127,232,.07);border:1px solid rgba(155,127,232,.25)}
+.info-box.green{background:rgba(76,175,125,.07);border:1px solid rgba(76,175,125,.25)}
+.info-box.orange{background:rgba(240,165,0,.07);border:1px solid rgba(240,165,0,.25)}
+.info-box h3{font-size:1rem;margin-bottom:.4rem}
+.info-box.purple h3{color:var(--purple)}
+.info-box.green h3{color:var(--green)}
+.info-box.orange h3{color:var(--accent)}
+.nav-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+.nav-btns a{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:.6rem 1.1rem;font-size:.87rem;color:var(--muted);transition:border-color .2s,color .2s}
+.nav-btns a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+footer{background:var(--surface);border-top:1px solid var(--border);
+  padding:2rem 1.5rem;text-align:center;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--muted);margin:0 .45rem}
+footer a:hover{color:var(--accent)}
+.ft-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.2rem;margin-top:.7rem}
+@media(max-width:600px){
+  .hero{padding:2.5rem 0 2rem}
+  nav{padding:0 1rem}
+}
+</style>
+
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+<link rel="stylesheet" href="/assets/brand/brand.css">
+</head>
+<body class="ts-branding">
+<nav>
+  <a class="nav-brand ts-logo-link" href="/index.html" aria-label="Team Sinigang home"><img src="/assets/brand/team-sinigang-logo.webp" alt="Team Sinigang"></a>
+  <ul><li><a href="/index.html#featured">Featured</a></li>
+<li><a href="/index.html#games">Games</a></li>
+<li><a href="/index.html#sinigang">What is Sinigang?</a></li>
+<li><a href="/recipes.html">Recipes</a></li>
+<li><a href="/sinigaming/index.html" class="active">🎮 Sinigaming</a></li>
+<li><a href="/blog/index.html">📰 Blog</a></li>
+</ul>
+</nav>
+<div class="container">
+  <div class="breadcrumb"><a href="/index.html">Home</a> › <a href="/sinigaming/index.html">Sinigaming</a> › Elden Ring</div>
+  <div style="padding:2.5rem 0 2rem;border-bottom:1px solid var(--border)">
+    <div class="eyebrow">⚱️ Sinigaming Guide</div>
+    <h1>Elden Ring — Complete Beginner's Guide</h1>
+    <p style="color:var(--muted)">FromSoftware · Base game Feb 2022 · Shadow of the Erdtree DLC Jun 2024 · PC, PS5, Xbox</p>
+    <div class="meta-row">
+      <span class="badge b-gold">Complete Guide</span><span class="badge b-muted">Souls-like</span>
+      <span class="badge b-muted">Open World</span><span class="badge b-red">Hard</span>
+      <span class="badge b-gold">⚱️ 10 / 10</span>
+    </div>
+    <div class="nav-btns">
+      <a href="#before">Before You Start</a><a href="#first-hour">First Hour</a>
+      <a href="#leveling">Leveling</a><a href="#combat">Combat</a>
+      <a href="#dlc">Shadow of the Erdtree</a><a href="#verdict">Verdict</a>
+    </div>
+  </div>
+
+  <section>
+    <p>Elden Ring is FromSoftware's open-world masterpiece — brutally difficult, endlessly rewarding, and widely regarded as one of the greatest games ever made. One principle above all others: <strong>you will die, and you will learn.</strong> Every death teaches you something.</p>
+  </section>
+
+  <section id="before">
+    <div class="sec-label">⚗️ Before You Start</div>
+    <h2>Class & Keepsake</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n">1</div><div class="tip-b"><strong>Don't stress your starting class — it's not permanent</strong><span>All 10 classes can eventually use any gear. For beginners: <em>Vagabond</em> (melee tank) and <em>Samurai</em> (versatile katana) are most forgiving. <em>Astrologer</em> for ranged magic. You cannot pick wrong.</span></div></li>
+      <li><div class="tip-n">2</div><div class="tip-b"><strong>Pick the Golden Seed as your Keepsake</strong><span>Gives you an extra charge on your Flask of Crimson Tears (healing potion). One extra heal at the start is more valuable than any other starting bonus.</span></div></li>
+    </ul>
+  </section>
+
+  <section id="first-hour">
+    <div class="sec-label">🏇 Your First Hour</div>
+    <h2>Limgrave — what to do, what to ignore</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n">3</div><div class="tip-b"><strong>Get Torrent (your horse) as soon as possible</strong><span>After the first outdoor Site of Grace, speak to Melina. She gives you Torrent AND the ability to level up. Torrent is essential — get him immediately.</span></div></li>
+      <li><div class="tip-n">4</div><div class="tip-b"><strong>At the Church of Elleh: buy the Crafting Kit and find Renna at night</strong><span>Buy the Crafting Kit from Merchant Kale. Return at nighttime — Renna appears and gives you the Spirit Calling Bell, letting you summon Spirit Ashes (AI ally fighters) in boss fights. This is massive.</span></div></li>
+      <li><div class="tip-n">5</div><div class="tip-b"><strong>Do NOT fight the Tree Sentinel at the start</strong><span>The golden knight on horseback right after the tutorial is a trap for new players — walk away. Come back after 10+ hours. FromSoftware is teaching you that not every enemy needs to be fought immediately.</span></div></li>
+    </ul>
+  </section>
+
+  <section id="leveling">
+    <div class="sec-label">📈 Leveling & Stats</div>
+    <h2>The most important thing beginners get wrong</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n">6</div><div class="tip-b"><strong>Pump Vigor first — always Vigor</strong><span>Vigor = your HP. The #1 beginner mistake is ignoring it. Aim for at least 40 Vigor before investing heavily elsewhere. "I died 50 times before realising I just needed more HP" — every veteran, ever.</span></div></li>
+      <li><div class="tip-n">7</div><div class="tip-b"><strong>Always spend Runes before heading into danger</strong><span>Runes are your XP currency. You lose them on death — they drop at your corpse and you have one chance to retrieve them. Level up at a Site of Grace before any boss fight.</span></div></li>
+      <li><div class="tip-n">8</div><div class="tip-b"><strong>Collect Golden Seeds and Sacred Tears</strong><span>Golden Seeds (glowing golden plants) add extra healing flask charges. Sacred Tears (churches and ruins) increase how much each charge heals. Among the highest-priority pickups in the game.</span></div></li>
+    </ul>
+  </section>
+
+  <section id="combat">
+    <div class="sec-label">⚔️ Combat</div>
+    <h2>How to stop dying to everything</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n">9</div><div class="tip-b"><strong>Stop panic rolling — time your dodge</strong><span>Spam-rolling gets you killed. Elden Ring has input buffering — mashing queues inputs that fire at the wrong moment. Practice one well-timed roll through an attack. The invincibility frames on a good dodge are your best defensive tool.</span></div></li>
+      <li><div class="tip-n">10</div><div class="tip-b"><strong>Two-hand your weapon for a big damage boost</strong><span>Hold Triangle/Y while pressing your weapon button. Gives a 50% Strength bonus and often better move sets. For Strength builds, two-handing is a free damage upgrade without spending a level.</span></div></li>
+      <li><div class="tip-n">11</div><div class="tip-b"><strong>Use Spirit Ashes — they're not cheating</strong><span>Spirit Ashes are part of the game's design. The Lone Wolf Ashes (three wolves, available early) pull boss aggro while you heal or attack from the side. Use every tool the game gives you.</span></div></li>
+      <li><div class="tip-n">12</div><div class="tip-b"><strong>If an area destroys you — leave and come back</strong><span>Elden Ring is non-linear. If a zone wrecks you, go somewhere else. Level up. Come back stronger. There is always a path forward. This isn't giving up — it's playing correctly.</span></div></li>
+    </ul>
+  </section>
+
+  <section id="dlc">
+    <div class="sec-label">🌳 Shadow of the Erdtree DLC</div>
+    <h2>The expansion — harder than the base game</h2>
+    <div class="info-box green"><h3>🔒 DLC Requirements</h3><p>Defeat <strong>Mohg, Lord of Blood</strong> AND <strong>Starscourge Radahn</strong>, then interact with the withered arm in Mohg's arena. Recommended: 45–60 Vigor, Rune Level 120–150 before entering.</p></div>
+    <ul class="tip-list">
+      <li><div class="tip-n">13</div><div class="tip-b"><strong>Scadutree Fragments are your power — collect obsessively</strong><span>The DLC uses a completely separate power system. Scadutree Fragments permanently boost your attack AND damage negation. Your base game level barely matters here — Scadutree Blessing level does. Treat these like Sacred Tears.</span></div></li>
+      <li><div class="tip-n">14</div><div class="tip-b"><strong>Revered Spirit Ashes re-empower your summons</strong><span>Your Spirit Ashes are weakened in the DLC. Revered Spirit Ashes (found at places of worship in the Realm of Shadow) boost them back. Neglecting either system makes the DLC brutally harder than necessary.</span></div></li>
+      <li><div class="tip-n">15</div><div class="tip-b"><strong>Explore sideways before story bosses</strong><span>Unlock as much map as possible before tackling story bosses. More map = more Scadutree Fragments = dramatically easier fights.</span></div></li>
+      <li><div class="tip-n">16</div><div class="tip-b"><strong>DLC bosses are harder than anything in the base game</strong><span>If you're getting one-shot at full Vigor 60, you need more Scadutree Fragments. The final boss is widely considered the hardest FromSoftware has ever made. Use every tool. No shame in it.</span></div></li>
+    </ul>
+  </section>
+
+  <section id="verdict">
+    <div class="sec-label">🍲 The Sinigaming Verdict</div>
+    <h2>Our take on Elden Ring</h2>
+    <div class="info-box orange" style="margin-top:0"><h3>🕹️ Our SiniPlay take</h3><p>100% complete and up to NG+5. Even after finishing Shadow of the Erdtree, there's nothing left to do.</p></div>
+    <div class="verdict"><ul>
+      <li>✅ One of the greatest games ever made — deserves every award it won</li>
+      <li>✅ The open world is endlessly surprising — every corner hides something</li>
+      <li>✅ Spirit Ashes make it accessible — use them without guilt</li>
+      <li>⚠️ The difficulty is real — budget your "one more attempt" sessions</li>
+      <li>⚠️ DLC is harder than the base game — enter prepared at Level 120+</li>
+      <li>💡 Base game ~60–100 hrs · DLC adds another 20–40 hrs · Worth every minute</li>
+    </ul></div>
+    <div class="nav-btns" style="margin-top:1.5rem">
+      <a href="/sinigaming/index.html">← All Guides</a>
+      <a href="/sinigaming/nightreign.html">Next: Nightreign →</a>
+    </div>
+  </section>
+</div>
+<footer>
+  <div class="ts-studio-line"><strong>Team Sinigang</strong> — Games served piping hot · A gaming studio from <a href="https://www.agosllc.com/">AGOS LLC</a></div>
+  <div class="ft-links">
+    <a href="/index.html">Home</a><a href="/index.html#games">Games</a>
+    <a href="/recipes.html">Recipes</a><a href="/sinigaming/index.html">Sinigaming</a>
+    <a href="/blog/index.html">Blog</a><a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+  </div>
+</footer>
+</body>
+</html>

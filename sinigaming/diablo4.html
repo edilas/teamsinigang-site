@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-57W3NKSFTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-57W3NKSFTE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-6614135487817952">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<meta name="description" content="Diablo IV Disciple Paladin guide for Lord of Hatred: Blessed Hammer, Consecration, and Arbiter of Justice, from 116+ hours of play. Rated 9.2/10.">
+<title>Diablo IV Guide — Disciple Paladin & Lord of Hatred | Sinigaming</title>
+<link rel="canonical" href="https://www.teamsinigang.com/sinigaming/diablo4.html">
+
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;
+  --text:#e8e8f0;--muted:#888899;--accent:#f0a500;--accent2:#e05c3a;
+  --green:#4caf7d;--purple:#9b7fe8;--radius:10px;
+  --font:'Inter',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto}
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:.5rem;position:sticky;top:0;z-index:100}
+.nav-brand{font-weight:700;font-size:1.1rem;color:var(--text);padding:1rem 0;white-space:nowrap}
+.nav-brand span{color:var(--accent)}
+nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.2rem;padding:.5rem 0}
+nav ul li a{color:var(--muted);padding:.4rem .75rem;border-radius:6px;font-size:.9rem;
+  transition:color .2s,background .2s;display:block}
+nav ul li a:hover,nav ul li a.active{color:var(--text);background:var(--surface2);text-decoration:none}
+.container{max-width:900px;margin:0 auto;padding:0 1.5rem}
+.hero{padding:4rem 0 3rem;text-align:center;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.75rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:.85rem}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:620px;margin:0 auto 1.5rem}
+section{padding:2.5rem 0}
+section+section{border-top:1px solid var(--border)}
+.sec-label{font-size:.78rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--accent);margin-bottom:.6rem}
+h2{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;margin-bottom:1.1rem}
+h3{font-size:1.05rem;font-weight:600;margin-bottom:.4rem}
+p{color:var(--muted);margin-bottom:.9rem}
+p:last-child{margin-bottom:0}
+strong{color:var(--text)}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;padding:.22rem .55rem;border-radius:4px}
+.b-gold{background:rgba(240,165,0,.15);color:var(--accent)}
+.b-red{background:rgba(224,92,58,.15);color:var(--accent2)}
+.b-green{background:rgba(76,175,125,.15);color:var(--green)}
+.b-purple{background:rgba(155,127,232,.15);color:var(--purple)}
+.b-muted{background:var(--surface2);color:var(--muted)}
+.btn{display:inline-block;background:var(--accent);color:#000;font-weight:700;
+  padding:.75rem 1.6rem;border-radius:8px;font-size:.95rem;transition:opacity .2s}
+.btn:hover{opacity:.85;text-decoration:none}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-out:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem}
+.card:hover{border-color:var(--accent)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.grid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.tip-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.tip-list li{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem 1.2rem;display:flex;gap:1rem;align-items:flex-start}
+.tip-n{font-size:.83rem;font-weight:700;color:var(--accent);min-width:1.6rem;padding-top:.1rem}
+.tip-b strong{color:var(--text);display:block;margin-bottom:.2rem;font-size:.95rem}
+.tip-b span{color:var(--muted);font-size:.88rem;line-height:1.55}
+.tbl-wrap{overflow-x:auto;margin:1rem 0}
+table{width:100%;border-collapse:collapse;font-size:.87rem}
+th{background:var(--surface2);color:var(--text);font-weight:600;text-align:left;
+  padding:.7rem 1rem;border:1px solid var(--border)}
+td{padding:.6rem 1rem;border:1px solid var(--border);color:var(--muted);vertical-align:top}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.verdict{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.4rem}
+.verdict ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.verdict ul li{font-size:.91rem;color:var(--muted)}
+.breadcrumb{font-size:.82rem;color:var(--muted);padding:1.2rem 0 0}
+.breadcrumb a{color:var(--muted)}
+.breadcrumb a:hover{color:var(--accent)}
+.meta-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.5rem}
+.info-box{border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0}
+.info-box.purple{background:rgba(155,127,232,.07);border:1px solid rgba(155,127,232,.25)}
+.info-box.green{background:rgba(76,175,125,.07);border:1px solid rgba(76,175,125,.25)}
+.info-box.orange{background:rgba(240,165,0,.07);border:1px solid rgba(240,165,0,.25)}
+.info-box h3{font-size:1rem;margin-bottom:.4rem}
+.info-box.purple h3{color:var(--purple)}
+.info-box.green h3{color:var(--green)}
+.info-box.orange h3{color:var(--accent)}
+.nav-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+.nav-btns a{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:.6rem 1.1rem;font-size:.87rem;color:var(--muted);transition:border-color .2s,color .2s}
+.nav-btns a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.proof{margin:1.2rem 0 0;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden}
+.proof-scroll{overflow-x:auto;background:#1b1f27}
+.proof img{display:block;width:100%;min-width:620px;height:auto}
+.proof figcaption{padding:.8rem 1.1rem;font-size:.82rem;color:var(--muted);
+  border-top:1px solid var(--border)}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:1.2rem 0 0}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.1rem}
+.stat b{display:block;font-size:1.5rem;color:var(--text);line-height:1.2}
+.stat span{font-size:.8rem;color:var(--muted)}
+footer{background:var(--surface);border-top:1px solid var(--border);
+  padding:2rem 1.5rem;text-align:center;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--muted);margin:0 .45rem}
+footer a:hover{color:var(--accent)}
+.ft-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.2rem;margin-top:.7rem}
+@media(max-width:600px){
+  .hero{padding:2.5rem 0 2rem}
+  nav{padding:0 1rem}
+}
+</style>
+
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+<link rel="stylesheet" href="/assets/brand/brand.css">
+</head>
+<body class="ts-branding">
+<nav>
+  <a class="nav-brand ts-logo-link" href="/index.html" aria-label="Team Sinigang home"><img src="/assets/brand/team-sinigang-logo.webp" alt="Team Sinigang"></a>
+  <ul><li><a href="/index.html#featured">Featured</a></li>
+<li><a href="/index.html#games">Games</a></li>
+<li><a href="/index.html#sinigang">What is Sinigang?</a></li>
+<li><a href="/recipes.html">Recipes</a></li>
+<li><a href="/sinigaming/index.html" class="active">🎮 Sinigaming</a></li>
+<li><a href="/blog/index.html">📰 Blog</a></li>
+</ul>
+</nav>
+<div class="container">
+  <div class="breadcrumb"><a href="/index.html">Home</a> › <a href="/sinigaming/index.html">Sinigaming</a> › Diablo IV</div>
+  <div class="breadcrumb"><a href="/index.html">Home</a> › <a href="/sinigaming/index.html">Sinigaming</a> › Diablo IV</div>
+  <div style="padding:2.5rem 0 2rem;border-bottom:1px solid var(--border)">
+    <div class="eyebrow" style="color:var(--accent2)">👿 Sinigaming Guide</div>
+    <h1>Diablo IV — Disciple Paladin Guide</h1>
+    <p style="color:var(--muted)">Blizzard Entertainment · Base game Jun 2023 · Lord of Hatred DLC Apr 2026 · PC, PS5, Xbox, Steam Deck</p>
+    <div class="meta-row">
+      <span class="badge b-gold">Complete Guide</span><span class="badge b-muted">Action RPG</span>
+      <span class="badge b-red">👿 9.2 / 10</span><span class="badge b-purple">🕹️ 116 hrs played</span>
+    </div>
+    <div class="nav-btns">
+      <a href="#playtime">Our Playtime</a><a href="#howwe">How We Play</a><a href="#build">Our Build</a>
+      <a href="#dlc">Lord of Hatred</a>
+      <a href="#general">General Tips</a><a href="#verdict">Verdict</a>
+    </div>
+  </div>
+  <section>
+    <p>We're playing Lord of Hatred on Steam, usually an hour or two a day, which works out to one or two campaign sessions. Our character is a Paladin on the Disciple Oath, and the goal right now is simple: hit the new level cap of 70. This guide is what we've learned getting there, written from our own playthrough rather than a theorycrafting spreadsheet.</p>
+    <p style="font-size:.85rem">Last updated October 2026 · Season 15. Skill numbers change between seasons, so we stick to how things play rather than exact percentages.</p>
+  </section>
+  <section id="playtime">
+    <div class="sec-label" style="color:var(--accent2)">🕹️ Our Playtime</div>
+    <h2>We actually played this one</h2>
+    <p>Every Sinigaming guide is written from real hours in the game. Here's our Steam record for Diablo IV, including a finished Lord of Hatred campaign — something only about 13% of Steam players have done.</p>
+    <div class="stat-row">
+      <div class="stat"><b>116.4 hrs</b><span>Total play time on Steam</span></div>
+      <div class="stat"><b>13%</b><span>of players have finished the Lord of Hatred campaign</span></div>
+      <div class="stat"><b>Level 50+</b><span>Character progression reached</span></div>
+    </div>
+    <figure class="proof">
+      <div class="proof-scroll"><img src="/assets/sinigaming/diablo4-steam-playtime.webp" width="1090" height="346" loading="lazy" decoding="async"
+        alt="Steam library page for Diablo IV showing 116.4 hours played, 8 of 45 achievements, and recent achievements including Hatred Banished for completing the Lord of Hatred campaign"></div>
+      <figcaption>Our Steam library, captured October 2026. Cropped only, no other edits. (Steam lists the Level 50 achievement twice in its summary — that's a Steam display quirk.)</figcaption>
+    </figure>
+  </section>
+  <section id="howwe">
+    <div class="sec-label" style="color:var(--accent2)">🎮 How We Play</div>
+    <h2>Our setup, honestly</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--accent2)">1</div><div class="tip-b"><strong>Solo, on Steam, 1–2 hours a day</strong><span>We haven't jumped into co-op yet. Everything here comes from solo play, so if you're planning to group up, some advice (especially around survivability) will play differently.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">2</div><div class="tip-b"><strong>We're here for the NPCs as much as the loot</strong><span>The characters and side stories are a big part of why we keep coming back. We don't rush past dialogue, and we'd recommend you don't either.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">3</div><div class="tip-b"><strong>Gear: swap up, sell the rest, hunt for orange</strong><span>We equip upgrades as they drop and trade in the rest. The real goal is orange: Legendary items, which carry the Aspects that change how your skills behave.</span></div></li>
+    </ul>
+  </section>
+  <section id="build">
+    <div class="sec-label" style="color:var(--accent2)">⚔️ Our Disciple Paladin Build</div>
+    <h2>The skills we actually use</h2>
+    <p>The Paladin picks one of four Oaths (Zealot, Juggernaut, Judicator, or Disciple), which shapes the whole build. Disciple is the angelic one: every time you cast a Disciple skill that has a cooldown, you briefly take Arbiter form, sprouting wings that strike enemies around you while your Disciple skills hit harder. Keep cooldowns rolling and you can stay in Arbiter form for most of a fight. Your resource is Faith, which your Basic skills generate and your bigger skills spend.</p>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--accent2)">4</div><div class="tip-b"><strong>Blessed Hammer is our crowd-clearer</strong><span>Our favorite AoE. Blessed Hammer throws hammers that spiral out through packs, and it's cheap on Faith, so you can keep it going. Take the Disciple&rsquo;s Halo upgrade and it becomes a Disciple skill, with hammers orbiting you so you can walk straight into a crowd.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">5</div><div class="tip-b"><strong>Holy Bolt for the hammer throw</strong><span>Holy Bolt is a Basic skill that throws a holy hammer and generates Faith to fuel everything else. The Divine Bolt upgrade turns it into a Disciple skill that pierces through enemies and makes them Vulnerable (they take extra damage).</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">6</div><div class="tip-b"><strong>Consecration keeps us alive</strong><span>Consecration bathes you in Light for several seconds, healing you every second while damaging enemies standing in it. Drop it when a fight gets messy and stand in it. It's not a Disciple skill, but solo it's the best safety net we've found.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">7</div><div class="tip-b"><strong>Save Arbiter of Justice for the hard fights</strong><span>The Paladin's Ultimate. You launch into the sky and crash down, staying in Arbiter form for a long stretch. It has a long cooldown, so we don't waste it on trash packs; we hold it for bosses, elites, and anything that's going sideways.</span></div></li>
+    </ul>
+    <div class="info-box orange"><h3>💡 Why Disciple feels so good</h3><p>Arbiter form's Wing Strikes hit around you automatically, so the more time you spend in it, the more free damage you're doing. Skills with cooldowns that are Disciple skills are what trigger it, so the build is really about keeping those rolling.</p></div>
+  </section>
+  <section id="dlc">
+    <div class="sec-label" style="color:var(--accent2)">🔱 Lord of Hatred</div>
+    <h2>What the expansion adds</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--accent2)">8</div><div class="tip-b"><strong>You need the expansion to play Paladin</strong><span>Lord of Hatred launched April 28, 2026, adding the Paladin and Warlock and taking the roster to eight classes. Pre-orders got the Paladin early.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">9</div><div class="tip-b"><strong>The level cap is now 70</strong><span>Up from 60. Blizzard reworked the curve so reaching max level takes about as long as before: the early levels are a bit slower and the back half moves faster. That's our current goal.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">10</div><div class="tip-b"><strong>Every class got a new skill tree</strong><span>The skill tree rework is free for everyone, not just expansion owners. If you're coming back from an older season, expect your old build to look different.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">11</div><div class="tip-b"><strong>The campaign is worth finishing</strong><span>The story takes you to Skovos to face Mephisto, the Lord of Hatred himself. Steam says only about 13% of players have finished it. If you like the NPCs, this is the best story content Diablo IV has.</span></div></li>
+    </ul>
+  </section>
+  <section id="general">
+    <div class="sec-label" style="color:var(--accent2)">⚗️ General Tips</div>
+    <h2>Things that apply to any Paladin run</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--accent2)">12</div><div class="tip-b"><strong>Don't lock in too early</strong><span>You can respec skills for a gold cost, so experiment. Try a different Oath for a few levels if you're curious; it's cheap to switch back.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">13</div><div class="tip-b"><strong>Do the side quests</strong><span>This is where the NPCs shine: smaller, grimmer human stories you'll miss if you only follow the main quest. They also feed your Renown.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">14</div><div class="tip-b"><strong>Raise Renown in each region</strong><span>Side quests, dungeons, and Waypoints fill each region's Renown meter, which pays out permanent rewards for all your characters.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">15</div><div class="tip-b"><strong>Clear dungeons for Aspects</strong><span>Finishing a dungeon for the first time can unlock a Legendary Aspect in your Codex of Power, which you can then imprint onto gear. That's how you get Legendary effects onto items you like.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">16</div><div class="tip-b"><strong>It's always online</strong><span>Diablo IV needs an internet connection even when you play solo, so plan ahead if you're playing away from home.</span></div></li>
+    </ul>
+  </section>
+  <section id="verdict">
+    <div class="sec-label" style="color:var(--accent2)">🍲 The Sinigaming Verdict</div>
+    <h2>Our take on Diablo IV</h2>
+    <div class="info-box orange" style="margin-top:0"><h3>🕹️ Our SiniPlay take</h3><p>Still playing, and still smiting demons with holy power.</p></div>
+    <div class="verdict"><ul>
+      <li>✅ Lord of Hatred is the best Diablo IV has felt: a strong campaign and a great new class</li>
+      <li>✅ The Disciple Paladin is a blast: hammers everywhere and wings that hit for you</li>
+      <li>✅ The NPCs and side stories give the grind some heart</li>
+      <li>✅ Easy to play in 1–2 hour sessions and still feel progress</li>
+      <li>⚠️ Always-online, even solo</li>
+      <li>⚠️ Base game plus expansions adds up at full price, so watch for sales</li>
+      <li>💡 Hold Arbiter of Justice for bosses, and keep Consecration ready when things get rough</li>
+    </ul></div>
+    <div class="nav-btns" style="margin-top:1.5rem">
+      <a href="/sinigaming/index.html">← All Guides</a>
+      <a href="/sinigaming/elden-ring.html">Also read: Elden Ring Guide</a>
+    </div>
+  </section>
+</div>
+</div>
+<footer>
+  <div class="ts-studio-line"><strong>Team Sinigang</strong> — Games served piping hot · A gaming studio from <a href="https://www.agosllc.com/">AGOS LLC</a></div>
+  <div class="ft-links">
+    <a href="/index.html">Home</a><a href="/index.html#games">Games</a>
+    <a href="/recipes.html">Recipes</a><a href="/sinigaming/index.html">Sinigaming</a>
+    <a href="/blog/index.html">Blog</a><a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+  </div>
+</footer>
+</body>
+</html>

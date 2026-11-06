@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-adsense-account" content="ca-pub-6614135487817952">
+  <meta name="description" content="Elden Ring Nightreign guide — Nightfarer class breakdowns, expedition tips, Relic system, and Nightlord strategy. Perfect for busy players. Sinigaming rating: 9/10.">
+  <title>Elden Ring Nightreign Guide — Classes, Expeditions & Relics | Sinigaming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;--text:#e8e8f0;--muted:#888899;--accent:#f0a500;--accent2:#e05c3a;--green:#4caf7d;--purple:#9b7fe8;--radius:10px;--font:'Inter',system-ui,sans-serif; }
+    body { background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;font-size:16px; }
+    a { color:var(--accent);text-decoration:none; } a:hover { text-decoration:underline; }
+    nav { background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;position:sticky;top:0;z-index:100; }
+    .nav-brand { font-weight:700;font-size:1.1rem;color:var(--text);padding:1rem 0;white-space:nowrap; }
+    .nav-brand span { color:var(--accent); }
+    nav ul { list-style:none;display:flex;flex-wrap:wrap;gap:0.2rem;padding:0.5rem 0; }
+    nav ul li a { color:var(--muted);padding:0.4rem 0.75rem;border-radius:6px;font-size:0.9rem;transition:color 0.2s,background 0.2s;display:block; }
+    nav ul li a:hover,nav ul li a.active { color:var(--text);background:var(--surface2);text-decoration:none; }
+    .container { max-width:860px;margin:0 auto;padding:0 1.5rem; }
+    .breadcrumb { font-size:0.82rem;color:var(--muted);padding:1.25rem 0 0; }
+    .breadcrumb a { color:var(--muted); } .breadcrumb a:hover { color:var(--accent); }
+    .guide-hero { padding:2.5rem 0 2rem;border-bottom:1px solid var(--border); }
+    .guide-hero .eyebrow { font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--purple);margin-bottom:0.75rem; }
+    .guide-hero h1 { font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:0.75rem; }
+    .guide-hero .sub { color:var(--muted);font-size:1rem;margin-bottom:1.25rem; }
+    .meta-row { display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center; }
+    .badge { display:inline-block;font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:4px; }
+    .badge-gold { background:rgba(240,165,0,0.15);color:var(--accent); }
+    .badge-purple { background:rgba(155,127,232,0.15);color:var(--purple); }
+    .badge-green { background:rgba(76,175,125,0.15);color:var(--green); }
+    .badge-muted { background:var(--surface2);color:var(--muted); }
+    .rating-pill { background:var(--surface2);border-radius:8px;padding:0.3rem 0.8rem;font-size:1rem;font-weight:700;color:var(--purple); }
+    section { padding:2.5rem 0; }
+    section+section { border-top:1px solid var(--border); }
+    .section-label { font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--purple);margin-bottom:0.75rem; }
+    h2 { font-size:1.4rem;font-weight:700;margin-bottom:1.25rem;color:var(--text); }
+    p { color:var(--muted);margin-bottom:0.85rem; } p:last-child { margin-bottom:0; }
+    .tip-list { list-style:none;display:flex;flex-direction:column;gap:0.75rem; }
+    .tip-list li { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;gap:1rem;align-items:flex-start; }
+    .tip-num { font-size:0.85rem;font-weight:700;color:var(--purple);min-width:1.8rem;padding-top:0.1rem; }
+    .tip-body strong { color:var(--text);display:block;margin-bottom:0.25rem;font-size:0.95rem; }
+    .tip-body span { color:var(--muted);font-size:0.9rem;line-height:1.55; }
+    .table-wrap { overflow-x:auto;margin:1rem 0; }
+    table { width:100%;border-collapse:collapse;font-size:0.85rem; }
+    th { background:var(--surface2);color:var(--text);font-weight:600;text-align:left;padding:0.7rem 1rem;border:1px solid var(--border); }
+    td { padding:0.6rem 1rem;border:1px solid var(--border);color:var(--muted);vertical-align:top; }
+    tr:nth-child(even) td { background:rgba(255,255,255,0.02); }
+    .verdict { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem; }
+    .verdict ul { list-style:none;display:flex;flex-direction:column;gap:0.5rem; }
+    .verdict ul li { font-size:0.92rem;color:var(--muted); }
+    .info-box { background:rgba(155,127,232,0.07);border:1px solid rgba(155,127,232,0.25);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1rem 0; }
+    .info-box h3 { color:var(--purple);margin:0 0 0.5rem;font-size:1rem; }
+    .info-box p { font-size:0.9rem;margin:0; }
+    .nav-guide { display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem; }
+    .nav-guide a { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.6rem 1.1rem;font-size:0.88rem;color:var(--muted);transition:border-color 0.2s,color 0.2s; }
+    .nav-guide a:hover { border-color:var(--accent);color:var(--accent);text-decoration:none; }
+    footer { background:var(--surface);border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;font-size:0.85rem;color:var(--muted); }
+    footer a { color:var(--muted);margin:0 0.5rem; } footer a:hover { color:var(--accent); }
+    .footer-links { display:flex;flex-wrap:wrap;justify-content:center;gap:0.25rem;margin-top:0.75rem; }
+  </style>
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+<link rel="stylesheet" href="/assets/brand/brand.css">
+</head>
+<body class="ts-branding">
+<nav>
+  <a class="nav-brand ts-logo-link" href="/index.html" aria-label="Team Sinigang home"><img src="/assets/brand/team-sinigang-logo.webp" alt="Team Sinigang"></a>
+  <ul>
+    <li><a href="/index.html#featured">Featured</a></li>
+    <li><a href="/index.html#games">Games</a></li>
+    <li><a href="/index.html#sinigang">What is Sinigang?</a></li>
+    <li><a href="/recipes.html">Recipes</a></li>
+    <li><a href="/sinigaming/index.html" class="active">🎮 Sinigaming</a></li>
+    <li><a href="/blog/index.html">📰 Blog</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="/index.html">Home</a> › <a href="/sinigaming/index.html">Sinigaming</a> › Elden Ring: Nightreign
+  </div>
+
+  <div class="guide-hero">
+    <div class="eyebrow">🌙 Sinigaming Guide</div>
+    <h1>Elden Ring: Nightreign — Complete Guide</h1>
+    <p class="sub">FromSoftware · Released May 30, 2025 · Standalone Game · PC, PS5, Xbox</p>
+    <div class="meta-row">
+      <span class="badge badge-gold">Complete Guide</span>
+      <span class="badge badge-purple">Co-op Roguelite</span>
+      <span class="badge badge-green">~45 min per run</span>
+      <span class="rating-pill">🌙 9 / 10</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="info-box">
+      <h3>🌙 This is NOT Elden Ring with multiplayer bolted on</h3>
+      <p>Nightreign is a completely different game. It's a roguelite — your gear and stats reset each run. The map is procedurally generated. You play a preset Nightfarer class instead of building your own character. Think Apex Legends meets Elden Ring combat, with a shrinking zone mechanic. Each expedition takes roughly 30–45 minutes.</p>
+    </div>
+    <p>Nightreign is FromSoftware's most accessible game for players with limited time. Each run is a complete experience — win or lose, you're done in under an hour. There's no massive save file to maintain, no 30-minute dungeon to redo. Pick it up on a weeknight and feel satisfied in one session.</p>
+
+    <div class="nav-guide">
+      <a href="#how-it-works">How an Expedition Works</a>
+      <a href="#nightfarers">Nightfarer Classes</a>
+      <a href="#days-1-2">Days 1 & 2 Tips</a>
+      <a href="#nightlord">The Nightlord</a>
+      <a href="#relics">Relic System</a>
+      <a href="#verdict">Verdict</a>
+    </div>
+  </section>
+
+  <section id="how-it-works">
+    <div class="section-label">🌍 How an Expedition Works</div>
+    <h2>The 3-day structure</h2>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">1</div>
+        <div class="tip-body">
+          <strong>3-day structure: loot → loot → Nightlord</strong>
+          <span>Every expedition follows the same structure. Days 1 and 2 are your prep phase: run around the Limveld map (a procedurally generated remix of Limgrave), fight enemies, find better weapons, level up at Sites of Grace, and hunt mini-bosses. Day 3 is the Nightlord — a massive boss you must defeat together. The whole thing takes roughly 30–45 minutes.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">2</div>
+        <div class="tip-body">
+          <strong>The Night's Tide will kill you if you ignore it</strong>
+          <span>The Night's Tide is a shrinking ring (like a battle royale zone) that closes in as each day progresses. Standing in it drains HP, drops a character level, and costs Runes. Each day lasts about 15 minutes — keep one eye on the map and always know where you're being pushed. The tide doesn't affect enemies, only you.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">3</div>
+        <div class="tip-body">
+          <strong>Losing a run is not wasted time — Relics carry over</strong>
+          <span>Failed expeditions still grant Relics — permanent items equipped at the Roundtable Hold between runs. Relics provide passive buffs that carry into every future expedition. Over time, a strong Relic loadout makes you significantly more powerful before you've even picked up a weapon in Limveld. Every run — win or lose — is progress.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="nightfarers">
+    <div class="section-label">⚔️ Nightfarer Classes</div>
+    <h2>Who to start with and who to graduate to</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Nightfarer</th><th>Role</th><th>Best For</th><th>Key Strength</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>⚔️ Wylder</td><td>All-rounder</td><td>Beginners ✅</td><td>Sixth Sense passive cheats death once per run — incredibly forgiving while you learn.</td></tr>
+          <tr><td>🛡️ Guardian</td><td>Tank</td><td>Beginners ✅</td><td>High damage resistance. Great if you like absorbing hits and protecting teammates.</td></tr>
+          <tr><td>🏹 Ironeye</td><td>Ranged</td><td>Intermediate</td><td>Excellent for players who prefer staying out of melee. Eagle Eye passive finds more loot.</td></tr>
+          <tr><td>🗡️ Duchess</td><td>Agile/Stealth</td><td>Intermediate</td><td>Fast and lethal. Rewards aggressive positioning — punishes mistakes.</td></tr>
+          <tr><td>🪄 Recluse</td><td>Mage</td><td>Intermediate</td><td>Big damage if your team protects you. Fragile alone but devastating in a coordinated squad.</td></tr>
+          <tr><td>🪓 Raider</td><td>Barbarian</td><td>Intermediate</td><td>Massive stagger damage and AoE. High risk, high reward melee.</td></tr>
+          <tr><td>🥷 Executor</td><td>Counter/Samurai</td><td>Advanced</td><td>Deflection and parry mechanics. Deeply satisfying to master but unforgiving to learn.</td></tr>
+          <tr><td>👻 Revenant</td><td>Summoner</td><td>Advanced</td><td>Spirit Ash summoning built into the class. Unique and powerful in co-op.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">4</div>
+        <div class="tip-body">
+          <strong>Start with Wylder, then try Guardian — graduate to the others</strong>
+          <span>Wylder's Sixth Sense passive (cheat death once per run) is practically made for learning the game. Guardian is the second-best learning class — the Steel Guard and high defense let you make mistakes without dying instantly. Learn the map and enemy patterns on these two before trying Executor or Revenant.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="days-1-2">
+    <div class="section-label">⚡ Surviving Days 1 &amp; 2</div>
+    <h2>How to make the most of your prep time</h2>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">5</div>
+        <div class="tip-body">
+          <strong>Always be upgrading your weapon — smithing stones are everywhere</strong>
+          <span>Unlike Elden Ring where you carefully choose what to upgrade, in Nightreign you should constantly swap and upgrade weapons. Smithing stones drop from enemies, appear in chests, and are sold by merchants. Use them immediately — there's no carry-over between runs, so hoarding is pointless. Bigger numbers almost always win.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">6</div>
+        <div class="tip-body">
+          <strong>Dual-wield same weapon types for double attacks</strong>
+          <span>Equipping two weapons of the same type (two daggers, two longswords) lets you swing both simultaneously with your left-hand attack. This is a significant DPS increase — look for matching weapon types during your loot runs on Days 1 and 2.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">7</div>
+        <div class="tip-body">
+          <strong>Use consumables on the ground without pocketing them</strong>
+          <span>You can use items directly off the ground without putting them in inventory. Grease, boluses, flasks — use them on the spot. Items with status-effect cures give a small resistance buff for the rest of the run. In a roguelite, resources you hoard are resources wasted.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">8</div>
+        <div class="tip-body">
+          <strong>Not every enemy needs to die — be selective</strong>
+          <span>You're on a 15-minute timer each day. Large groups of weak enemies eat your clock without meaningful rewards. Prioritize: mini-bosses (guaranteed good loot), Sites of Grace (leveling), merchants (smithing stones), and map objectives. Skip packs that offer nothing special.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">9</div>
+        <div class="tip-body">
+          <strong>Mark good weapons for teammates</strong>
+          <span>Hold Triangle/Y + L3 to mark an item in the world. It appears on your teammates' maps and screens. A sword useless to a Recluse mage might be a game-changer for a Raider. Passing gear between players is one of the big advantages of co-op Nightreign.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="nightlord">
+    <div class="section-label">🏆 The Nightlord</div>
+    <h2>Day 3 — the fight you've been preparing for</h2>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">10</div>
+        <div class="tip-body">
+          <strong>If all three players go down simultaneously — it's over</strong>
+          <span>During the Day 3 Nightlord fight, if all allies are downed at the same moment it's an instant defeat. When things get bad, one player should prioritize surviving and reviving teammates — not everyone charging in at once. One person alive keeps the run alive.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">11</div>
+        <div class="tip-body">
+          <strong>Coordinate Ultimate Arts — don't use all three at once</strong>
+          <span>Each Nightfarer's Ultimate Art is a powerful recharging ability. Stagger them through the fight rather than burning all three in the first phase. One player opens with their Ultimate, the other two hold theirs for the next phase. Consistent burst across the whole fight beats front-loading damage.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">12</div>
+        <div class="tip-body">
+          <strong>Buy FP-restoring items before Day 3 for magic users</strong>
+          <span>Any Nightfarer using spells or Character Skills burns through FP fast. Stock FP-restoring items from merchants before the Nightlord fight begins. Running out of FP mid-Nightlord effectively removes one player's toolkit from the fight.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="relics">
+    <div class="section-label">🔮 The Relic System</div>
+    <h2>Your permanent progression — the soul of long-term Nightreign</h2>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">13</div>
+        <div class="tip-body">
+          <strong>Relics are the only thing that carries across runs — take them seriously</strong>
+          <span>You can equip up to 6 Relics at once from the Roundtable Hold. They provide passive buffs to attributes, damage types, and conditional bonuses. Unlock more Relic slots by buying character Goblets from the Small Jar Bazaar using Murks (earned from runs). Every run — win or lose — is a Relic-farming session.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">14</div>
+        <div class="tip-body">
+          <strong>Coordinate your squad's Relics — some scale with multiple users</strong>
+          <span>Certain Relics scale exponentially when multiple players run the same one. A squad heal Relic that triggers when one player uses a flask becomes a full-team AoE heal if all three carry it. Before entering an expedition together, coordinate Relic setups and assign roles: who tanks, who bursts, who supports.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">15</div>
+        <div class="tip-body">
+          <strong>Complete Remembrance questlines for unique Relics</strong>
+          <span>In the Roundtable Hold Journal, each Nightfarer has a Remembrance — an optional story quest triggered by finding Memory Fragments during runs (marked with an orange flag on the map). Completing them gives big Rune payouts and unlocks special Relics that significantly power up that character's key ability.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="verdict">
+    <div class="section-label">🌙 The Sinigaming Verdict</div>
+    <h2>Our take on Nightreign</h2>
+    <div class="verdict">
+      <ul>
+        <li>✅ The best FromSoftware game for players with limited session time — each run is a complete experience</li>
+        <li>✅ Co-op genuinely improves it — squad synergy adds real depth beyond just having help</li>
+        <li>✅ Even failed runs progress your Relic loadout — no session feels wasted</li>
+        <li>⚠️ This is NOT a continuation of Elden Ring's story — it's a side-universe spinoff</li>
+        <li>⚠️ Procedural randomness means some runs are loot-rich and others feel dry — that's the roguelite deal</li>
+        <li>💡 Start with Wylder — learn the systems — then experiment freely with other Nightfarers</li>
+        <li>💡 ~30–45 min per expedition · Perfect for a weeknight session after the kids are in bed</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+      <a href="/sinigaming/index.html" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1.25rem;color:var(--muted);font-size:0.9rem;">← All Guides</a>
+      <a href="/sinigaming/elden-ring.html" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1.25rem;color:var(--muted);font-size:0.9rem;">Related: Elden Ring Guide</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div><strong>Team Sinigang</strong> — Serving games hot since 2024 🍲 · Sinigaming — tips forged in the fire of too many deaths</div>
+  <div class="footer-links">
+    <a href="/index.html">Home</a> <a href="/index.html#games">Games</a> <a href="/recipes.html">Recipes</a>
+    <a href="/sinigaming/index.html">Sinigaming</a> <a href="/blog/index.html">Blog</a>
+    <a href="/about.html">About</a> <a href="/contact.html">Contact</a>
+    <a href="/privacy.html">Privacy</a> <a href="/terms.html">Terms</a>
+  </div>
+</footer>
+</body>
+</html>

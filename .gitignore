@@ -1,0 +1,4 @@
+# Bunny CDN access logs and upload bundles live in storage but not in git
+pullzone-logs/
+/*.zip
+.DS_Store

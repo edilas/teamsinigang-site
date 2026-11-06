@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-adsense-account" content="ca-pub-6614135487817952">
+  <meta name="description" content="Stardew Valley beginner guide — crops by season, mining tips, Community Center guide, and 22 essential tips for Year 1. Sinigaming rating: 9.5/10.">
+  <title>Stardew Valley Guide — Year 1 Tips & Community Center | Sinigaming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;--text:#e8e8f0;--muted:#888899;--accent:#f0a500;--accent2:#e05c3a;--green:#4caf7d;--radius:10px;--font:'Inter',system-ui,sans-serif; }
+    body { background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;font-size:16px; }
+    a { color:var(--accent);text-decoration:none; } a:hover { text-decoration:underline; }
+    nav { background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;position:sticky;top:0;z-index:100; }
+    .nav-brand { font-weight:700;font-size:1.1rem;color:var(--text);padding:1rem 0;white-space:nowrap; }
+    .nav-brand span { color:var(--accent); }
+    nav ul { list-style:none;display:flex;flex-wrap:wrap;gap:0.2rem;padding:0.5rem 0; }
+    nav ul li a { color:var(--muted);padding:0.4rem 0.75rem;border-radius:6px;font-size:0.9rem;transition:color 0.2s,background 0.2s;display:block; }
+    nav ul li a:hover,nav ul li a.active { color:var(--text);background:var(--surface2);text-decoration:none; }
+    .container { max-width:860px;margin:0 auto;padding:0 1.5rem; }
+    .breadcrumb { font-size:0.82rem;color:var(--muted);padding:1.25rem 0 0; }
+    .breadcrumb a { color:var(--muted); } .breadcrumb a:hover { color:var(--accent); }
+    .guide-hero { padding:2.5rem 0 2rem;border-bottom:1px solid var(--border); }
+    .guide-hero .eyebrow { font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--green);margin-bottom:0.75rem; }
+    .guide-hero h1 { font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:0.75rem; }
+    .guide-hero .sub { color:var(--muted);font-size:1rem;margin-bottom:1.25rem; }
+    .meta-row { display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center; }
+    .badge { display:inline-block;font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:4px; }
+    .badge-gold { background:rgba(240,165,0,0.15);color:var(--accent); }
+    .badge-green { background:rgba(76,175,125,0.15);color:var(--green); }
+    .badge-muted { background:var(--surface2);color:var(--muted); }
+    .rating-pill { background:var(--surface2);border-radius:8px;padding:0.3rem 0.8rem;font-size:1rem;font-weight:700;color:var(--green); }
+    section { padding:2.5rem 0; }
+    section+section { border-top:1px solid var(--border); }
+    .section-label { font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--green);margin-bottom:0.75rem; }
+    h2 { font-size:1.4rem;font-weight:700;margin-bottom:1.25rem;color:var(--text); }
+    p { color:var(--muted);margin-bottom:0.85rem; } p:last-child { margin-bottom:0; }
+    .tip-list { list-style:none;display:flex;flex-direction:column;gap:0.75rem; }
+    .tip-list li { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;gap:1rem;align-items:flex-start; }
+    .tip-num { font-size:0.85rem;font-weight:700;color:var(--green);min-width:1.8rem;padding-top:0.1rem; }
+    .tip-body strong { color:var(--text);display:block;margin-bottom:0.25rem;font-size:0.95rem; }
+    .tip-body span { color:var(--muted);font-size:0.9rem;line-height:1.55; }
+    .table-wrap { overflow-x:auto;margin:1rem 0; }
+    table { width:100%;border-collapse:collapse;font-size:0.88rem; }
+    th { background:var(--surface2);color:var(--text);font-weight:600;text-align:left;padding:0.7rem 1rem;border:1px solid var(--border); }
+    td { padding:0.6rem 1rem;border:1px solid var(--border);color:var(--muted);vertical-align:top; }
+    tr:nth-child(even) td { background:rgba(255,255,255,0.02); }
+    .verdict { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem; }
+    .verdict ul { list-style:none;display:flex;flex-direction:column;gap:0.5rem; }
+    .verdict ul li { font-size:0.92rem;color:var(--muted); }
+    .nav-guide { display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem; }
+    .nav-guide a { background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.6rem 1.1rem;font-size:0.88rem;color:var(--muted);transition:border-color 0.2s,color 0.2s; }
+    .nav-guide a:hover { border-color:var(--accent);color:var(--accent);text-decoration:none; }
+    footer { background:var(--surface);border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;font-size:0.85rem;color:var(--muted); }
+    footer a { color:var(--muted);margin:0 0.5rem; } footer a:hover { color:var(--accent); }
+    .footer-links { display:flex;flex-wrap:wrap;justify-content:center;gap:0.25rem;margin-top:0.75rem; }
+  </style>
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+<link rel="stylesheet" href="/assets/brand/brand.css">
+</head>
+<body class="ts-branding">
+<nav>
+  <a class="nav-brand ts-logo-link" href="/index.html" aria-label="Team Sinigang home"><img src="/assets/brand/team-sinigang-logo.webp" alt="Team Sinigang"></a>
+  <ul>
+    <li><a href="/index.html#featured">Featured</a></li>
+    <li><a href="/index.html#games">Games</a></li>
+    <li><a href="/index.html#sinigang">What is Sinigang?</a></li>
+    <li><a href="/recipes.html">Recipes</a></li>
+    <li><a href="/sinigaming/index.html" class="active">🎮 Sinigaming</a></li>
+    <li><a href="/blog/index.html">📰 Blog</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="/index.html">Home</a> › <a href="/sinigaming/index.html">Sinigaming</a> › Stardew Valley
+  </div>
+
+  <div class="guide-hero">
+    <div class="eyebrow">🌾 Sinigaming Guide</div>
+    <h1>Stardew Valley — Complete Year 1 Guide</h1>
+    <p class="sub">ConcernedApe · Released 2016 · PC, Mac, Switch, iOS, Android · ~$15 on Steam</p>
+    <div class="meta-row">
+      <span class="badge badge-gold">Complete Guide</span>
+      <span class="badge badge-green">All Ages</span>
+      <span class="badge badge-muted">Farming · Mining · Fishing</span>
+      <span class="rating-pill">🌾 9.5 / 10</span>
+    </div>
+  </div>
+
+  <section>
+    <p>Stardew Valley is one of the most beloved games ever made — developed by a single person over four years, it delivers farming, mining, fishing, friendship, and an entire town to explore. There is no game over, no death penalty, no timer pressure. You play at your pace.</p>
+    <p>This guide covers everything you need to thrive in Year 1 and complete the Community Center — the main goal that unlocks the game's best rewards. Whether you have 20 minutes before work or a full Sunday afternoon, Stardew meets you where you are.</p>
+
+    <div class="nav-guide">
+      <a href="#day-one">Day 1 Essentials</a>
+      <a href="#crops">Crops by Season</a>
+      <a href="#mines">The Mines</a>
+      <a href="#community-center">Community Center</a>
+      <a href="#friends">Making Friends</a>
+      <a href="#qol">Quality of Life Tips</a>
+      <a href="#verdict">Verdict</a>
+    </div>
+  </section>
+
+  <section id="day-one">
+    <div class="section-label">🌅 Day 1 Essentials</div>
+    <h2>The first things you do on your farm</h2>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">1</div>
+        <div class="tip-body">
+          <strong>Plant your parsnip seeds immediately on Day 1</strong>
+          <span>You start with a bag of parsnip seeds. Plant them right away — parsnips take 4 days to grow and are your first income. Clear just enough land to plant all of them, then spend the rest of Day 1 chopping wood and breaking rocks. Don't over-clear on Day 1 or you'll run out of energy.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">2</div>
+        <div class="tip-body">
+          <strong>Watch your Energy bar — it controls everything</strong>
+          <span>Energy governs every swing of your axe, hoe, and watering can. When it hits zero you slow down. When it goes negative (bright red) you pass out and lose gold. Eat food to restore it — Spring Onions spawn for free in Cindersap Forest from Day 1 and restore 13 Energy each. Forage them every morning.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">3</div>
+        <div class="tip-body">
+          <strong>Be home by midnight or you pass out and lose gold</strong>
+          <span>The in-game day runs 6am to 2am. At midnight your character starts blinking as a warning. At 2am you pass out wherever you are and get fined gold — worse if it happens in the mines, where you can lose items too. Make a habit of heading home by 11:30pm.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">4</div>
+        <div class="tip-body">
+          <strong>Craft a Chest on Day 1 — your first storage</strong>
+          <span>You need 50 Wood to craft a Chest (check your Crafting menu). Place it outside your house immediately. You will run out of inventory space fast — a chest solves this. Build several over your first few days.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="crops">
+    <div class="section-label">🌻 Crops by Season</div>
+    <h2>What to plant and when — crops die when the season changes</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Season</th><th>Best Crops</th><th>Key Tip</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🌸 Spring</td><td>Potatoes (plant Days 1–6), Cauliflower, Strawberries (Egg Festival Day 13 only)</td><td>Strawberries are the #1 Spring crop — buy as many as you can at the Egg Festival on Spring 13. You can only get them there.</td></tr>
+          <tr><td>☀️ Summer</td><td>Blueberries (multi-harvest — plant early), Starfruit (expensive, huge profit)</td><td>Blueberries are the Summer workhorse — each plant produces 3 berries per harvest and regrows every 4 days. Plant a large patch on Summer 1.</td></tr>
+          <tr><td>🍂 Fall</td><td>Cranberries (multi-harvest), Pumpkins (giant crop potential), Sweet Gem Berry</td><td>Cranberries are Fall's Blueberries. Plant early, harvest weekly. Pumpkins can grow into Giant Crops for bonus yield.</td></tr>
+          <tr><td>❄️ Winter</td><td>No outdoor crops</td><td>Winter is your infrastructure season — upgrade tools, explore deep mines, complete Community Center bundles, and build relationships.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">5</div>
+        <div class="tip-body">
+          <strong>At Farming Level 5 — always pick Tiller</strong>
+          <span>When your Farming skill hits Level 5 you choose a profession. Pick Tiller — it gives a 10% bonus to all crop sell prices. This compounds significantly across a whole year. At Level 10, pick Artisan (40% bonus to artisan goods like wine and jam) for long-term income.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">6</div>
+        <div class="tip-body">
+          <strong>Upgrade your Watering Can before Summer — it's a game changer</strong>
+          <span>A basic Watering Can waters one tile per click. A Gold Watering Can waters a 3×3 grid in one swing — what takes 25 energy manually takes 2 energy with Gold. Take your can to Clint the blacksmith, upgrade it, and pick it up 2 days later. Do this on a rainy day so you don't need to water while it's being upgraded.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="mines">
+    <div class="section-label">⛏️ The Mines</div>
+    <h2>Go early and go often — ores unlock everything</h2>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">7</div>
+        <div class="tip-body">
+          <strong>Unlock the mines on Spring 5 — don't delay</strong>
+          <span>On Spring 5 a letter tells you a landslide has been cleared. Head northeast to find the mine entrance. The mines are where all your metal ores come from — the ores that upgrade your tools. Go on rainy days (no watering needed) or evenings after farm work. Target Level 40 by end of Spring, 80 by end of Summer, 120 by end of Fall.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">8</div>
+        <div class="tip-body">
+          <strong>Mine Level milestones unlock everything</strong>
+          <span>Level 40 = Copper ore (first tool upgrades). Level 80 = Gold ore (Gold tools — massive quality of life). Level 120 = bottom of the mine, unlocks the Skull Cavern desert later. Every 5 levels has an elevator checkpoint so you don't restart from the top — always push to the next checkpoint before stopping for the day.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">9</div>
+        <div class="tip-body">
+          <strong>Bring food into the mines — always</strong>
+          <span>Food restores energy and health. Bring cooked food, cheese (from cows later), or foraged items before heading in. Running out of energy in the mines costs you an entire session. Eat when your energy gets low and keep going rather than heading home early.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="community-center">
+    <div class="section-label">🏛️ Community Center</div>
+    <h2>Your main Year 1 mission</h2>
+    <p>On Spring 5, Mayor Lewis shows you the old Community Center. Inside are "bundles" — collections of items to donate in exchange for major town upgrades: the Greenhouse (grow crops in Winter), Minecarts (fast travel), the Bus to the Desert, and more.</p>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">10</div>
+        <div class="tip-body">
+          <strong>Save one of everything from each season — seriously</strong>
+          <span>The Community Center bundles require items from every season. Before selling your entire harvest, check bundle requirements and keep at least one of anything that's asked for. You cannot get a Spring crop in Summer — you'd have to wait a full year. One missed item delays completion by 365 in-game days.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">11</div>
+        <div class="tip-body">
+          <strong>Complete the Boiler Room first — it unlocks Minecarts</strong>
+          <span>The Boiler Room bundles need mine ores (Copper, Iron, Gold). It's one of the easier rooms and its reward — the Minecart system — gives fast travel between mines, town, the quarry, and the bus station. This makes the rest of the game significantly faster to navigate.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">12</div>
+        <div class="tip-body">
+          <strong>Do NOT sign up with JojaMart — ever</strong>
+          <span>In town, a character named Morris will offer you a Joja Community Development Form. Do not buy it. It permanently closes the Community Center path and replaces it with a pay-to-unlock system. The Community Center route has better rewards and is the heart of the game's story.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="friends">
+    <div class="section-label">🤝 Townspeople</div>
+    <h2>Making friends matters more than you think</h2>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">13</div>
+        <div class="tip-body">
+          <strong>Give gifts twice a week to build friendships fast</strong>
+          <span>You can give each villager up to 2 gifts per week. High friendship unlocks cutscenes, unique dialogue, and recipes. Some Community Center bundles need items that villagers send you as mail gifts — higher friendship means more mail and more help finishing those bundles.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">14</div>
+        <div class="tip-body">
+          <strong>Talk to everyone every day — even for a second</strong>
+          <span>Talking to a villager (even without a gift) gives a tiny friendship boost. As you walk through town to the mines or shops, click every person you pass. It costs zero energy and zero time, and keeps all your relationships steadily climbing.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="qol">
+    <div class="section-label">💡 Quality of Life Tips</div>
+    <h2>Things you'll wish you knew from Day 1</h2>
+    <ul class="tip-list">
+      <li>
+        <div class="tip-num">15</div>
+        <div class="tip-body">
+          <strong>Dig up worm tiles with your Hoe — always</strong>
+          <span>Anywhere on the map where you see worms wiggling from the ground, use your Hoe to dig. These "artifact spots" yield buried items — museum artifacts, lost books, or valuable foraged items. Start digging every single one you see.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">16</div>
+        <div class="tip-body">
+          <strong>The Traveling Cart appears every Friday and Sunday</strong>
+          <span>A merchant sets up her cart in Cindersap Forest every Friday and Sunday. She sells rare seeds (including the Red Cabbage seed needed for a Year 1 bundle), furniture, and random items. Visit without fail — missing the Red Cabbage seed can delay Community Center completion by a full year.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">17</div>
+        <div class="tip-body">
+          <strong>Place Sprinklers as soon as possible — they save your energy</strong>
+          <span>Sprinklers automatically water adjacent tiles every morning before you wake up — at zero energy cost. A Basic Sprinkler waters 4 tiles, Quality waters 8, and Iridium waters 24. Getting even a few Basic Sprinklers up frees enormous energy for mining and fishing instead of watering.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">18</div>
+        <div class="tip-body">
+          <strong>Fishing is hard at first — stick with it</strong>
+          <span>The fishing minigame feels nearly impossible to new players. You click to keep a green bar tracking a moving fish — it requires quick reflexes and gets much easier as your Fishing skill levels up. Don't give up in the first 10 attempts. By Level 4–5 it becomes manageable. Eating food that boosts Fishing helps during Community Center bundle fish runs.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tip-num">19</div>
+        <div class="tip-body">
+          <strong>Watch TV every morning for luck and tips</strong>
+          <span>The TV in your farmhouse shows two useful channels: the Fortune Teller (tells you if it's a lucky day — great for mining and Skull Cavern) and Livin' off the Land (farming and foraging tips). Lucky days are the best days to push deep into the mines or attempt high-level Skull Cavern runs.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="verdict">
+    <div class="section-label">🌾 The Sinigaming Verdict</div>
+    <h2>Our take on Stardew Valley</h2>
+    <div class="verdict">
+      <ul>
+        <li>✅ One of the best all-ages games ever made — perfect for any skill level</li>
+        <li>✅ Completely stress-free — no death penalty, no game over, no pressure</li>
+        <li>✅ Runs on any Mac, PC, Switch, phone — incredibly accessible</li>
+        <li>✅ ~$15 on Steam, goes on sale regularly for under $8</li>
+        <li>⚠️ The first week feels slow — push through Spring and it opens up dramatically</li>
+        <li>⚠️ Fishing is frustrating early — it genuinely gets easier, we promise</li>
+        <li>💡 ~50–60 hrs to "complete" Year 1, infinitely replayable · Co-op supports up to 4 players</li>
+        <li>💡 Don't look everything up on your first run — discovering things yourself is half the joy</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+      <a href="/sinigaming/index.html" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1.25rem;color:var(--muted);font-size:0.9rem;">← All Guides</a>
+      <a href="/sinigaming/crimson-desert.html" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1.25rem;color:var(--muted);font-size:0.9rem;">Next: Crimson Desert →</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div><strong>Team Sinigang</strong> — Serving games hot since 2024 🍲 · Sinigaming — tips forged in the fire of too many deaths</div>
+  <div class="footer-links">
+    <a href="/index.html">Home</a> <a href="/index.html#games">Games</a> <a href="/recipes.html">Recipes</a>
+    <a href="/sinigaming/index.html">Sinigaming</a> <a href="/blog/index.html">Blog</a>
+    <a href="/about.html">About</a> <a href="/contact.html">Contact</a>
+    <a href="/privacy.html">Privacy</a> <a href="/terms.html">Terms</a>
+  </div>
+</footer>
+</body>
+</html>

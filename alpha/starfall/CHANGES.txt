@@ -1,0 +1,84 @@
+STARFALL — GAME CENTER + FULL GAME UNLOCK PASS
+
+Gameplay and boss designs were otherwise left unchanged.
+
+Added:
+- Game Center leaderboard bridge and leaderboard screen integration.
+- Global score submission at boss milestones and completed runs.
+- Free iPhone/iPad app content through level 10: Hive Queen + The Warden.
+- Level 11+ gate for the native iOS/iPadOS app.
+- One-time full-game StoreKit unlock: com.agosllc.starfall.fullgame.
+- Unlock screen with benefits, localized StoreKit price, Restore Purchases, and progress preservation.
+- Full-game unlock includes levels 11-100, remaining boss sectors, Dreadnought finale, full fleet progression, Super tier, and Infinite tier.
+- Desktop/browser version remains fully playable because it has no App Store purchase bridge.
+- iOS drop-in Swift bridge files and local Products.storekit test configuration.
+
+App Store Connect IDs to create:
+- IAP: com.agosllc.starfall.fullgame — Non-Consumable — US $2.99
+- Game Center leaderboard: com.agosllc.starfall.score — integer points — high to low
+
+
+STARFALL — IPHONE EXPERIENCE POLISH PASS
+
+No ship stats, economy, progression, boss HP, attack cadence, or projectile counts were intentionally reduced.
+
+Added:
+- Native + CSS safe-area integration for notches, Dynamic Island, and home indicator.
+- Compact iPhone combat HUD with more open playfield.
+- Thumb-friendly 44pt+ touch targets and safer edge spacing.
+- iPhone / iPad / desktop device presentation profiles.
+- Slight responsive boss-size adjustment by device class.
+- Device-aware decorative particle and star density.
+- Adaptive low-FX fallback based on sustained frame time, including a lower iPhone render scale before changing gameplay density.
+- Busy-frame projectile halo suppression on iPhone while keeping projectile bodies and collision behavior intact.
+- Native haptic feedback bridge for meaningful combat and UI events.
+- Pause handling for native app interruptions, page hiding, and focus loss.
+- Portrait orientation lock for the native iPhone/iPad app.
+
+
+STARFALL — CAMPAIGN ENDINGS PASS
+
+Core combat, boss balance, ships, economy, iPhone presentation, Game Center, and the $2.99 unlock remain unchanged.
+
+Added:
+- Level 50 now acts as the complete primary-campaign ending after Sovereign Singularity is defeated.
+- A dedicated Mission Complete screen shows survival score, kills, bosses, and command ship.
+- A second story beat reveals ANOMALY DETECTED and BEYOND THE EVENT HORIZON before levels 51-100.
+- Level 51 is permanently unlocked after the primary ending, with the existing fleet-dock checkpoint preserved.
+- Level 100 now flows from the existing Dreadnought victory/capture cinematic into a true ending and credits screen.
+- Infinite Mode is explicitly unlocked after the true ending, with level 101 preserved as the post-game continuation.
+- Ending state is saved so an interrupted ending can be viewed again from Continue rather than silently skipped.
+- Menu objective text now changes for the primary campaign, post-campaign arc, and Infinite Mode.
+- Older saves above level 50/100 migrate cleanly without losing progression.
+
+
+VOID WYRM COLLISION PASS
+- Visible Wyrm head and segmented body now have contact collision during normal movement.
+- Head-first charge collision follows the moving head plus the visible trailing segments.
+- Hit shapes are intentionally inset from the artwork for fair phone-sized near-misses.
+- Player shots can now damage visible Wyrm body segments instead of passing through them.
+SOLAR SERAPH COLLISION PASS
+- Solar Seraph collision now follows the furnace core and all six visible mechanical wings.
+- Player contact with solid wing armor now damages consistently during normal movement and charge passes.
+- Player shots can hit the visible wing armor instead of passing through it.
+- Decorative radiant light rays remain non-solid, and wing collision is slightly inset for fair iPhone near-misses.
+
+EVENT HORIZON JUMP PASS
+- After the Level 50 anomaly reveal, pressing Enter the Event Horizon now plays a dedicated animated transition.
+- The currently selected ship is shown flying into the edge of the collapsed Singularity before docking at the Level 51 checkpoint.
+- The transition can be skipped, and the existing Level 51 hangar checkpoint flow remains intact.
+REPEAT ENDINGS + FLAGSHIP CLAIM PASS
+- Defeating level 50 now always triggers the campaign-complete / anomaly / Event Horizon sequence, even when you reach it through level select or on repeat clears.
+- Defeating level 100 now always triggers the true ending rather than only the first time.
+- Entering Infinite Mode after the true ending now plays a new Dreadnought claim transition, showing the captured flagship joining the fleet.
+- The Dreadnought remains the post-game reward ship and is intended to be used in Infinite Mode / level 101+ continuation.
+POSTGAME SPECIALNESS PASS
+- After the Dreadnought claim animation, Starfall now shows a dedicated Infinite Mode intro screen for Level 101+.
+- The Battle Cruiser now receives a more explicit flagship-unlocked badge in the hangar until it is purchased.
+- Infinite Mode now has a modest postgame escalation: extra waves, elite Black Pursuer appearances, slightly higher enemy cap, and a small health ramp so level 101+ feels distinct.
+SIDE-LANE PROJECTILE PRESSURE PASS
+- The far-left and far-right edges are no longer reliable projectile safe zones.
+- If the player camps near an outer edge for roughly 0.6 seconds, a current boss or ranged enemy sends a small aimed tracking volley into that lane.
+- Leaving the edge immediately stops the added pressure; major boss telegraphs/beam attacks are not stacked with the edge volley.
+- Tank spreads now rotate toward an edge-hugging player instead of continuing to fire only straight down.
+- Core boss patterns and center-lane difficulty remain unchanged.

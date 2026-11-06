@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-57W3NKSFTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-57W3NKSFTE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-6614135487817952">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<meta name="description" content="Clair Obscur: Expedition 33 guide — parry timing, Pictos and Luminas build tips, team comp advice, and what to expect from the story. Sinigaming rating: 7.5/10.">
+<title>Clair Obscur: Expedition 33 Guide — Parry Timing, Pictos & Team Builds | Sinigaming</title>
+<link rel="canonical" href="https://www.teamsinigang.com/sinigaming/clair-obscur-expedition-33.html">
+
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;
+  --text:#e8e8f0;--muted:#888899;--accent:#f0a500;--accent2:#e05c3a;
+  --green:#4caf7d;--purple:#9b7fe8;--radius:10px;
+  --font:'Inter',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto}
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:.5rem;position:sticky;top:0;z-index:100}
+.nav-brand{font-weight:700;font-size:1.1rem;color:var(--text);padding:1rem 0;white-space:nowrap}
+.nav-brand span{color:var(--accent)}
+nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.2rem;padding:.5rem 0}
+nav ul li a{color:var(--muted);padding:.4rem .75rem;border-radius:6px;font-size:.9rem;
+  transition:color .2s,background .2s;display:block}
+nav ul li a:hover,nav ul li a.active{color:var(--text);background:var(--surface2);text-decoration:none}
+.container{max-width:900px;margin:0 auto;padding:0 1.5rem}
+.hero{padding:4rem 0 3rem;text-align:center;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.75rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:.85rem}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:620px;margin:0 auto 1.5rem}
+section{padding:2.5rem 0}
+section+section{border-top:1px solid var(--border)}
+.sec-label{font-size:.78rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--accent);margin-bottom:.6rem}
+h2{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;margin-bottom:1.1rem}
+h3{font-size:1.05rem;font-weight:600;margin-bottom:.4rem}
+p{color:var(--muted);margin-bottom:.9rem}
+p:last-child{margin-bottom:0}
+strong{color:var(--text)}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;padding:.22rem .55rem;border-radius:4px}
+.b-gold{background:rgba(240,165,0,.15);color:var(--accent)}
+.b-red{background:rgba(224,92,58,.15);color:var(--accent2)}
+.b-green{background:rgba(76,175,125,.15);color:var(--green)}
+.b-purple{background:rgba(155,127,232,.15);color:var(--purple)}
+.b-muted{background:var(--surface2);color:var(--muted)}
+.btn{display:inline-block;background:var(--accent);color:#000;font-weight:700;
+  padding:.75rem 1.6rem;border-radius:8px;font-size:.95rem;transition:opacity .2s}
+.btn:hover{opacity:.85;text-decoration:none}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-out:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem}
+.card:hover{border-color:var(--accent)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.grid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.tip-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.tip-list li{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem 1.2rem;display:flex;gap:1rem;align-items:flex-start}
+.tip-n{font-size:.83rem;font-weight:700;color:var(--accent);min-width:1.6rem;padding-top:.1rem}
+.tip-b strong{color:var(--text);display:block;margin-bottom:.2rem;font-size:.95rem}
+.tip-b span{color:var(--muted);font-size:.88rem;line-height:1.55}
+.tbl-wrap{overflow-x:auto;margin:1rem 0}
+table{width:100%;border-collapse:collapse;font-size:.87rem}
+th{background:var(--surface2);color:var(--text);font-weight:600;text-align:left;
+  padding:.7rem 1rem;border:1px solid var(--border)}
+td{padding:.6rem 1rem;border:1px solid var(--border);color:var(--muted);vertical-align:top}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.verdict{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.4rem}
+.verdict ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.verdict ul li{font-size:.91rem;color:var(--muted)}
+.breadcrumb{font-size:.82rem;color:var(--muted);padding:1.2rem 0 0}
+.breadcrumb a{color:var(--muted)}
+.breadcrumb a:hover{color:var(--accent)}
+.meta-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.5rem}
+.info-box{border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0}
+.info-box.purple{background:rgba(155,127,232,.07);border:1px solid rgba(155,127,232,.25)}
+.info-box.green{background:rgba(76,175,125,.07);border:1px solid rgba(76,175,125,.25)}
+.info-box.orange{background:rgba(240,165,0,.07);border:1px solid rgba(240,165,0,.25)}
+.info-box h3{font-size:1rem;margin-bottom:.4rem}
+.info-box.purple h3{color:var(--purple)}
+.info-box.green h3{color:var(--green)}
+.info-box.orange h3{color:var(--accent)}
+.nav-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+.nav-btns a{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:.6rem 1.1rem;font-size:.87rem;color:var(--muted);transition:border-color .2s,color .2s}
+.nav-btns a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+footer{background:var(--surface);border-top:1px solid var(--border);
+  padding:2rem 1.5rem;text-align:center;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--muted);margin:0 .45rem}
+footer a:hover{color:var(--accent)}
+.ft-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.2rem;margin-top:.7rem}
+@media(max-width:600px){
+  .hero{padding:2.5rem 0 2rem}
+  nav{padding:0 1rem}
+}
+</style>
+<body class="ts-branding">
+<nav>
+  <a class="nav-brand ts-logo-link" href="/index.html" aria-label="Team Sinigang home"><img src="/assets/brand/team-sinigang-logo.webp" alt="Team Sinigang"></a>
+  <ul><li><a href="/index.html#featured">Featured</a></li>
+<li><a href="/index.html#games">Games</a></li>
+<li><a href="/index.html#sinigang">What is Sinigang?</a></li>
+<li><a href="/recipes.html">Recipes</a></li>
+<li><a href="/sinigaming/index.html" class="active">🎮 Sinigaming</a></li>
+<li><a href="/blog/index.html">📰 Blog</a></li>
+</ul>
+</nav>
+<div class="container">
+  <div class="breadcrumb"><a href="/index.html">Home</a> › <a href="/sinigaming/index.html">Sinigaming</a> › Clair Obscur: Expedition 33</div>
+  <div style="padding:2.5rem 0 2rem;border-bottom:1px solid var(--border)">
+    <div class="eyebrow" style="color:var(--purple)">🎭 Sinigaming Guide</div>
+    <h1>Clair Obscur: Expedition 33 — Parry & Build Guide</h1>
+    <p style="color:var(--muted)">Sandfall Interactive · Released Apr 2025 · PC, PS5, Xbox Series X|S</p>
+    <div class="meta-row">
+      <span class="badge b-gold">Complete Guide</span><span class="badge b-muted">Turn-Based RPG</span><span class="badge b-purple">7.5 / 10</span>
+    </div>
+    <div class="nav-btns">
+      <a href="#before">Before You Start</a><a href="#combat">Combat & Parrying</a><a href="#progression">Pictos & Luminas</a><a href="#story">Story & Atmosphere</a><a href="#general">General Tips</a><a href="#verdict">Verdict</a>
+    </div>
+  </div>
+  <section>
+    <p>A painterly world, a countdown carved into every citizen's skin, and a turn-based combat system that demands you actually pay attention on enemy turns — Clair Obscur: Expedition 33 is the biggest surprise RPG in years, and it earns every bit of the praise. This guide covers the parry system, the Pictos and Luminas build mechanics, and how to get the most out of the story without spoiling yourself.</p>
+  </section>
+  <section id="before">
+    <div class="sec-label" style="color:var(--purple)">🎭 Before You Start</div>
+    <h2>What you need to know</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--purple)">1</div><div class="tip-b"><strong>This is a turn-based RPG with real-time reflexes — don't tune out during enemy turns</strong><span>Clair Obscur's big hook is that every enemy attack can be dodged, parried, or jumped over in real time, even though the game is structured in turns. Treat enemy turns like a rhythm-action minigame, not downtime. A clean parry can fully negate a hit and open a counter-attack window.</span></div></li>
+      <li><div class="tip-n" style="color:var(--purple)">2</div><div class="tip-b"><strong>Learn each expedition member's parry and dodge timing separately — they're not identical</strong><span>Every character's dodge and parry windows are tuned slightly differently to match their personality and animations. Spend a few fights per new party member just eating hits on purpose to learn their tell before you rely on them in a hard fight.</span></div></li>
+    </ul>
+  </section>
+  <section id="combat">
+    <div class="sec-label" style="color:var(--purple)">⚔️ Combat & The Parry System</div>
+    <h2>Getting the timing right</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--purple)">3</div><div class="tip-b"><strong>Parry is high risk, high reward — dodge is the safer default</strong><span>A successful parry negates all damage and often triggers a free counter-hit, but the window is tight and a failed parry costs you more than a failed dodge. Default to dodging in fights you don't know yet, and start reaching for parries once you've learned an enemy's tells.</span></div></li>
+      <li><div class="tip-n" style="color:var(--purple)">4</div><div class="tip-b"><strong>Free Aim shots and Gradient Attacks reward precision over spam</strong><span>Several characters have aimed or charged abilities where accuracy or timing changes the outcome — don't just mash the confirm button. A well-aimed shot against a weak point can outdamage a full combo.</span></div></li>
+      <li><div class="tip-n" style="color:var(--purple)">5</div><div class="tip-b"><strong>Build your team around covering each other's weaknesses, not four copies of the same role</strong><span>The game leans into elemental and status-based team comps. Bringing a full team of pure damage dealers into a fight with heavy status mechanics will make some encounters brutal. Keep at least one support or debuffer in your active party at all times.</span></div></li>
+    </ul>
+  </section>
+  <section id="progression">
+    <div class="sec-label" style="color:var(--purple)">✨ Pictos & Luminas</div>
+    <h2>The build system explained</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--purple)">6</div><div class="tip-b"><strong>Pictos are your equippable stat + passive combo — swap them per fight, not once and forget</strong><span>Pictos grant both a stat bonus and a passive effect, and you can freely change them between fights. Don't lock in a set and ignore it for hours — reread your Pictos list whenever you hit a wall, the right passive for a specific boss fight is often sitting unused in your inventory.</span></div></li>
+      <li><div class="tip-n" style="color:var(--purple)">7</div><div class="tip-b"><strong>Luminas let you carry a Pictos passive permanently — but they cost a shared point pool</strong><span>Once you've used a Pictos enough, you can unlock its passive as a Lumina that any character can slot in permanently, at the cost of Lumina Points shared across your whole loadout. Prioritize unlocking economy and survivability Luminas early — they compound over the whole run.</span></div></li>
+      <li><div class="tip-n" style="color:var(--purple)">8</div><div class="tip-b"><strong>Don't ignore side content for XP and Pictos — the main story pacing assumes you'll explore</strong><span>Clair Obscur's difficulty curve is tuned assuming a reasonable amount of side exploration. If a story boss feels unfair, that's usually a sign to go find another Pictos or two rather than grind the same fight repeatedly.</span></div></li>
+    </ul>
+  </section>
+  <section id="story">
+    <div class="sec-label" style="color:var(--purple)">🖼️ Story & Atmosphere</div>
+    <h2>What to expect narratively</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--purple)">9</div><div class="tip-b"><strong>Take the world at face value at first — the mystery is the point</strong><span>The Paintress, the Gommage, and Lumière are all going to feel deliberately unexplained for a while. Resist the urge to look up spoilers early — the game's Belle Époque, painterly world is built around slow, deliberate revelation, and it lands much harder blind.</span></div></li>
+      <li><div class="tip-n" style="color:var(--purple)">10</div><div class="tip-b"><strong>Rest points aren't just save spots — check crafting and party talks every time</strong><span>Every camp/rest point has optional character conversations that deepen the cast and are easy to walk past. They're some of the best-written moments in the game — take the extra ninety seconds.</span></div></li>
+    </ul>
+  </section>
+  <section id="general">
+    <div class="sec-label" style="color:var(--purple)">🍳 General Tips</div>
+    <h2>Quality of life and difficulty</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--purple)">11</div><div class="tip-b"><strong>There's an accessibility-minded difficulty option if the parry timing isn't clicking</strong><span>If the real-time dodge/parry system is fighting your reflexes rather than your strategy, the game offers difficulty options that widen timing windows without gutting the turn-based strategy layer. Using them doesn't make you bad at the game — it makes the combat system work for you instead of against you.</span></div></li>
+      <li><div class="tip-n" style="color:var(--purple)">12</div><div class="tip-b"><strong>This is a game best played with headphones — the score is doing a lot of work</strong><span>The soundtrack is doing serious emotional heavy lifting throughout, especially in boss fights where the music shifts with combat phases. Don't play this one with the sound off in the background.</span></div></li>
+    </ul>
+  </section>
+  <section id="verdict">
+    <div class="sec-label" style="color:var(--purple)">🍲 The Sinigaming Verdict</div>
+    <h2>Our take on Clair Obscur: Expedition 33</h2>
+    <div class="info-box orange" style="margin-top:0"><h3>🕹️ Our SiniPlay take</h3><p>We gave it a few hours. Beautiful, but it didn't pull us in the way the fantasy games do.</p></div>
+    <div class="verdict"><ul>
+      <li>✅ The real-time parry/dodge layer makes turn-based combat feel genuinely tense</li>
+      <li>✅ Pictos and Luminas give real build flexibility without overwhelming complexity</li>
+      <li>✅ One of the strongest video game scores and art directions in recent memory</li>
+      <li>⚠️ The parry timing has a real learning curve — lean on the accessibility options if you need them</li>
+      <li>⚠️ Best experienced spoiler-free — the story rewards patience</li>
+      <li>💡 Explore between story beats — the pacing assumes you will, and skipping it makes fights harder than they should be</li>
+    </ul></div>
+    <div class="nav-btns" style="margin-top:1.5rem">
+      <a href="/sinigaming/index.html">← All Guides</a>
+      <a href="/sinigaming/elden-ring.html">Also read: Elden Ring Guide</a>
+    </div>
+  </section>
+</div>
+<footer>
+  <div class="ts-studio-line"><strong>Team Sinigang</strong> — Games served piping hot · A gaming studio from <a href="https://www.agosllc.com/">AGOS LLC</a></div>
+  <div class="ft-links">
+    <a href="/index.html">Home</a><a href="/index.html#games">Games</a>
+    <a href="/recipes.html">Recipes</a><a href="/sinigaming/index.html">Sinigaming</a>
+    <a href="/blog/index.html">Blog</a><a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+  </div>
+</footer>
+</body>
+</html>

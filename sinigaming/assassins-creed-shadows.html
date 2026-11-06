@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-57W3NKSFTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-57W3NKSFTE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-6614135487817952">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<meta name="description" content="Assassin's Creed Shadows guide: Naoe vs Yasuke playstyles, stealth and combat tips, and Sengoku-era Japan exploration advice. Rated 8.5/10.">
+<title>Assassin's Creed Shadows Guide — Naoe vs Yasuke, Stealth & Combat Tips | Sinigaming</title>
+<link rel="canonical" href="https://www.teamsinigang.com/sinigaming/assassins-creed-shadows.html">
+
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;
+  --text:#e8e8f0;--muted:#888899;--accent:#f0a500;--accent2:#e05c3a;
+  --green:#4caf7d;--purple:#9b7fe8;--radius:10px;
+  --font:'Inter',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto}
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:.5rem;position:sticky;top:0;z-index:100}
+.nav-brand{font-weight:700;font-size:1.1rem;color:var(--text);padding:1rem 0;white-space:nowrap}
+.nav-brand span{color:var(--accent)}
+nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.2rem;padding:.5rem 0}
+nav ul li a{color:var(--muted);padding:.4rem .75rem;border-radius:6px;font-size:.9rem;
+  transition:color .2s,background .2s;display:block}
+nav ul li a:hover,nav ul li a.active{color:var(--text);background:var(--surface2);text-decoration:none}
+.container{max-width:900px;margin:0 auto;padding:0 1.5rem}
+.hero{padding:4rem 0 3rem;text-align:center;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.75rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:.85rem}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:620px;margin:0 auto 1.5rem}
+section{padding:2.5rem 0}
+section+section{border-top:1px solid var(--border)}
+.sec-label{font-size:.78rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--accent);margin-bottom:.6rem}
+h2{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;margin-bottom:1.1rem}
+h3{font-size:1.05rem;font-weight:600;margin-bottom:.4rem}
+p{color:var(--muted);margin-bottom:.9rem}
+p:last-child{margin-bottom:0}
+strong{color:var(--text)}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;padding:.22rem .55rem;border-radius:4px}
+.b-gold{background:rgba(240,165,0,.15);color:var(--accent)}
+.b-red{background:rgba(224,92,58,.15);color:var(--accent2)}
+.b-green{background:rgba(76,175,125,.15);color:var(--green)}
+.b-purple{background:rgba(155,127,232,.15);color:var(--purple)}
+.b-muted{background:var(--surface2);color:var(--muted)}
+.btn{display:inline-block;background:var(--accent);color:#000;font-weight:700;
+  padding:.75rem 1.6rem;border-radius:8px;font-size:.95rem;transition:opacity .2s}
+.btn:hover{opacity:.85;text-decoration:none}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-out:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem}
+.card:hover{border-color:var(--accent)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.grid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.tip-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.tip-list li{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem 1.2rem;display:flex;gap:1rem;align-items:flex-start}
+.tip-n{font-size:.83rem;font-weight:700;color:var(--accent);min-width:1.6rem;padding-top:.1rem}
+.tip-b strong{color:var(--text);display:block;margin-bottom:.2rem;font-size:.95rem}
+.tip-b span{color:var(--muted);font-size:.88rem;line-height:1.55}
+.tbl-wrap{overflow-x:auto;margin:1rem 0}
+table{width:100%;border-collapse:collapse;font-size:.87rem}
+th{background:var(--surface2);color:var(--text);font-weight:600;text-align:left;
+  padding:.7rem 1rem;border:1px solid var(--border)}
+td{padding:.6rem 1rem;border:1px solid var(--border);color:var(--muted);vertical-align:top}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.verdict{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.4rem}
+.verdict ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.verdict ul li{font-size:.91rem;color:var(--muted)}
+.breadcrumb{font-size:.82rem;color:var(--muted);padding:1.2rem 0 0}
+.breadcrumb a{color:var(--muted)}
+.breadcrumb a:hover{color:var(--accent)}
+.meta-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.5rem}
+.info-box{border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0}
+.info-box.purple{background:rgba(155,127,232,.07);border:1px solid rgba(155,127,232,.25)}
+.info-box.green{background:rgba(76,175,125,.07);border:1px solid rgba(76,175,125,.25)}
+.info-box.orange{background:rgba(240,165,0,.07);border:1px solid rgba(240,165,0,.25)}
+.info-box h3{font-size:1rem;margin-bottom:.4rem}
+.info-box.purple h3{color:var(--purple)}
+.info-box.green h3{color:var(--green)}
+.info-box.orange h3{color:var(--accent)}
+.nav-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+.nav-btns a{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:.6rem 1.1rem;font-size:.87rem;color:var(--muted);transition:border-color .2s,color .2s}
+.nav-btns a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+footer{background:var(--surface);border-top:1px solid var(--border);
+  padding:2rem 1.5rem;text-align:center;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--muted);margin:0 .45rem}
+footer a:hover{color:var(--accent)}
+.ft-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.2rem;margin-top:.7rem}
+@media(max-width:600px){
+  .hero{padding:2.5rem 0 2rem}
+  nav{padding:0 1rem}
+}
+</style>
+<body class="ts-branding">
+<nav>
+  <a class="nav-brand ts-logo-link" href="/index.html" aria-label="Team Sinigang home"><img src="/assets/brand/team-sinigang-logo.webp" alt="Team Sinigang"></a>
+  <ul><li><a href="/index.html#featured">Featured</a></li>
+<li><a href="/index.html#games">Games</a></li>
+<li><a href="/index.html#sinigang">What is Sinigang?</a></li>
+<li><a href="/recipes.html">Recipes</a></li>
+<li><a href="/sinigaming/index.html" class="active">🎮 Sinigaming</a></li>
+<li><a href="/blog/index.html">📰 Blog</a></li>
+</ul>
+</nav>
+<div class="container">
+  <div class="breadcrumb"><a href="/index.html">Home</a> › <a href="/sinigaming/index.html">Sinigaming</a> › Assassin's Creed Shadows</div>
+  <div style="padding:2.5rem 0 2rem;border-bottom:1px solid var(--border)">
+    <div class="eyebrow" style="color:var(--accent2)">🥷 Sinigaming Guide</div>
+    <h1>Assassin's Creed Shadows — Naoe & Yasuke Guide</h1>
+    <p style="color:var(--muted)">Ubisoft Quebec · Released Mar 2025 · PC, PS5, Xbox Series X|S</p>
+    <div class="meta-row">
+      <span class="badge b-gold">Complete Guide</span><span class="badge b-muted">Action RPG · Open World</span><span class="badge b-red">8.5 / 10</span>
+    </div>
+    <div class="nav-btns">
+      <a href="#before">Before You Start</a><a href="#protagonists">Naoe vs Yasuke</a><a href="#stealth">Stealth & Combat</a><a href="#exploration">Exploration</a><a href="#general">General Tips</a><a href="#verdict">Verdict</a>
+    </div>
+  </div>
+  <section>
+    <p>Feudal Japan, two protagonists, and a real return to the series' stealth roots — Assassin's Creed Shadows splits its playstyle between Naoe's shinobi infiltration and Yasuke's samurai brute force, and lets you pick which one tackles most of the game. This guide covers when to use who, how the stealth and combat systems actually work, and what's worth your time in the open world.</p>
+  </section>
+  <section id="before">
+    <div class="sec-label" style="color:var(--accent2)">🥷 Before You Start</div>
+    <h2>What you need to know</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--accent2)">1</div><div class="tip-b"><strong>You control two protagonists with completely different playstyles — plan your session around who you're in the mood for</strong><span>Naoe is a shinobi built for stealth, verticality, and assassination — she plays like a return to the series' Assassin's Creed roots. Yasuke is a samurai built for direct, powerful open combat with limited stealth options. Most story missions let you pick who tackles them; use that freedom rather than forcing one playstyle on every objective.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">2</div><div class="tip-b"><strong>Feudal Japan during the Sengoku period is the setting — expect castles, not pyramids</strong><span>This is Ubisoft's first mainline entry set in Japan, spanning the late 1500s Sengoku period. If you're coming from Valhalla or Origins, expect a tonal shift toward smaller-scale, more intimate stealth and combat encounters rather than sprawling raids.</span></div></li>
+    </ul>
+  </section>
+  <section id="protagonists">
+    <div class="sec-label" style="color:var(--accent2)">⚔️ Naoe vs. Yasuke</div>
+    <h2>Choosing the right tool for each mission</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--accent2)">3</div><div class="tip-b"><strong>Use Naoe for infiltration, assassination targets, and anything requiring a rooftop escape</strong><span>Naoe retains the grappling hook and full climbing/parkour kit, plus a shinobi tool set (kunai, smoke bombs, a retractable claw) built for silent takedowns. She's the right pick whenever a mission gives you a stealth option — her detection radius and takedown speed are simply better suited to it.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">4</div><div class="tip-b"><strong>Use Yasuke when a fight is unavoidable or you want to skip the stealth entirely</strong><span>Yasuke can break down doors, shrug off hits stealth characters can't, and clear guard camps head-on with heavy weapons. If you're tired of crouching in bushes, switch to him — some players run entire questlines almost exclusively as Yasuke and the game supports that.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">5</div><div class="tip-b"><strong>Some story beats are locked to one character — check the mission briefing before committing time to the wrong approach</strong><span>Not every mission is dual-approach. A handful of key story missions are written specifically for Naoe's infiltration or Yasuke's direct confrontation. The mission briefing screen tells you which — read it before you spend fifteen minutes stealthing somewhere that wants you to walk in the front door.</span></div></li>
+    </ul>
+  </section>
+  <section id="stealth">
+    <div class="sec-label" style="color:var(--accent2)">🌑 Stealth & Combat Systems</div>
+    <h2>Getting the most from each system</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--accent2)">6</div><div class="tip-b"><strong>Weather and time of day meaningfully affect stealth — use them deliberately</strong><span>Rain muffles footsteps and reduces guard visual range; night drops detection radius further. If a fortress is giving Naoe trouble in daylight, wait for a storm or nightfall before attempting it — the systemic weather isn't just cosmetic.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">7</div><div class="tip-b"><strong>Yasuke's stance system rewards reading enemy types, not button mashing</strong><span>Yasuke has multiple weapon stances suited to different enemy types — spear for groups, katana for duelists, kanabo for armored units. Swapping stance mid-fight based on who's in front of you outperforms sticking with one weapon the whole game.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">8</div><div class="tip-b"><strong>Strongholds and castles can be fully cleared or partially raided — decide based on your goal</strong><span>Not every fortified location needs a full clear. If you just need a specific resource or intel point, a fast Naoe infiltration in and out is often better than committing to clearing an entire garrison.</span></div></li>
+    </ul>
+  </section>
+  <section id="exploration">
+    <div class="sec-label" style="color:var(--accent2)">🏯 Exploration & Your Hideout</div>
+    <h2>Base building and the open world</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--accent2)">9</div><div class="tip-b"><strong>Your hideout is a real base-building layer — invest in it early</strong><span>As you progress you can construct and upgrade a hideout with training grounds, a garden, and other facilities that provide passive bonuses. Early investment compounds over a long playthrough — don't leave it until the endgame.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">10</div><div class="tip-b"><strong>Use the in-world scout/bird companion to scan objectives before committing</strong><span>Like previous entries, you have an aerial scouting tool to tag enemies and points of interest before you move in. Use it every time you approach a new area — going in blind wastes far more time than the ten seconds a scan takes.</span></div></li>
+    </ul>
+  </section>
+  <section id="general">
+    <div class="sec-label" style="color:var(--accent2)">🍳 General Tips</div>
+    <h2>Quality of life</h2>
+    <ul class="tip-list">
+      <li><div class="tip-n" style="color:var(--accent2)">11</div><div class="tip-b"><strong>The game respects your time better than recent entries — don't feel obligated to 100% every region</strong><span>Shadows trims a good amount of the map-icon bloat that weighed down Valhalla and Odyssey. You can comfortably finish the main story and a healthy chunk of side content without feeling like you're leaving huge value on the table by skipping full completion.</span></div></li>
+      <li><div class="tip-n" style="color:var(--accent2)">12</div><div class="tip-b"><strong>Photo Mode is genuinely excellent here — the environmental art direction deserves it</strong><span>The Sengoku-period environments, shrines, and castle towns are some of the best-looking environments Ubisoft has produced. If you enjoy screenshotting, this is one of the better games in years to do it in.</span></div></li>
+    </ul>
+  </section>
+  <section id="verdict">
+    <div class="sec-label" style="color:var(--accent2)">🍲 The Sinigaming Verdict</div>
+    <h2>Our take on Assassin's Creed Shadows</h2>
+    <div class="info-box orange" style="margin-top:0"><h3>🕹️ Our SiniPlay take</h3><p>A great game. We'll definitely be playing more of this when we can.</p></div>
+    <div class="verdict"><ul>
+      <li>✅ Naoe's stealth is the best the series has felt since the Ezio trilogy</li>
+      <li>✅ Dual-protagonist structure gives real, meaningful playstyle choice mission to mission</li>
+      <li>✅ Sengoku-era Japan is a gorgeous, well-researched setting with genuine atmosphere</li>
+      <li>⚠️ Yasuke's combat, while satisfying, is a much smaller system than Naoe's stealth toolkit</li>
+      <li>⚠️ Some fans of Valhalla-scale raiding will find Shadows more intimate and slower-paced</li>
+      <li>💡 Read each mission briefing before committing — a handful of missions are locked to one protagonist</li>
+    </ul></div>
+    <div class="nav-btns" style="margin-top:1.5rem">
+      <a href="/sinigaming/index.html">← All Guides</a>
+      <a href="/sinigaming/crimson-desert.html">Also read: Crimson Desert Guide</a>
+    </div>
+  </section>
+</div>
+<footer>
+  <div class="ts-studio-line"><strong>Team Sinigang</strong> — Games served piping hot · A gaming studio from <a href="https://www.agosllc.com/">AGOS LLC</a></div>
+  <div class="ft-links">
+    <a href="/index.html">Home</a><a href="/index.html#games">Games</a>
+    <a href="/recipes.html">Recipes</a><a href="/sinigaming/index.html">Sinigaming</a>
+    <a href="/blog/index.html">Blog</a><a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+  </div>
+</footer>
+</body>
+</html>

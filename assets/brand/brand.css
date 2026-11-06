@@ -1,0 +1,67 @@
+/* Team Sinigang 2026 brand layer — shared by editorial/landing pages. */
+body.ts-branding{
+  --bg:#07111f;
+  --surface:#0f1b2d;
+  --surface2:#16263d;
+  --border:#2a3c55;
+  --text:#fffdf7;
+  --muted:#aebed0;
+  --accent:#f4c542;
+  --accent2:#d53a49;
+  --green:#55c28d;
+  --purple:#a28cff;
+}
+body.ts-branding{background:
+  radial-gradient(900px 450px at 10% -12%,rgba(31,95,174,.15),transparent 62%),
+  radial-gradient(800px 420px at 100% 20%,rgba(206,47,63,.09),transparent 58%),
+  var(--bg);}
+body.ts-branding nav{
+  background:rgba(7,17,31,.92) !important;
+  border-bottom:1px solid rgba(255,255,255,.10) !important;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  min-height:72px;
+  flex-wrap:nowrap !important;
+}
+body.ts-branding nav ul{flex-wrap:nowrap !important;}
+body.ts-branding .nav-brand.ts-logo-link{
+  display:flex !important;
+  align-items:center;
+  padding:.3rem 0 !important;
+  line-height:1;
+  flex:0 0 auto;
+}
+body.ts-branding .nav-brand.ts-logo-link img{
+  width:auto;
+  height:58px;
+  max-width:220px;
+  object-fit:contain;
+  display:block;
+}
+body.ts-branding nav ul li a{color:#b7c6d8;}
+body.ts-branding nav ul li a:hover,
+body.ts-branding nav ul li a.active{
+  color:#fffdf7;
+  background:rgba(255,255,255,.07);
+}
+body.ts-branding .card,
+body.ts-branding .tip-list li,
+body.ts-branding .how-card,
+body.ts-branding .game-tile,
+body.ts-branding .verdict,
+body.ts-branding .nav-btns a{
+  box-shadow:0 12px 34px rgba(0,0,0,.08);
+}
+body.ts-branding footer{
+  background:#081321 !important;
+  border-top:1px solid rgba(255,255,255,.10) !important;
+}
+body.ts-branding footer strong{color:#fffdf7;}
+body.ts-branding footer .ts-studio-line a{color:var(--accent);font-weight:700;}
+@media(max-width:900px){
+  body.ts-branding nav{flex-wrap:wrap !important;padding:.35rem 1rem .5rem !important;gap:.2rem !important;}
+  body.ts-branding .nav-brand.ts-logo-link img{height:50px;max-width:185px;}
+  body.ts-branding nav ul{width:100%;flex-wrap:nowrap !important;overflow-x:auto;padding:.15rem 0 .25rem !important;scrollbar-width:none;}
+  body.ts-branding nav ul::-webkit-scrollbar{display:none;}
+  body.ts-branding nav ul li{flex:0 0 auto;}
+}

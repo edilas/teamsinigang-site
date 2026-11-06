@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-57W3NKSFTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-57W3NKSFTE');
+</script>
+<meta name="robots" content="noindex,follow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Broth Blitz ⚡</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a0800;
+    --card: #271200;
+    --gold: #f5a623;
+    --orange: #e8671a;
+    --red: #c0392b;
+    --green: #27ae60;
+    --white: #fff8ee;
+    --dim: #8a6040;
+    --border: #3d2000;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { background: var(--bg); font-family: 'Nunito', sans-serif; color: var(--white); }
+
+  body {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-start; min-height: 100vh;
+    overflow-y: auto; padding: 10px 8px 32px;
+  }
+
+  #game-wrap { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; }
+
+  .screen { display: none; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+  .screen.active { display: flex; }
+
+  /* TITLE */
+  .title-bolt { font-size: 68px; line-height: 1; animation: pulse 1.4s ease-in-out infinite; margin-top: 14px; }
+  @keyframes pulse {
+    0%,100% { filter: drop-shadow(0 0 10px #f5a623); transform: scale(1); }
+    50%      { filter: drop-shadow(0 0 26px #f5a623bb); transform: scale(1.1); }
+  }
+  .title-text { font-family: 'Bangers', cursive; font-size: 58px; letter-spacing: 3px; color: var(--gold); text-shadow: 3px 3px 0 #6a2800; line-height: 1; }
+  .subtitle   { font-size: 11px; color: var(--dim); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+
+  .btn {
+    background: linear-gradient(135deg, var(--orange), var(--gold));
+    color: #1a0a00; border: none; border-radius: 12px;
+    padding: 12px 32px; font-family: 'Bangers', cursive;
+    font-size: 22px; letter-spacing: 2px; cursor: pointer;
+    transition: all 0.15s; box-shadow: 0 4px 0 #6a2800;
+    width: 100%; max-width: 270px;
+  }
+  .btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #6a2800; }
+  .btn:active { transform: translateY(2px);  box-shadow: 0 1px 0 #6a2800; }
+  .btn-secondary {
+    background: transparent; border: 2px solid var(--dim); color: var(--dim);
+    font-size: 16px; box-shadow: none;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); box-shadow: none; transform: none; }
+
+  /* HUD */
+  #hud { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 4px 2px 6px; }
+  .hud-level { font-size: 10px; font-weight: 900; color: var(--dim); text-transform: uppercase; letter-spacing: 2px; }
+  .hud-score { font-family: 'Bangers', cursive; font-size: 24px; color: var(--gold); }
+  .hud-lives { font-size: 19px; }
+
+  /* RECIPE CARD */
+  #recipe-card { width: 100%; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: 7px 12px; margin-bottom: 5px; }
+  #recipe-title { font-family: 'Bangers', cursive; font-size: 19px; color: var(--gold); letter-spacing: 1px; }
+  #recipe-desc  { font-size: 10px; color: var(--dim); font-weight: 700; margin-top: 1px; }
+
+  /* POT + TIMER */
+  #pot-area { width: 100%; background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 7px 12px 9px; display: flex; align-items: center; gap: 12px; margin-bottom: 5px; }
+  #pot-emoji { font-size: 44px; line-height: 1; flex-shrink: 0; filter: drop-shadow(0 3px 8px #00000088); }
+  #pot-emoji.shake { animation: shake 0.3s ease; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-5px) rotate(-3deg); }
+    40% { transform: translateX(5px) rotate(3deg); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+  }
+  #timer-col { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+  .timer-label { font-size: 9px; font-weight: 900; color: var(--dim); text-transform: uppercase; letter-spacing: 2px; }
+  #timer-bar-bg { width: 100%; height: 11px; background: #3d2000; border-radius: 99px; overflow: hidden; }
+  #timer-bar    { height: 100%; border-radius: 99px; transition: width 0.1s linear, background 0.3s; }
+  #timer-text   { font-size: 12px; font-weight: 900; color: var(--white); text-align: right; }
+
+  /* ORDER QUEUE */
+  #order-section { width: 100%; margin-bottom: 5px; }
+  .section-label { font-size: 9px; font-weight: 900; color: var(--dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+  #order-queue { display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+  #order-queue::-webkit-scrollbar { display: none; }
+  .order-slot {
+    flex: 0 0 auto; background: #1a0a00; border: 2px solid var(--border);
+    border-radius: 9px; width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; position: relative; transition: all 0.2s;
+  }
+  .order-slot.next { border-color: var(--gold); box-shadow: 0 0 9px #f5a62344; background: #2a1400; animation: bounce-slot 0.6s ease infinite alternate; }
+  @keyframes bounce-slot { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+  .order-slot.done { border-color: var(--green); opacity: 0.4; }
+  .order-slot.done::after { content: '✓'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #27ae6077; border-radius: 7px; font-size: 16px; color: #fff; }
+  .slot-num { position: absolute; top: 1px; left: 3px; font-size: 8px; font-weight: 900; color: var(--dim); }
+
+  /* INGREDIENT GRID */
+  #ingredient-section { width: 100%; }
+  #ingredients-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .ingr-btn {
+    background: #2a1400; border: 2px solid var(--border); border-radius: 11px;
+    padding: 7px 2px 5px; display: flex; flex-direction: column;
+    align-items: center; gap: 3px; cursor: pointer; transition: all 0.12s;
+    color: var(--white); font-family: 'Nunito', sans-serif; width: 100%;
+  }
+  .ingr-btn:hover  { border-color: var(--orange); background: #3d1a00; transform: translateY(-2px); box-shadow: 0 4px 10px #e8671a33; }
+  .ingr-btn:active { transform: scale(0.93); }
+  .ingr-btn .emoji { font-size: 24px; line-height: 1; }
+  .ingr-btn .name  { font-size: 7.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2px; color: var(--dim); text-align: center; line-height: 1.2; }
+  .ingr-btn.correct-flash { border-color: var(--green); background: #1a3a1a; animation: flash-g 0.35s ease; }
+  .ingr-btn.wrong-flash   { border-color: var(--red);   background: #3a1a1a; animation: flash-r 0.35s ease; }
+  @keyframes flash-g { 0%,100% { box-shadow: none; } 50% { box-shadow: 0 0 14px 4px #27ae6066; } }
+  @keyframes flash-r { 0%,100% { box-shadow: none; } 50% { box-shadow: 0 0 14px 4px #c0392b66; } }
+
+  /* TOAST */
+  #toast { position: fixed; top: 46%; left: 50%; transform: translate(-50%,-50%) scale(0.7); font-family: 'Bangers', cursive; font-size: 42px; letter-spacing: 3px; pointer-events: none; opacity: 0; transition: all 0.15s; z-index: 100; text-shadow: 2px 2px 0 #00000066; }
+  #toast.show { opacity: 1; transform: translate(-50%,-60%) scale(1); }
+
+  /* FLOATIES */
+  .floatie { position: fixed; font-size: 20px; pointer-events: none; z-index: 200; animation: floatie-up 0.9s ease-out forwards; }
+  @keyframes floatie-up { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-65px) scale(1.4); } }
+
+  /* RESULT SCREENS */
+  .result-card { background: var(--card); border-radius: 18px; padding: 24px 20px; border: 2px solid var(--border); width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 9px; margin-top: 10px; }
+  .result-emoji { font-size: 56px; }
+  .result-title { font-family: 'Bangers', cursive; font-size: 42px; color: var(--gold); text-shadow: 3px 3px 0 #6a2800; }
+  .result-sub   { color: var(--dim); font-size: 12px; font-weight: 700; }
+  .result-score { font-family: 'Bangers', cursive; font-size: 28px; color: var(--white); }
+
+  /* NAME INPUT */
+  .name-row { display: flex; gap: 8px; width: 100%; max-width: 270px; }
+  .name-input {
+    flex: 1; background: #1a0a00; border: 2px solid var(--border); border-radius: 10px;
+    padding: 10px 12px; font-family: 'Nunito', sans-serif; font-size: 15px;
+    font-weight: 800; color: var(--white); outline: none; transition: border 0.15s;
+  }
+  .name-input:focus { border-color: var(--gold); }
+  .name-input::placeholder { color: var(--dim); }
+  .btn-submit {
+    background: linear-gradient(135deg, var(--orange), var(--gold));
+    color: #1a0a00; border: none; border-radius: 10px;
+    padding: 10px 16px; font-family: 'Bangers', cursive;
+    font-size: 18px; cursor: pointer; box-shadow: 0 3px 0 #6a2800;
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .btn-submit:hover  { transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(1px); box-shadow: 0 1px 0 #6a2800; }
+
+  /* LEADERBOARD SCREEN */
+  #leaderboard-screen { padding-top: 10px; }
+  .lb-header {
+    width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 2px 4px;
+  }
+  .lb-title { font-family: 'Bangers', cursive; font-size: 36px; color: var(--gold); letter-spacing: 2px; text-shadow: 2px 2px 0 #6a2800; }
+  .lb-card { width: 100%; background: var(--card); border: 2px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .lb-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 14px; border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row.top1 { background: #2e1a00; }
+  .lb-row.top2 { background: #221200; }
+  .lb-row.top3 { background: #1e0e00; }
+  .lb-rank { font-family: 'Bangers', cursive; font-size: 20px; width: 34px; text-align: center; flex-shrink: 0; }
+  .lb-rank.r1 { color: #ffd700; }
+  .lb-rank.r2 { color: #c0c0c0; }
+  .lb-rank.r3 { color: #cd7f32; }
+  .lb-rank.rn { color: var(--dim); font-size: 16px; }
+  .lb-medal { font-size: 22px; flex-shrink: 0; }
+  .lb-name { flex: 1; font-size: 14px; font-weight: 800; color: var(--white); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lb-score { font-family: 'Bangers', cursive; font-size: 20px; color: var(--gold); flex-shrink: 0; }
+  .lb-date  { font-size: 9px; color: var(--dim); font-weight: 700; flex-shrink: 0; margin-left: 4px; }
+  .lb-empty { padding: 28px; text-align: center; color: var(--dim); font-weight: 700; font-size: 14px; }
+  .lb-loading { padding: 28px; text-align: center; color: var(--dim); font-size: 22px; }
+  .lb-note { font-size: 10px; color: var(--dim); font-weight: 700; text-align: center; }
+
+  /* HOW TO */
+  .howto-card { background: var(--card); border-radius: 14px; padding: 16px; border: 2px solid var(--border); font-size: 13px; line-height: 2; width: 100%; }
+
+  /* PAUSE BUTTON in HUD */
+  .btn-pause {
+    background: #3d1a00; border: 2px solid var(--border); border-radius: 9px;
+    color: var(--dim); font-size: 18px; width: 36px; height: 36px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; flex-shrink: 0;
+  }
+  .btn-pause:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* PAUSE OVERLAY */
+  #pause-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 500;
+    background: #000000aa;
+    align-items: center; justify-content: center;
+  }
+  #pause-overlay.show { display: flex; }
+  .pause-card {
+    background: var(--card); border: 2px solid var(--border); border-radius: 20px;
+    padding: 28px 24px; width: 88%; max-width: 320px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    text-align: center; animation: pop-in 0.18s ease;
+  }
+  @keyframes pop-in {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+  .pause-title { font-family: 'Bangers', cursive; font-size: 38px; color: var(--gold); text-shadow: 2px 2px 0 #6a2800; letter-spacing: 2px; }
+  .pause-score { font-size: 13px; font-weight: 800; color: var(--dim); }
+  .pause-divider { width: 100%; height: 1px; background: var(--border); margin: 2px 0; }
+  .btn-pa {
+    width: 100%; max-width: 220px; padding: 11px 20px;
+    font-family: 'Bangers', cursive; font-size: 20px; letter-spacing: 1px;
+    border-radius: 11px; cursor: pointer; transition: all 0.13s; border: none;
+  }
+  .btn-pa.resume { background: linear-gradient(135deg, var(--orange), var(--gold)); color: #1a0a00; box-shadow: 0 3px 0 #6a2800; }
+  .btn-pa.resume:hover { transform: translateY(-1px); }
+  .btn-pa.retry  { background: #3d1a00; border: 2px solid var(--border); color: var(--white); box-shadow: none; }
+  .btn-pa.retry:hover  { border-color: var(--orange); color: var(--gold); }
+  .btn-pa.menu   { background: transparent; border: 2px solid var(--dim); color: var(--dim); box-shadow: none; }
+  .btn-pa.menu:hover   { border-color: var(--red); color: var(--red); }
+</style>
+
+<style>
+#ts-back{
+  position:fixed;top:14px;left:14px;z-index:9999;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:20px;
+  background:rgba(0,0,0,0.55);
+  border:1px solid #f5a62355;
+  color:#f5a623;
+  font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;font-family:system-ui,sans-serif;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  cursor:pointer;transition:background .2s,border-color .2s;
+}
+#ts-back:hover{background:rgba(0,0,0,0.8);border-color:#f5a623;text-decoration:none;color:#f5a623;}
+</style>
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+</head>
+<body>
+<a href="https://www.teamsinigang.com/index.html#games" id="tsi-back-btn" style="position:fixed;top:16px;left:16px;z-index:999999;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:rgba(10,10,15,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);border-radius:999px;color:#fff;font-family:'JetBrains Mono',Consolas,monospace;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;box-shadow:0 4px 14px rgba(0,0,0,0.35);transition:background 0.2s ease,transform 0.2s ease,border-color 0.2s ease;" onmouseover="this.style.background='rgba(229,53,43,0.85)';this.style.borderColor='rgba(229,53,43,0.9)';this.style.transform='translateX(-2px)';" onmouseout="this.style.background='rgba(10,10,15,0.75)';this.style.borderColor='rgba(255,255,255,0.18)';this.style.transform='translateX(0)';">
+<span style="font-size:15px;line-height:1;">&#8592;</span><span>Back to Games</span>
+</a>
+<a id="ts-back" href="/index.html#games" onclick="if(document.referrer&&document.referrer.includes(location.hostname)){history.back();return false;}">← Back</a>
+<div id="game-wrap">
+
+  <!-- TITLE -->
+  <div id="title-screen" class="screen active">
+    <div class="title-bolt">⚡</div>
+    <div class="title-text">Broth Blitz</div>
+    <div class="subtitle">Filipino Soup Showdown</div>
+    <button class="btn" onclick="startGame()">MAGLUTO NA!</button>
+    <button class="btn" style="background:linear-gradient(135deg,#3d1a00,#5a2800);color:var(--gold);box-shadow:0 4px 0 #1a0800;" onclick="openLeaderboard()">🏆 LEADERBOARD</button>
+    <button class="btn btn-secondary" onclick="showScreen('howto-screen')">HOW TO PLAY</button>
+  </div>
+
+  <!-- HOW TO PLAY -->
+  <div id="howto-screen" class="screen">
+    <div class="title-text" style="font-size:32px;margin-top:10px;">HOW TO PLAY</div>
+    <div class="howto-card">
+      🍲 Cook classic Filipino soups step by step!<br>
+      📋 Add ingredients <strong>in the correct order</strong><br>
+      ⏱️ Beat the timer for each ingredient<br>
+      ✅ Right = <strong>100 pts + time bonus</strong><br>
+      ❌ Wrong ingredient or timeout = lose a life 💔<br>
+      🔥 Finish all steps to clear the level!<br>
+      🏆 Your best score goes on the leaderboard!
+    </div>
+    <button class="btn" onclick="startGame()">KAYA NATIN!</button>
+    <button class="btn btn-secondary" onclick="showScreen('title-screen')">BACK</button>
+  </div>
+
+  <!-- GAME -->
+  <div id="game-screen" class="screen">
+    <div id="hud">
+      <div>
+        <div class="hud-level" id="level-label">LEVEL 1</div>
+        <div class="hud-score">⭐ <span id="score-disp">0</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="hud-lives" id="lives-disp">❤️❤️❤️</div>
+        <button class="btn-pause" onclick="pauseGame()" title="Pause / Menu">⏸</button>
+      </div>
+    </div>
+    <div id="recipe-card">
+      <div id="recipe-title">—</div>
+      <div id="recipe-desc">—</div>
+    </div>
+    <div id="pot-area">
+      <span id="pot-emoji">🍲</span>
+      <div id="timer-col">
+        <div class="timer-label">Time Left</div>
+        <div id="timer-bar-bg"><div id="timer-bar" style="width:100%"></div></div>
+        <div id="timer-text">5.0s</div>
+      </div>
+    </div>
+    <div id="order-section">
+      <div class="section-label">Recipe Order →</div>
+      <div id="order-queue"></div>
+    </div>
+    <div id="ingredient-section">
+      <div class="section-label" style="margin-top:5px;">Tap the right ingredient!</div>
+      <div id="ingredients-grid"></div>
+    </div>
+  </div>
+
+  <!-- LEVEL CLEAR -->
+  <div id="levelclear-screen" class="screen">
+    <div class="result-card">
+      <div class="result-emoji">🎉</div>
+      <div class="result-title">SARAP!</div>
+      <div class="result-sub" id="lc-subtitle">Recipe mastered!</div>
+      <div class="result-score">Score: <span id="lc-score">0</span></div>
+      <button class="btn" onclick="nextLevel()" style="margin-top:6px;">SUSUNOD ⚡</button>
+      <button class="btn btn-secondary" onclick="startGame()">↩ RESTART</button>
+      <button class="btn btn-secondary" onclick="showScreen('title-screen')">🏠 MENU</button>
+    </div>
+  </div>
+
+  <!-- GAME OVER -->
+  <div id="gameover-screen" class="screen">
+    <div class="result-card">
+      <div class="result-emoji">😢</div>
+      <div class="result-title">SUNOG!</div>
+      <div class="result-sub">Ang sopas ay nasunog...</div>
+      <div class="result-score">Final Score: <span id="go-score">0</span></div>
+
+      <!-- Name entry -->
+      <div style="width:100%;text-align:left;font-size:11px;font-weight:900;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin-top:4px;">Enter your name</div>
+      <div class="name-row">
+        <input class="name-input" id="player-name" type="text" maxlength="16" placeholder="Your name…" />
+        <button class="btn-submit" onclick="submitScore()">POST 🏆</button>
+      </div>
+      <div id="submit-status" style="font-size:11px;color:var(--dim);font-weight:700;min-height:16px;"></div>
+
+      <button class="btn" onclick="startGame()" style="margin-top:2px;">↩ ULIT!</button>
+      <button class="btn btn-secondary" onclick="showScreen('title-screen')">🏠 MENU</button>
+    </div>
+  </div>
+
+  <!-- PAUSE OVERLAY -->
+  <div id="pause-overlay">
+    <div class="pause-card">
+      <div class="pause-title">⏸ PAUSED</div>
+      <div class="pause-score" id="pause-score-disp">Score: 0 &nbsp;|&nbsp; Level 1</div>
+      <div class="pause-divider"></div>
+      <button class="btn-pa resume" onclick="resumeGame()">▶ RESUME</button>
+      <button class="btn-pa retry"  onclick="confirmRestart()">↩ RESTART</button>
+      <button class="btn-pa menu"   onclick="confirmMenu()">🏠 MAIN MENU</button>
+    </div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div id="leaderboard-screen" class="screen">
+    <div class="lb-header">
+      <div class="lb-title">🏆 TOP COOKS</div>
+      <button class="btn-secondary btn" style="max-width:90px;font-size:14px;padding:8px 12px;" onclick="showScreen('title-screen')">← BACK</button>
+    </div>
+    <div class="lb-card" id="lb-list">
+      <div class="lb-loading">🍲 Loading...</div>
+    </div>
+    <div class="lb-note">Scores are shared across all players. Salamat!</div>
+  </div>
+
+</div>
+<div id="toast"></div>
+
+<script>
+// ── STORAGE KEY ──────────────────────────────────────
+const LB_KEY = 'broth-blitz-leaderboard-v1';
+
+// ── RECIPES ──────────────────────────────────────────
+const RECIPES = [
+  {
+    name: "🍖 Sinigang na Baboy",
+    desc: "Classic sour tamarind pork soup!",
+    steps: ["🥩","💧","🍅","🌿","🥬","🌶️"],
+    names: ["Pork Ribs","Tubig","Kamatis","Sampalok","Kangkong","Siling Haba"],
+    distractors: [{emoji:"🧅",name:"Sibuyas"},{emoji:"🥕",name:"Karot"},{emoji:"🧄",name:"Bawang"},{emoji:"🌽",name:"Mais"}],
+    timePerStep: 5,
+  },
+  {
+    name: "🐔 Tinola",
+    desc: "Ginger chicken soup with papaya!",
+    steps: ["🫚","🧄","🧅","🍗","💧","🍈","🌿"],
+    names: ["Mantika","Bawang","Sibuyas","Manok","Tubig","Papaya","Dahon ng Sili"],
+    distractors: [{emoji:"🥩",name:"Baboy"},{emoji:"🍅",name:"Kamatis"},{emoji:"🌶️",name:"Sili"},{emoji:"🥬",name:"Kangkong"}],
+    timePerStep: 4.5,
+  },
+  {
+    name: "🦴 Bulalo",
+    desc: "Slow-cooked beef marrow soup!",
+    steps: ["🦴","💧","🧅","🧄","🌽","🥬"],
+    names: ["Beef Shank","Tubig","Sibuyas","Bawang","Mais","Pechay"],
+    distractors: [{emoji:"🥕",name:"Karot"},{emoji:"🍅",name:"Kamatis"},{emoji:"🌶️",name:"Sili"},{emoji:"🫚",name:"Mantika"}],
+    timePerStep: 4,
+  },
+  {
+    name: "🐷 Nilaga",
+    desc: "Simple boiled pork & veggie soup!",
+    steps: ["🥩","💧","🧅","🥔","🌽","🥬"],
+    names: ["Baboy","Tubig","Sibuyas","Patatas","Mais","Pechay"],
+    distractors: [{emoji:"🧄",name:"Bawang"},{emoji:"🍅",name:"Kamatis"},{emoji:"🌶️",name:"Sili"},{emoji:"🥕",name:"Karot"}],
+    timePerStep: 3.5,
+  },
+  {
+    name: "🐟 Sinigang na Isda",
+    desc: "Tangy fish in tamarind broth!",
+    steps: ["💧","🍅","🧅","🌿","🐟","🥬","🌶️"],
+    names: ["Tubig","Kamatis","Sibuyas","Sampalok","Isda","Kangkong","Siling Haba"],
+    distractors: [{emoji:"🥩",name:"Karne"},{emoji:"🧄",name:"Bawang"},{emoji:"🥕",name:"Karot"},{emoji:"🌽",name:"Mais"}],
+    timePerStep: 3.5,
+  },
+  {
+    name: "🦐 Sinigang na Hipon",
+    desc: "Shrimp sinigang — mabilis at masarap!",
+    steps: ["💧","🍅","🧅","🌿","🦐","🌱","🌶️"],
+    names: ["Tubig","Kamatis","Sibuyas","Sampalok","Hipon","Sitaw","Sili"],
+    distractors: [{emoji:"🥬",name:"Kangkong"},{emoji:"🐟",name:"Isda"},{emoji:"🥔",name:"Patatas"},{emoji:"🫚",name:"Mantika"}],
+    timePerStep: 3,
+  },
+];
+
+const DUMMY_POOL = [
+  {emoji:"🍰",name:"Cake"},{emoji:"🍕",name:"Pizza"},
+  {emoji:"🍟",name:"Fries"},{emoji:"🧁",name:"Cupcake"},
+  {emoji:"🍫",name:"Choco"},{emoji:"🥝",name:"Kiwi"},
+];
+
+// ── STATE ────────────────────────────────────────────
+let score=0, lives=3, currentLevel=0, currentStep=0;
+let timer=null, timeLeft=0, totalTime=0;
+let recipe=null, gameRunning=false;
+let scoreSubmitted=false;
+
+// ── HELPERS ──────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function shuffle(arr) {
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+function showToast(msg,color='#f5a623') {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.style.color=color;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),750);
+}
+
+function spawnFloatie(emoji,x,y) {
+  const f=document.createElement('div');
+  f.className='floatie'; f.textContent=emoji;
+  f.style.left=x+'px'; f.style.top=y+'px';
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),950);
+}
+
+function updateLives() { document.getElementById('lives-disp').textContent='❤️'.repeat(lives)+'🖤'.repeat(Math.max(0,3-lives)); }
+function updateScore() { document.getElementById('score-disp').textContent=score; }
+
+// ── GAME FLOW ─────────────────────────────────────────
+function startGame() {
+  score=0; lives=3; currentLevel=0; scoreSubmitted=false;
+  document.getElementById('submit-status').textContent='';
+  document.getElementById('player-name').value='';
+  document.getElementById('player-name').disabled=false;
+  loadLevel();
+}
+
+function loadLevel() {
+  recipe=RECIPES[currentLevel % RECIPES.length];
+  currentStep=0;
+  document.getElementById('level-label').textContent='LEVEL '+(currentLevel+1);
+  document.getElementById('recipe-title').textContent=recipe.name;
+  document.getElementById('recipe-desc').textContent=recipe.desc;
+  updateLives(); updateScore();
+  showScreen('game-screen');
+  gameRunning=true;
+  buildOrderQueue();
+  buildIngredients();
+  startStepTimer();
+}
+
+function buildOrderQueue() {
+  const q=document.getElementById('order-queue');
+  q.innerHTML='';
+  recipe.steps.forEach((emoji,i)=>{
+    const slot=document.createElement('div');
+    slot.className='order-slot'+(i===0?' next':'');
+    slot.id='slot-'+i;
+    slot.innerHTML=`<span class="slot-num">${i+1}</span>${emoji}`;
+    q.appendChild(slot);
+  });
+  q.scrollLeft=0;
+}
+
+function buildIngredients() {
+  const recipeSet=new Map();
+  recipe.steps.forEach((e,i)=>recipeSet.set(e,recipe.names[i]));
+  const correctIngrs=[...recipeSet.entries()].map(([emoji,name])=>({emoji,name}));
+  const used=new Set([...recipeSet.keys()]);
+  const distractors=shuffle([
+    ...(recipe.distractors||[]).filter(d=>!used.has(d.emoji)),
+    ...DUMMY_POOL.filter(d=>!used.has(d.emoji))
+  ]);
+  const total=correctIngrs.length;
+  const rows=Math.ceil((total+4)/4);
+  const gridSize=rows*4;
+  const numDistractors=Math.min(gridSize-total, distractors.length);
+  const panel=shuffle([...correctIngrs, ...distractors.slice(0,numDistractors)]);
+  const grid=document.getElementById('ingredients-grid');
+  grid.innerHTML='';
+  panel.forEach(ingr=>{
+    const btn=document.createElement('button');
+    btn.className='ingr-btn';
+    btn.dataset.emoji=ingr.emoji;
+    btn.innerHTML=`<span class="emoji">${ingr.emoji}</span><span class="name">${ingr.name}</span>`;
+    btn.addEventListener('click',()=>onIngredientClick(ingr.emoji,btn));
+    grid.appendChild(btn);
+  });
+}
+
+function startStepTimer() {
+  clearInterval(timer);
+  timeLeft=recipe.timePerStep; totalTime=recipe.timePerStep;
+  updateTimerUI();
+  timer=setInterval(()=>{
+    timeLeft=Math.max(0,timeLeft-0.1);
+    updateTimerUI();
+    if(timeLeft<=0){clearInterval(timer);onTimeout();}
+  },100);
+}
+
+function updateTimerUI() {
+  const pct=(timeLeft/totalTime)*100;
+  const bar=document.getElementById('timer-bar');
+  bar.style.width=pct+'%';
+  if(pct>55)      bar.style.background='linear-gradient(90deg,#27ae60,#a8e063)';
+  else if(pct>28) bar.style.background='linear-gradient(90deg,#f5a623,#e8671a)';
+  else            bar.style.background='linear-gradient(90deg,#c0392b,#ff6b6b)';
+  document.getElementById('timer-text').textContent=timeLeft.toFixed(1)+'s';
+  // Tick sound on each second when urgent
+  if(pct <= 28 && timeLeft > 0) {
+    const whole = Math.ceil(timeLeft);
+    const prev  = Math.ceil(timeLeft + 0.1);
+    if(whole !== prev) soundTick();
+  }
+}
+
+function onTimeout() {
+  if(!gameRunning)return;
+  soundTimeout();
+  showToast('⏰ MABILIS!','#e8671a');
+  loseLife();
+}
+
+function onIngredientClick(emoji,btn) {
+  if(!gameRunning)return;
+  const expected=recipe.steps[currentStep];
+  if(emoji===expected){
+    clearInterval(timer);
+    const bonus=Math.floor(timeLeft*10);
+    score+=100+bonus; updateScore();
+    soundCorrect();
+    btn.classList.add('correct-flash');
+    setTimeout(()=>btn.classList.remove('correct-flash'),400);
+    const slot=document.getElementById('slot-'+currentStep);
+    if(slot) slot.className='order-slot done';
+    const pot=document.getElementById('pot-emoji');
+    pot.classList.add('shake'); setTimeout(()=>pot.classList.remove('shake'),350);
+    const rect=btn.getBoundingClientRect();
+    spawnFloatie(emoji,rect.left+rect.width/2-10,rect.top-10);
+    showToast('+'+(100+bonus),'#27ae60');
+    currentStep++;
+    if(currentStep>=recipe.steps.length){
+      setTimeout(levelClear,600);
+    } else {
+      const ns=document.getElementById('slot-'+currentStep);
+      if(ns){ ns.className='order-slot next'; ns.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); }
+      startStepTimer();
+    }
+  } else {
+    btn.classList.add('wrong-flash');
+    setTimeout(()=>btn.classList.remove('wrong-flash'),400);
+    soundWrong();
+    showToast('❌ MALI!','#c0392b');
+    loseLife();
+  }
+}
+
+function loseLife() {
+  lives--; updateLives();
+  if(lives<=0){ gameRunning=false; clearInterval(timer); setTimeout(gameOver,700); }
+  else startStepTimer();
+}
+
+// ── PAUSE ─────────────────────────────────────────────
+let paused = false;
+
+function pauseGame() {
+  if (!gameRunning) return;
+  paused = true;
+  gameRunning = false;
+  clearInterval(timer);
+  document.getElementById('pause-score-disp').textContent =
+    `Score: ${score}  |  Level ${currentLevel + 1}`;
+  document.getElementById('pause-overlay').classList.add('show');
+}
+
+function resumeGame() {
+  document.getElementById('pause-overlay').classList.remove('show');
+  paused = false;
+  gameRunning = true;
+  startStepTimer();
+}
+
+function confirmRestart() {
+  document.getElementById('pause-overlay').classList.remove('show');
+  paused = false;
+  startGame();
+}
+
+function confirmMenu() {
+  document.getElementById('pause-overlay').classList.remove('show');
+  paused = false;
+  gameRunning = false;
+  clearInterval(timer);
+  showScreen('title-screen');
+}
+
+function levelClear() {
+  gameRunning=false; clearInterval(timer);
+  soundLevelClear();
+  document.getElementById('lc-score').textContent=score;
+  document.getElementById('lc-subtitle').textContent=recipe.name+' — Lutong-luto! 🎉';
+  showScreen('levelclear-screen');
+}
+
+function nextLevel() { soundButtonClick(); currentLevel++; loadLevel(); }
+
+function gameOver() {
+  soundGameOver();
+  document.getElementById('go-score').textContent=score;
+  showScreen('gameover-screen');
+}
+
+// ── LEADERBOARD ───────────────────────────────────────
+const MEDALS = ['🥇','🥈','🥉'];
+
+async function loadLeaderboard() {
+  const list = document.getElementById('lb-list');
+  list.innerHTML = '<div class="lb-loading">🍲 Loading...</div>';
+  try {
+    const result = await window.storage.get(LB_KEY, true);
+    const entries = result ? JSON.parse(result.value) : [];
+    renderLeaderboard(entries, list);
+  } catch(e) {
+    // Key doesn't exist yet or error
+    renderLeaderboard([], list);
+  }
+}
+
+function renderLeaderboard(entries, container) {
+  if (!entries || entries.length === 0) {
+    container.innerHTML = '<div class="lb-empty">🍲 No scores yet!<br>Be the first to cook!</div>';
+    return;
+  }
+  const sorted = [...entries].sort((a,b)=>b.score-a.score).slice(0,15);
+  container.innerHTML = sorted.map((e, i) => {
+    const rankClass = i === 0 ? 'r1' : i === 1 ? 'r2' : i === 2 ? 'r3' : 'rn';
+    const rowClass  = i === 0 ? 'top1' : i === 1 ? 'top2' : i === 2 ? 'top3' : '';
+    const medal     = i < 3 ? `<span class="lb-medal">${MEDALS[i]}</span>` : '';
+    const rank      = i < 3 ? (i+1) : `${i+1}`;
+    const date      = e.date ? `<span class="lb-date">${e.date}</span>` : '';
+    return `
+      <div class="lb-row ${rowClass}">
+        <span class="lb-rank ${rankClass}">${rank}</span>
+        ${medal}
+        <span class="lb-name">${escapeHtml(e.name)}</span>
+        <span class="lb-score">⭐ ${e.score}</span>
+        ${date}
+      </div>`;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function openLeaderboard() {
+  showScreen('leaderboard-screen');
+  loadLeaderboard();
+}
+
+async function submitScore() {
+  if (scoreSubmitted) return;
+  const nameEl = document.getElementById('player-name');
+  const statusEl = document.getElementById('submit-status');
+  const name = nameEl.value.trim();
+  if (!name) { statusEl.textContent = '⚠️ Please enter your name!'; statusEl.style.color='#e8671a'; return; }
+
+  statusEl.textContent = '⏳ Posting...'; statusEl.style.color='var(--dim)';
+
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-PH', {month:'short', day:'numeric'});
+  const newEntry = { name, score, date: dateStr, ts: Date.now() };
+
+  try {
+    let entries = [];
+    try {
+      const result = await window.storage.get(LB_KEY, true);
+      entries = result ? JSON.parse(result.value) : [];
+    } catch(e) { entries = []; }
+
+    entries.push(newEntry);
+    entries.sort((a,b)=>b.score-a.score);
+    if (entries.length > 100) entries = entries.slice(0, 100);
+
+    await window.storage.set(LB_KEY, JSON.stringify(entries), true);
+    scoreSubmitted = true;
+    statusEl.textContent = '✅ Score posted! Salamat!';
+    statusEl.style.color = '#27ae60';
+    nameEl.disabled = true;
+  } catch(err) {
+    statusEl.textContent = '❌ Could not save score. Try again.';
+    statusEl.style.color = 'var(--red)';
+    console.error('Submit error:', err);
+  }
+}
+
+// Allow pressing Enter in name field to submit
+document.getElementById('player-name').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitScore();
+});
+
+// ── SOUNDS (Web Audio API) ────────────────────────────
+let audioCtx = null;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playTone(freq, type, duration, vol=0.18, delay=0) {
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+    gain.gain.setValueAtTime(vol, ctx.currentTime + delay);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
+    osc.start(ctx.currentTime + delay);
+    osc.stop(ctx.currentTime + delay + duration);
+  } catch(e) {}
+}
+
+function soundCorrect() {
+  // Happy ascending blip
+  playTone(440, 'square', 0.08, 0.12);
+  playTone(660, 'square', 0.1,  0.12, 0.08);
+}
+
+function soundWrong() {
+  // Low buzzy thud
+  playTone(180, 'sawtooth', 0.18, 0.15);
+  playTone(120, 'sawtooth', 0.14, 0.12, 0.07);
+}
+
+function soundTimeout() {
+  // Descending alarm
+  playTone(400, 'square', 0.08, 0.13);
+  playTone(300, 'square', 0.08, 0.13, 0.09);
+  playTone(200, 'square', 0.12, 0.13, 0.18);
+}
+
+function soundLevelClear() {
+  // Cheerful fanfare
+  const notes = [523, 659, 784, 1047];
+  notes.forEach((f, i) => playTone(f, 'square', 0.18, 0.14, i * 0.11));
+  // Extra shimmer
+  setTimeout(() => {
+    playTone(1047, 'sine', 0.4, 0.1);
+    playTone(1319, 'sine', 0.35, 0.08, 0.06);
+  }, 440);
+}
+
+function soundGameOver() {
+  // Sad descending
+  const notes = [392, 330, 277, 220];
+  notes.forEach((f, i) => playTone(f, 'sawtooth', 0.22, 0.12, i * 0.15));
+}
+
+function soundTick() {
+  // Urgent tick when time is low
+  playTone(800, 'square', 0.04, 0.08);
+}
+
+function soundButtonClick() {
+  playTone(600, 'sine', 0.06, 0.09);
+}
+</script>
+</body>
+</html>

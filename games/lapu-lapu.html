@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-57W3NKSFTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-57W3NKSFTE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-6614135487817952">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<meta name="description" content="April 27, 1521 — lead Datu Lapu-Lapu's warriors and drive Magellan's fleet back into the sea.">
+<title>Lapu-Lapu: Defender of Mactan — Free Browser Game | Team Sinigang</title>
+<link rel="canonical" href="https://www.teamsinigang.com/games/lapu-lapu.html">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;
+  --text:#e8e8f0;--muted:#888899;--accent:#f0a500;--accent2:#e05c3a;
+  --green:#4caf7d;--purple:#9b7fe8;--radius:10px;
+  --font:'Inter',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.75;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:.5rem;position:sticky;top:0;z-index:100}
+.nav-brand{font-weight:700;font-size:1.1rem;color:var(--text);padding:1rem 0;white-space:nowrap}
+.nav-brand span{color:var(--accent)}
+nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.2rem;padding:.5rem 0}
+nav ul li a{color:var(--muted);padding:.4rem .75rem;border-radius:6px;font-size:.9rem;
+  transition:color .2s,background .2s;display:block}
+nav ul li a:hover,nav ul li a.active{color:var(--text);background:var(--surface2);text-decoration:none}
+.container{max-width:860px;margin:0 auto;padding:0 1.5rem}
+
+/* Page header — same as about/contact/privacy/terms */
+.page-header{padding:2rem 0 1.75rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+.breadcrumb{font-size:.82rem;color:var(--muted);margin-bottom:1rem}
+.breadcrumb a{color:var(--muted)}
+.breadcrumb a:hover{color:var(--accent)}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.6rem}
+.page-header h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:.75rem}
+.meta-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:1.25rem}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;padding:.22rem .55rem;border-radius:4px}
+.b-green{background:rgba(76,175,125,.15);color:var(--green)}
+.b-gold{background:rgba(240,165,0,.15);color:var(--accent)}
+.b-muted{background:var(--surface2);color:var(--muted)}
+.b-red{background:rgba(224,92,58,.15);color:var(--accent2)}
+
+/* Play button — prominent CTA */
+.play-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--accent);
+  color:#000;font-weight:700;padding:.85rem 2rem;border-radius:8px;font-size:1.05rem;
+  transition:opacity .2s;text-decoration:none}
+.play-btn:hover{opacity:.85;text-decoration:none}
+.back-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface);
+  border:1px solid var(--border);color:var(--muted);font-weight:500;padding:.65rem 1.2rem;
+  border-radius:8px;font-size:.9rem;transition:border-color .2s,color .2s;text-decoration:none}
+.back-btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.btn-row{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center}
+
+/* Content sections */
+.content{padding-bottom:4rem}
+.content section{padding:2rem 0;border-top:1px solid var(--border)}
+.content section:first-child{border-top:none;padding-top:0}
+.sec-label{font-size:.78rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--accent);margin-bottom:.6rem}
+.content h2{font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:1rem}
+.content p{color:var(--muted);margin-bottom:.85rem;line-height:1.75}
+.content p:last-child{margin-bottom:0}
+.content strong{color:var(--text)}
+
+/* How-to grid */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1rem;margin-top:.75rem}
+.how-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem}
+.how-card .icon{font-size:1.6rem;margin-bottom:.5rem}
+.how-card h3{font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:.35rem}
+.how-card p{font-size:.87rem;color:var(--muted);margin:0;line-height:1.55}
+
+/* More games strip */
+.games-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.85rem;margin-top:.85rem}
+.game-tile{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:1rem;display:block;text-decoration:none;transition:border-color .2s}
+.game-tile:hover{border-color:var(--accent);text-decoration:none}
+.game-tile .tile-emoji{font-size:1.4rem;margin-bottom:.4rem}
+.game-tile h3{font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:.2rem}
+.game-tile p{font-size:.8rem;color:var(--muted);margin:0;line-height:1.45}
+
+footer{background:var(--surface);border-top:1px solid var(--border);
+  padding:2rem 1.5rem;text-align:center;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--muted);margin:0 .45rem}
+footer a:hover{color:var(--accent)}
+.ft-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.2rem;margin-top:.7rem}
+@media(max-width:600px){nav{padding:0 1rem}.play-btn{width:100%;justify-content:center}}
+</style>
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+<link rel="stylesheet" href="/assets/brand/brand.css">
+</head>
+<body class="ts-branding">
+<nav>
+  <a class="nav-brand ts-logo-link" href="/index.html" aria-label="Team Sinigang home"><img src="/assets/brand/team-sinigang-logo.webp" alt="Team Sinigang"></a>
+  <ul>
+    <li><a href="/index.html#featured">Featured</a></li>
+    <li><a href="/index.html#games">Games</a></li>
+    <li><a href="/index.html#sinigang">What is Sinigang?</a></li>
+    <li><a href="/recipes.html">Recipes</a></li>
+    <li><a href="/sinigaming/index.html">🎮 Sinigaming</a></li>
+    <li><a href="/blog/index.html">📰 Blog</a></li>
+  </ul>
+</nav>
+<div class="container">
+<!-- FAHM banner: shows automatically every October -->
+<div id="fahm-banner" style="background:linear-gradient(90deg,rgba(31,95,174,.35),rgba(213,58,73,.28));border:1px solid rgba(244,197,66,.45);border-radius:12px;padding:.85rem 1.1rem;margin:1rem auto;max-width:1100px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem;font-size:.95rem">
+  <span style="color:#fffdf7"><strong style="color:#f4c542">🇵🇭 October is Filipino American History Month.</strong> We be Pinoys, so we're celebrating all month.</span>
+  <a href="/blog/filipino-american-history-month.html" style="color:#07111f;background:#f4c542;font-weight:700;padding:.45rem .9rem;border-radius:999px;text-decoration:none;white-space:nowrap">Read our post →</a>
+</div>
+<script>(function(){var b=document.getElementById('fahm-banner');if(b&&new Date().getMonth()!==9)b.style.display='none';})();</script>
+
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="/index.html">Home</a> › <a href="/index.html#games">Games</a> › Lapu-Lapu: Defender of Mactan</div>
+    <div class="eyebrow">⚔️ Team Sinigang · Free Browser Game</div>
+    <h1>⚔️ Lapu-Lapu: Defender of Mactan</h1>
+    <div class="meta-row"><span class="badge b-green">Live</span><span class="badge b-muted">Action Strategy</span><span class="badge b-gold">Philippine History</span><span class="badge b-red">Landscape</span></div>
+    <div class="btn-row">
+      <a class="play-btn" href="/alpha/lapu-lapu-game.html">▶ Play Now — Free</a>
+      <a class="back-btn" href="/index.html#games">← All Games</a>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <section>
+      <div class="sec-label">ℹ️ About</div>
+      <h2>What is Lapu-Lapu: Defender of Mactan?</h2>
+      <p>Lapu-Lapu: Defender of Mactan is Team Sinigang's most ambitious browser game — an action strategy game set during the real Battle of Mactan on April 27, 1521. Lead Datu Lapu-Lapu's Visayan warriors against Ferdinand Magellan's Spanish forces.</p>
+      <p>This is a real moment in Philippine history: the first recorded defeat of European colonizers in what would become the Philippines. Magellan died on that beach. Lapu-Lapu did not. <strong>Best played in landscape mode.</strong></p>
+      <p>Read the full story of how we built this game in our <a href="/blog/lapu-lapu-devlog.html">dev log</a>.</p>
+    </section>
+
+    <section>
+      <div class="sec-label">🎮 How to Play</div>
+      <h2>Controls &amp; Gameplay</h2>
+      <div class="how-grid"><div class="how-card">
+        <div class="icon">⚔️</div>
+        <h3>Command Warriors</h3>
+        <p>Tap to direct groups of warriors to intercept Spanish soldiers on the beach.</p>
+      </div><div class="how-card">
+        <div class="icon">🏹</div>
+        <h3>Use Ranged Fighters</h3>
+        <p>Keep archers and javelin throwers on high ground — they're safest away from melee.</p>
+      </div><div class="how-card">
+        <div class="icon">🌊</div>
+        <h3>Fight in the Shallows</h3>
+        <p>Draw Spanish forces into shallow water where their firearms lose their advantage.</p>
+      </div><div class="how-card">
+        <div class="icon">👑</div>
+        <h3>The Boss Fight</h3>
+        <p>Magellan appears in the final wave — read his attack patterns and exploit the gaps in his armor.</p>
+      </div></div>
+    </section>
+
+
+
+    <section>
+      <div class="sec-label">💡 Tips</div>
+      <h2>How to score higher</h2>
+      <p><strong>Don't engage in open water</strong> — Spanish firearms are devastating at range. Draw them into the shallows first. <strong>Keep your archers on the ridge</strong> the entire battle — they're your safest and most consistent damage source. For the Magellan boss fight: his legs are unarmored. Direct your strongest warriors low and alternate attacks to break his rhythm.</p>
+    </section>
+
+    <section>
+      <div class="sec-label">🎮 More Free Games</div>
+      <h2>Keep playing</h2>
+      <div class="games-strip"><a class="game-tile" href="/games/fingularity.html">
+        <div class="tile-emoji">🌌</div>
+        <h3>Fingularity</h3>
+        <p>Swipe black holes away before they devour your space.</p>
+      </a><a class="game-tile" href="/games/jungle-sprint.html">
+        <div class="tile-emoji">🌿</div>
+        <h3>Jungle Sprint</h3>
+        <p>Race through jungle trails dodging obstacles.</p>
+      </a><a class="game-tile" href="/games/puzzle-pot.html">
+        <div class="tile-emoji">🧩</div>
+        <h3>Puzzle Pot</h3>
+        <p>Mix ingredients to solve each flavor puzzle.</p>
+      </a><a class="game-tile" href="/games/broth-blitz.html">
+        <div class="tile-emoji">⚡</div>
+        <h3>Broth Blitz</h3>
+        <p>Keep the soup simmering at all costs!</p>
+      </a><a class="game-tile" href="/games/dungeon-3d.html">
+        <div class="tile-emoji">🗡️</div>
+        <h3>Dungeon of the Ancients 3D</h3>
+        <p>First-person dungeon crawl.</p>
+      </a></div>
+    </section>
+
+  </div>
+</div>
+<footer>
+  <div class="ts-studio-line"><strong>Team Sinigang</strong> — Games served piping hot · A gaming studio from <a href="https://www.agosllc.com/">AGOS LLC</a></div>
+  <div class="ft-links">
+    <a href="/index.html">Home</a><a href="/index.html#games">Games</a>
+    <a href="/recipes.html">Recipes</a><a href="/sinigaming/index.html">Sinigaming</a>
+    <a href="/blog/index.html">Blog</a><a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+  </div>
+</footer>
+</body>
+</html>

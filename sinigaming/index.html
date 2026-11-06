@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-57W3NKSFTE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-57W3NKSFTE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-6614135487817952">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<meta name="description" content="Sinigaming — tips, hints, and guides for the games we're obsessed with. Bold takes for bold players. Written by Team Sinigang.">
+<title>Sinigaming — Gaming Tips & Guides | Team Sinigang</title>
+<link rel="canonical" href="https://www.teamsinigang.com/sinigaming/index.html">
+
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f14;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;
+  --text:#e8e8f0;--muted:#888899;--accent:#f0a500;--accent2:#e05c3a;
+  --green:#4caf7d;--purple:#9b7fe8;--radius:10px;
+  --font:'Inter',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;height:auto}
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:.5rem;position:sticky;top:0;z-index:100}
+.nav-brand{font-weight:700;font-size:1.1rem;color:var(--text);padding:1rem 0;white-space:nowrap}
+.nav-brand span{color:var(--accent)}
+nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.2rem;padding:.5rem 0}
+nav ul li a{color:var(--muted);padding:.4rem .75rem;border-radius:6px;font-size:.9rem;
+  transition:color .2s,background .2s;display:block}
+nav ul li a:hover,nav ul li a.active{color:var(--text);background:var(--surface2);text-decoration:none}
+.container{max-width:900px;margin:0 auto;padding:0 1.5rem}
+.hero{padding:4rem 0 3rem;text-align:center;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.75rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:.85rem}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:620px;margin:0 auto 1.5rem}
+section{padding:2.5rem 0}
+section+section{border-top:1px solid var(--border)}
+.sec-label{font-size:.78rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--accent);margin-bottom:.6rem}
+h2{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;margin-bottom:1.1rem}
+h3{font-size:1.05rem;font-weight:600;margin-bottom:.4rem}
+p{color:var(--muted);margin-bottom:.9rem}
+p:last-child{margin-bottom:0}
+strong{color:var(--text)}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;padding:.22rem .55rem;border-radius:4px}
+.b-gold{background:rgba(240,165,0,.15);color:var(--accent)}
+.b-red{background:rgba(224,92,58,.15);color:var(--accent2)}
+.b-green{background:rgba(76,175,125,.15);color:var(--green)}
+.b-purple{background:rgba(155,127,232,.15);color:var(--purple)}
+.b-muted{background:var(--surface2);color:var(--muted)}
+.btn{display:inline-block;background:var(--accent);color:#000;font-weight:700;
+  padding:.75rem 1.6rem;border-radius:8px;font-size:.95rem;transition:opacity .2s}
+.btn:hover{opacity:.85;text-decoration:none}
+.btn-out{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-out:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem}
+.card:hover{border-color:var(--accent)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.grid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.tip-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.tip-list li{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem 1.2rem;display:flex;gap:1rem;align-items:flex-start}
+.tip-n{font-size:.83rem;font-weight:700;color:var(--accent);min-width:1.6rem;padding-top:.1rem}
+.tip-b strong{color:var(--text);display:block;margin-bottom:.2rem;font-size:.95rem}
+.tip-b span{color:var(--muted);font-size:.88rem;line-height:1.55}
+.tbl-wrap{overflow-x:auto;margin:1rem 0}
+table{width:100%;border-collapse:collapse;font-size:.87rem}
+th{background:var(--surface2);color:var(--text);font-weight:600;text-align:left;
+  padding:.7rem 1rem;border:1px solid var(--border)}
+td{padding:.6rem 1rem;border:1px solid var(--border);color:var(--muted);vertical-align:top}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.verdict{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.4rem}
+.verdict ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.verdict ul li{font-size:.91rem;color:var(--muted)}
+.breadcrumb{font-size:.82rem;color:var(--muted);padding:1.2rem 0 0}
+.breadcrumb a{color:var(--muted)}
+.breadcrumb a:hover{color:var(--accent)}
+.meta-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.5rem}
+.info-box{border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0}
+.info-box.purple{background:rgba(155,127,232,.07);border:1px solid rgba(155,127,232,.25)}
+.info-box.green{background:rgba(76,175,125,.07);border:1px solid rgba(76,175,125,.25)}
+.info-box.orange{background:rgba(240,165,0,.07);border:1px solid rgba(240,165,0,.25)}
+.info-box h3{font-size:1rem;margin-bottom:.4rem}
+.info-box.purple h3{color:var(--purple)}
+.info-box.green h3{color:var(--green)}
+.info-box.orange h3{color:var(--accent)}
+.nav-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+.nav-btns a{background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:.6rem 1.1rem;font-size:.87rem;color:var(--muted);transition:border-color .2s,color .2s}
+.nav-btns a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+footer{background:var(--surface);border-top:1px solid var(--border);
+  padding:2rem 1.5rem;text-align:center;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--muted);margin:0 .45rem}
+footer a:hover{color:var(--accent)}
+.ft-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.2rem;margin-top:.7rem}
+@media(max-width:600px){
+  .hero{padding:2.5rem 0 2rem}
+  nav{padding:0 1rem}
+}
+.sort-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:0 0 .6rem}
+.sort-bar span{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:.3rem}
+.sort-bar button{font:inherit;font-size:.85rem;color:var(--muted);background:var(--surface);border:1px solid var(--border);
+  border-radius:999px;padding:.4rem .95rem;cursor:pointer;min-height:36px;transition:color .2s,border-color .2s}
+.sort-bar button:hover{color:var(--text);border-color:var(--accent)}
+.sort-bar button[aria-pressed="true"]{color:#000;background:var(--accent);border-color:var(--accent);font-weight:600}
+.score-note{font-size:.85rem;margin-bottom:1.2rem}
+.last-play{font-size:.8rem;color:var(--text);margin-top:.55rem}
+.game-card .take{font-size:.88rem;font-style:italic;color:var(--text);border-left:2px solid var(--accent);padding-left:.75rem;margin-top:.4rem}
+</style>
+
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+<link rel="stylesheet" href="/assets/brand/brand.css">
+</head>
+<body class="ts-branding">
+<nav>
+  <a class="nav-brand ts-logo-link" href="/index.html" aria-label="Team Sinigang home"><img src="/assets/brand/team-sinigang-logo.webp" alt="Team Sinigang"></a>
+  <ul><li><a href="/index.html#featured">Featured</a></li>
+<li><a href="/index.html#games">Games</a></li>
+<li><a href="/index.html#sinigang">What is Sinigang?</a></li>
+<li><a href="/recipes.html">Recipes</a></li>
+<li><a href="/sinigaming/index.html" class="active">🎮 Sinigaming</a></li>
+<li><a href="/blog/index.html">📰 Blog</a></li>
+</ul>
+</nav>
+<div class="container">
+  <div class="hero">
+    <div class="eyebrow">🎮 Team Sinigang Presents</div>
+    <h1>Sinigaming</h1>
+    <p>Tips, hints &amp; guides — bold takes for bold players. No fluff, just the good stuff. 🍲</p>
+  </div>
+  <section>
+    <div class="sec-label">📖 Game Guides</div>
+    <h2>Pick your game</h2>
+    <div class="sort-bar" role="group" aria-label="Sort guides">
+      <span>Sort by</span>
+      <button type="button" data-sort="last" aria-pressed="true">Last SiniPlay</button>
+      <button type="button" data-sort="score" aria-pressed="false">Score</button>
+      <button type="button" data-sort="name" aria-pressed="false">Name</button>
+    </div>
+    <p class="score-note">Scores reflect how much we enjoyed each game, not a critic's checklist.</p>
+    <div class="grid2" id="guide-grid">
+      <a class="card game-card" href="/sinigaming/mortal-shell-2.html" data-name="Mortal Shell II" data-score="10" data-last="2026-10-07" style="display:block;text-decoration:none">
+        <div style="font-size:2rem;margin-bottom:.6rem">💀</div>
+        <h3>Mortal Shell II</h3>
+        <div class="meta-row"><span class="badge b-gold">Early Review</span><span class="badge b-muted">PC · PS5 · Xbox</span><span class="badge b-gold">10 / 10</span></div>
+        <div class="last-play">🕹️ Last SiniPlay: Oct 2026</div>
+        <p style="margin-top:.6rem">Soulslike sequel where you possess fallen warriors. Shells explained, where to find Proxima and Tiel, and beginner tips.</p>
+        <p class="take">&ldquo;3.5 hours in, and it's a 10/10 so far. Can't wait to see what's next.&rdquo;</p>
+      </a>
+      <a class="card game-card" href="/sinigaming/diablo4.html" data-name="Diablo IV" data-score="9.2" data-last="2026-10-01" style="display:block;text-decoration:none">
+        <div style="font-size:2rem;margin-bottom:.6rem">👿</div>
+        <h3>Diablo IV</h3>
+        <div class="meta-row"><span class="badge b-gold">Complete Guide</span><span class="badge b-muted">PC · PS5 · Xbox · Steam Deck</span><span class="badge b-red">9.2 / 10</span></div>
+        <div class="last-play">🕹️ Last SiniPlay: Oct 2026</div>
+        <p style="margin-top:.6rem">Disciple Paladin guide for Lord of Hatred: Blessed Hammer, Consecration, and Arbiter form, from 116+ hours of play.</p>
+        <p class="take">“Still playing, and still smiting demons with holy power.”</p>
+      </a>
+      <a class="card game-card" href="/sinigaming/elden-ring.html" data-name="Elden Ring" data-score="10" data-last="" style="display:block;text-decoration:none">
+        <div style="font-size:2rem;margin-bottom:.6rem">⚱️</div>
+        <h3>Elden Ring</h3>
+        <div class="meta-row"><span class="badge b-gold">Complete Guide</span><span class="badge b-muted">PC · PS5 · Xbox</span><span class="badge b-gold">10 / 10</span></div>
+        
+        <p style="margin-top:.6rem">FromSoftware's open-world masterpiece. Beginner tips, stat guides, Spirit Ashes, and Shadow of the Erdtree DLC breakdown.</p>
+        <p class="take">“100% complete and up to NG+5. Even after finishing Shadow of the Erdtree, there's nothing left to do.”</p>
+      </a>
+      <a class="card game-card" href="/sinigaming/assassins-creed-shadows.html" data-name="Assassin's Creed Shadows" data-score="8.5" data-last="" style="display:block;text-decoration:none">
+        <div style="font-size:2rem;margin-bottom:.6rem">🥷</div>
+        <h3>Assassin's Creed Shadows</h3>
+        <div class="meta-row"><span class="badge b-gold">Complete Guide</span><span class="badge b-muted">PC · PS5 · Xbox</span><span class="badge b-red">8.5 / 10</span></div>
+        
+        <p style="margin-top:.6rem">Naoe vs Yasuke playstyle breakdown, stealth and combat tips, and Sengoku-era Japan exploration advice.</p>
+        <p class="take">“A great game. We'll definitely be playing more of this when we can.”</p>
+      </a>
+      <a class="card game-card" href="/sinigaming/crimson-desert.html" data-name="Crimson Desert" data-score="8.5" data-last="" style="display:block;text-decoration:none">
+        <div style="font-size:2rem;margin-bottom:.6rem">🗡️</div>
+        <h3>Crimson Desert</h3>
+        <div class="meta-row"><span class="badge b-gold">Complete Guide</span><span class="badge b-muted">PC · 2026</span><span class="badge b-red">8.5 / 10</span></div>
+        
+        <p style="margin-top:.6rem">Pearl Abyss's massive open-world RPG — bigger than Skyrim. Written for Skyrim veterans who need to unlearn their instincts.</p>
+        <p class="take">“Great, too. But Diablo kept calling us back.”</p>
+      </a>
+      <a class="card game-card" href="/sinigaming/nightreign.html" data-name="Elden Ring: Nightreign" data-score="8.5" data-last="" style="display:block;text-decoration:none">
+        <div style="font-size:2rem;margin-bottom:.6rem">🌙</div>
+        <h3>Elden Ring: Nightreign</h3>
+        <div class="meta-row"><span class="badge b-gold">Complete Guide</span><span class="badge b-muted">PC · PS5 · Xbox</span><span class="badge b-purple">8.5 / 10</span></div>
+        
+        <p style="margin-top:.6rem">Co-op roguelite built for players with limited time. Nightfarer class breakdowns, expedition strategy, Relic system explained.</p>
+        <p class="take">“Very good, but we never seem to have the time for full campaigns.”</p>
+      </a>
+      <a class="card game-card" href="/sinigaming/clair-obscur-expedition-33.html" data-name="Clair Obscur: Expedition 33" data-score="7.5" data-last="" style="display:block;text-decoration:none">
+        <div style="font-size:2rem;margin-bottom:.6rem">🎭</div>
+        <h3>Clair Obscur: Expedition 33</h3>
+        <div class="meta-row"><span class="badge b-gold">Complete Guide</span><span class="badge b-muted">PC · PS5 · Xbox</span><span class="badge b-purple">7.5 / 10</span></div>
+        
+        <p style="margin-top:.6rem">Parry timing, Pictos and Luminas build tips, team comp advice, and what to expect from the story.</p>
+        <p class="take">“We gave it a few hours. Beautiful, but it didn't pull us in the way the fantasy games do.”</p>
+      </a>
+      <a class="card game-card" href="/sinigaming/monster-hunter-wilds.html" data-name="Monster Hunter Wilds" data-score="7.5" data-last="" style="display:block;text-decoration:none">
+        <div style="font-size:2rem;margin-bottom:.6rem">🌋</div>
+        <h3>Monster Hunter Wilds</h3>
+        <div class="meta-row"><span class="badge b-gold">Complete Guide</span><span class="badge b-muted">PC · PS5 · Xbox</span><span class="badge b-green">7.5 / 10</span></div>
+        
+        <p style="margin-top:.6rem">Focus Mode wound-targeting, Seikret mount tips, weapon picks, and multiplayer hunting advice.</p>
+        <p class="take">“Pretty good, but not a game we feel drawn to. We're willing to give it another go soon.”</p>
+      </a>
+      <a class="card game-card" href="/sinigaming/stardew-valley.html" data-name="Stardew Valley" data-score="7" data-last="" style="display:block;text-decoration:none">
+        <div style="font-size:2rem;margin-bottom:.6rem">🌾</div>
+        <h3>Stardew Valley</h3>
+        <div class="meta-row"><span class="badge b-gold">Complete Guide</span><span class="badge b-muted">PC · Mac · Switch · Mobile</span><span class="badge b-green">7 / 10</span></div>
+        
+        <p style="margin-top:.6rem">22 essential Year 1 tips — crops, mining, fishing, and completing the Community Center.</p>
+        <p class="take">“Cute game, and we put real time in. But the day-to-day grind started to feel like work... and life. Too much, haha.”</p>
+      </a>
+    </div>
+  </section>
+  <section>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem">
+      <div class="sec-label">🍲 About Sinigaming</div>
+      <h2 style="font-size:1.2rem">Written by players, for players</h2>
+      <p>Sinigaming is Team Sinigang's corner for honest game guides. We play the games ourselves — sometimes obsessively — and write the tips we wish we had when we started. No SEO padding, no vague advice.</p>
+      <p>Got a game you want us to cover? <a href="/contact.html">Drop us a message.</a></p>
+    </div>
+  </section>
+</div>
+<footer>
+  <div class="ts-studio-line"><strong>Team Sinigang</strong> — Games served piping hot · A gaming studio from <a href="https://www.agosllc.com/">AGOS LLC</a></div>
+  <div class="ft-links">
+    <a href="/index.html">Home</a><a href="/index.html#games">Games</a>
+    <a href="/recipes.html">Recipes</a><a href="/sinigaming/index.html">Sinigaming</a>
+    <a href="/blog/index.html">Blog</a><a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+  </div>
+</footer>
+<script>
+(function(){
+  var grid=document.getElementById('guide-grid'); if(!grid) return;
+  var cards=[].slice.call(grid.querySelectorAll('.game-card'));
+  var byScore=function(a,b){return parseFloat(b.dataset.score)-parseFloat(a.dataset.score)||a.dataset.name.localeCompare(b.dataset.name);};
+  var cmp={
+    name:function(a,b){return a.dataset.name.localeCompare(b.dataset.name);},
+    score:byScore,
+    last:function(a,b){var x=a.dataset.last,y=b.dataset.last;
+      if(x&&y) return y.localeCompare(x)||byScore(a,b);
+      if(x) return -1; if(y) return 1; return byScore(a,b);}
+  };
+  var btns=[].slice.call(document.querySelectorAll('.sort-bar button'));
+  btns.forEach(function(btn){btn.addEventListener('click',function(){
+    cards.sort(cmp[btn.dataset.sort]).forEach(function(c){grid.appendChild(c);});
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b===btn?'true':'false');});
+  });});
+})();
+</script>
+</body>
+</html>

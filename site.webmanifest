@@ -1,0 +1,13 @@
+{
+  "name": "Team Sinigang",
+  "short_name": "Sinigang",
+  "description": "Original browser games, game guides, and Filipino-flavored gaming culture from Team Sinigang, a gaming studio from AGOS LLC.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "icons": [
+    {"src":"/assets/brand/icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"/assets/brand/icon-512.png","sizes":"512x512","type":"image/png"}
+  ]
+}

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-6614135487817952">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6614135487817952" crossorigin="anonymous"></script>
+<title>Sinigaming — Gaming Tips & Hints | Team Sinigang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --sour:#e8b84b; --broth:#c25c1a; --deep:#1a1209; --cream:#fdf6e3;
+  --muted:#6b5c3e; --card:#fff; --border:#e8dfc8;
+  --red:#c0392b; --blue:#1a5fa8; --green:#1e7a3c; --purple:#6c3fa8;
+  --night:#3a0f6e;
+}
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--deep); font-size:16px; line-height:1.7; }
+
+/* NAV */
+nav { position:sticky; top:0; z-index:100; background:var(--deep); padding:0 2rem; display:flex; align-items:center; justify-content:space-between; height:56px; }
+.nav-brand { font-family:'Abril Fatface',serif; color:var(--sour); font-size:1.25rem; text-decoration:none; }
+nav ul { list-style:none; display:flex; gap:0.4rem; align-items:center; }
+nav ul li a { color:#d4c5a0; text-decoration:none; font-size:0.82rem; font-weight:500; padding:0.3rem 0.85rem; border-radius:100px; border:1px solid rgba(212,197,160,.25); transition:background .15s,color .15s,border-color .15s; white-space:nowrap; display:inline-block; }
+nav ul li a:hover { background:rgba(232,184,75,.12); color:var(--sour); border-color:rgba(232,184,75,.4); }
+nav ul li a.active { background:var(--broth); color:#fff; border-color:var(--broth); font-weight:600; padding:0.3rem 1rem; }
+
+/* HERO */
+.page-hero { background:var(--deep); color:var(--cream); padding:4rem 2rem 3rem; text-align:center; position:relative; overflow:hidden; }
+.page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center top,rgba(194,92,26,.25) 0%,transparent 65%); pointer-events:none; }
+.page-hero .eyebrow { font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--broth); margin-bottom:.75rem; }
+.page-hero h1 { font-family:'Abril Fatface',serif; font-size:clamp(2.5rem,7vw,4.5rem); color:var(--sour); line-height:1; margin-bottom:.75rem; }
+.page-hero .tagline { font-size:1.05rem; color:#c4b48a; max-width:500px; margin:0 auto; }
+
+/* TABS */
+.game-tabs { background:#fff; border-bottom:1px solid var(--border); padding:0 2rem; display:flex; gap:0; overflow-x:auto; }
+.game-tab { padding:1rem 1.25rem; font-size:.88rem; font-weight:500; color:var(--muted); border-bottom:3px solid transparent; cursor:pointer; white-space:nowrap; transition:color .15s,border-color .15s; background:none; border-top:none; border-left:none; border-right:none; font-family:'DM Sans',sans-serif; }
+.game-tab:hover { color:var(--broth); }
+.game-tab.active { color:var(--broth); border-bottom-color:var(--broth); font-weight:600; }
+.game-tab.tab-night.active { color:#9060d0; border-bottom-color:#9060d0; }
+.game-tab.tab-sdv.active { color:#2e7d32; border-bottom-color:#2e7d32; }
+.game-tab.tab-d4.active  { color:#c0392b; border-bottom-color:#c0392b; }
+.game-box-d4 { background:linear-gradient(145deg,#4a0808 0%,#1a0202 100%); }
+.callout.d4-callout { border-color:#c0392b; background:#fff8f8; }
+.callout.d4-callout h4 { color:#8b1a1a; }
+.tip-card.d4     { border-left:4px solid #c0392b; }
+.tip-card.d4 .tip-number { background:#c0392b; color:#fff; }
+.tips-section h3.d4-h3 { color:#6b1010; border-bottom-color:#f0c0c0; }
+.verdict-box.d4-verdict-box { background:linear-gradient(135deg,#1a0404 0%,#2e0808 100%); }
+.verdict-box.d4-verdict-box h3 { color:#e88070; }
+.sidebar-score.d4-score { background:linear-gradient(135deg,#1a0404 0%,#300808 100%); }
+.d4-score .score-num { color:#e88070; }
+.sidebar-card h4.d4-h4 { color:#c0392b; }
+.dlc-divider.d4-dlc { background:linear-gradient(135deg,#1a0404 0%,#2e0808 100%); }
+.dlc-divider.d4-dlc h3 { color:#e88070; }
+.dlc-divider.d4-dlc p  { color:#a04040; }
+.holy-note { background:#fff8f0; border:1px solid #e8c870; border-radius:6px; padding:.5rem .85rem; font-size:.82rem; color:#7a5010; margin-top:.5rem; display:flex; gap:.5rem; align-items:flex-start; }
+.holy-note::before { content:'✨'; flex-shrink:0; }
+.deck-note { background:#f0f4ff; border:1px solid #a0b0d0; border-radius:6px; padding:.5rem .85rem; font-size:.82rem; color:#2a3a6a; margin-top:.5rem; display:flex; gap:.5rem; align-items:flex-start; }
+.deck-note::before { content:'🎮'; flex-shrink:0; }
+
+/* BREADCRUMB */
+.breadcrumb { background:#fff; border-bottom:1px solid var(--border); padding:.6rem 2rem; font-size:.82rem; color:var(--muted); }
+.breadcrumb a { color:var(--broth); text-decoration:none; }
+.breadcrumb a:hover { text-decoration:underline; }
+.breadcrumb span { margin:0 .4rem; }
+
+/* LAYOUT */
+.main-wrap { max-width:1020px; margin:0 auto; padding:3rem 2rem; display:grid; grid-template-columns:1fr 280px; gap:2.5rem; align-items:start; }
+.guide-section { display:none; }
+.guide-section.visible { display:block; }
+
+/* GAME HEADER */
+.game-header { background:var(--deep); border-radius:16px; padding:2rem; color:var(--cream); margin-bottom:2rem; display:flex; gap:1.75rem; align-items:flex-start; }
+.game-box-art { width:96px; height:120px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; border:2px solid rgba(232,184,75,.3); font-size:2.5rem; }
+.game-box-cd { background:linear-gradient(145deg,#8b1a1a 0%,#3d0d0d 100%); }
+.game-box-er { background:linear-gradient(145deg,#1a3a5c 0%,#0a1a2e 100%); }
+.game-box-nr { background:linear-gradient(145deg,#1a0d2e 0%,#0a0d1a 100%); }
+.platform-row { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:.6rem; }
+.tag { background:rgba(232,184,75,.15); border:1px solid rgba(232,184,75,.3); color:var(--sour); font-size:.72rem; font-weight:600; padding:.2rem .6rem; border-radius:4px; letter-spacing:.05em; text-transform:uppercase; }
+.tag.dlc { background:rgba(108,63,168,.2); border-color:rgba(108,63,168,.4); color:#c4a0f0; }
+.tag.night-tag { background:rgba(58,15,110,.3); border-color:rgba(144,96,208,.4); color:#c4a0f0; }
+.game-header h2 { font-family:'Abril Fatface',serif; font-size:1.75rem; color:var(--sour); margin-bottom:.3rem; }
+.game-header .dev { font-size:.85rem; color:#a08060; margin-bottom:.6rem; }
+.game-header .verdict { font-size:.9rem; color:#c4b48a; border-left:3px solid var(--broth); padding-left:.75rem; font-style:italic; }
+.game-header .verdict.night-verdict { border-left-color:#9060d0; }
+
+/* CALLOUT */
+.callout { background:#fff; border:2px solid var(--sour); border-radius:12px; padding:1.25rem 1.5rem; display:flex; gap:1rem; align-items:flex-start; margin-bottom:2rem; }
+.callout .ci { font-size:1.75rem; flex-shrink:0; margin-top:.1rem; }
+.callout h4 { font-weight:600; font-size:1rem; margin-bottom:.3rem; }
+.callout p { font-size:.88rem; color:var(--muted); }
+.callout.dlc-callout { border-color:var(--purple); }
+.callout.night-callout { border-color:#9060d0; background:#faf8ff; }
+.callout.night-callout h4 { color:#6c3fa8; }
+.callout.dad-callout { border-color:var(--sour); background:#fffcf0; }
+
+/* DLC DIVIDER */
+.dlc-divider { background:linear-gradient(135deg,#1a0d2e 0%,#2e1460 100%); border-radius:12px; padding:1.25rem 1.5rem; display:flex; align-items:center; gap:1rem; margin:2.5rem 0 1.5rem; }
+.dlc-divider .dlc-icon { font-size:1.75rem; }
+.dlc-divider h3 { font-family:'Abril Fatface',serif; font-size:1.2rem; color:#c4a0f0; margin-bottom:.1rem; }
+.dlc-divider p { font-size:.83rem; color:#9070c0; }
+
+/* TIPS SECTION */
+.tips-section { margin-bottom:2.5rem; }
+.tips-section h3 { font-family:'Abril Fatface',serif; font-size:1.3rem; color:var(--deep); margin-bottom:1rem; padding-bottom:.5rem; border-bottom:2px solid var(--border); display:flex; align-items:center; gap:.5rem; }
+.tips-section h3.night-h3 { color:#4a1a88; border-bottom-color:#d0c0f0; }
+
+/* TIP CARDS */
+.tip-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:.85rem; display:grid; grid-template-columns:auto 1fr; gap:1rem; align-items:start; transition:border-color .15s; }
+.tip-card:hover { border-color:#c8b88a; }
+.tip-card.priority { border-left:4px solid var(--broth); }
+.tip-card.warning  { border-left:4px solid var(--red); }
+.tip-card.info     { border-left:4px solid var(--blue); }
+.tip-card.success  { border-left:4px solid var(--green); }
+.tip-card.magic    { border-left:4px solid var(--purple); }
+.tip-card.night    { border-left:4px solid #9060d0; background:#fdfbff; }
+.tip-number { width:2rem; height:2rem; background:var(--sour); color:var(--deep); font-weight:700; font-size:.8rem; display:flex; align-items:center; justify-content:center; border-radius:50%; flex-shrink:0; margin-top:.1rem; }
+.tip-card.priority .tip-number { background:var(--broth); color:#fff; }
+.tip-card.warning  .tip-number { background:var(--red); color:#fff; }
+.tip-card.info     .tip-number { background:var(--blue); color:#fff; }
+.tip-card.success  .tip-number { background:var(--green); color:#fff; }
+.tip-card.magic    .tip-number { background:var(--purple); color:#fff; }
+.tip-card.night    .tip-number { background:#9060d0; color:#fff; }
+.tip-body h4 { font-weight:600; font-size:.97rem; margin-bottom:.3rem; }
+.tip-body p { font-size:.88rem; color:var(--muted); }
+.compare-note { background:#fffbf0; border:1px solid #e0d0a0; border-radius:6px; padding:.5rem .85rem; font-size:.82rem; color:#7a5c20; margin-top:.5rem; display:flex; gap:.5rem; align-items:flex-start; }
+.compare-note::before { content:'🐉'; flex-shrink:0; }
+.souls-note { background:#f0f0ff; border:1px solid #c0c0e0; border-radius:6px; padding:.5rem .85rem; font-size:.82rem; color:#3a3a7a; margin-top:.5rem; display:flex; gap:.5rem; align-items:flex-start; }
+.souls-note::before { content:'⚱️'; flex-shrink:0; }
+.night-note { background:#f8f5ff; border:1px solid #d0b0f0; border-radius:6px; padding:.5rem .85rem; font-size:.82rem; color:#4a2a7a; margin-top:.5rem; display:flex; gap:.5rem; align-items:flex-start; }
+.night-note::before { content:'🌙'; flex-shrink:0; }
+.dad-note { background:#fffcf0; border:1px solid #e8d880; border-radius:6px; padding:.5rem .85rem; font-size:.82rem; color:#7a6010; margin-top:.5rem; display:flex; gap:.5rem; align-items:flex-start; }
+.dad-note::before { content:'👨‍👦'; flex-shrink:0; }
+
+/* NIGHTFARER TABLE */
+.nf-table { width:100%; border-collapse:collapse; font-size:.85rem; margin-bottom:1.5rem; background:var(--card); border-radius:12px; overflow:hidden; border:1px solid var(--border); }
+.nf-table th { background:#1a0d2e; color:#c4a0f0; font-family:'Abril Fatface',serif; font-size:.9rem; padding:.7rem 1rem; text-align:left; font-weight:400; }
+.nf-table th:first-child { color:#9070c0; }
+.nf-table td { padding:.6rem 1rem; border-bottom:1px solid var(--border); vertical-align:top; font-size:.83rem; }
+.nf-table tr:last-child td { border-bottom:none; }
+.nf-table tr:nth-child(even) td { background:#fdfbff; }
+.nf-table td:first-child { font-weight:600; white-space:nowrap; }
+.nf-rec { display:inline-block; background:#e8f5e9; color:#1e7a3c; font-size:.68rem; font-weight:700; padding:.1rem .45rem; border-radius:4px; text-transform:uppercase; letter-spacing:.04em; }
+.nf-rec.mid { background:#fff8e1; color:#b07800; }
+.nf-rec.adv { background:#fce4ec; color:#b71c1c; }
+
+/* COMPARE TABLE */
+.compare-table { width:100%; border-collapse:collapse; font-size:.88rem; margin-bottom:2rem; background:var(--card); border-radius:12px; overflow:hidden; border:1px solid var(--border); }
+.compare-table th { background:var(--deep); color:var(--sour); font-family:'Abril Fatface',serif; font-size:.95rem; padding:.75rem 1rem; text-align:left; font-weight:400; }
+.compare-table th:first-child { color:#a08060; }
+.compare-table td { padding:.65rem 1rem; border-bottom:1px solid var(--border); vertical-align:top; }
+.compare-table tr:last-child td { border-bottom:none; }
+.compare-table tr:nth-child(even) td { background:#fffbf4; }
+.compare-table td:first-child { font-weight:600; color:var(--deep); width:30%; }
+.compare-table td:nth-child(2),.compare-table td:nth-child(3) { color:var(--muted); }
+
+/* VERDICT */
+.verdict-box { background:var(--deep); color:var(--cream); border-radius:16px; padding:2rem; margin-bottom:2rem; }
+.verdict-box.night-verdict-box { background:linear-gradient(135deg,#0d0a1a 0%,#1a0d30 100%); }
+.verdict-box h3 { font-family:'Abril Fatface',serif; font-size:1.4rem; color:var(--sour); margin-bottom:1rem; }
+.verdict-box.night-verdict-box h3 { color:#c4a0f0; }
+.verdict-list { list-style:none; }
+.verdict-list li { padding:.4rem 0; font-size:.9rem; color:#c4b48a; border-bottom:1px solid rgba(255,255,255,.07); display:flex; gap:.6rem; }
+.verdict-list li:last-child { border-bottom:none; }
+
+/* COMING SOON */
+.coming-soon-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:.75rem; margin-top:1rem; }
+.coming-card { background:#fff; border:1px dashed var(--border); border-radius:10px; padding:1rem; text-align:center; font-size:.82rem; color:var(--muted); }
+.coming-card .coming-icon { font-size:1.5rem; margin-bottom:.3rem; }
+.coming-card strong { display:block; color:var(--deep); font-size:.9rem; margin-bottom:.2rem; }
+.coming-card .soon-badge { display:inline-block; background:var(--border); color:var(--muted); font-size:.68rem; font-weight:600; padding:.15rem .5rem; border-radius:4px; text-transform:uppercase; letter-spacing:.05em; margin-top:.3rem; }
+
+/* SIDEBAR */
+.sidebar { position:sticky; top:72px; }
+.sidebar-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.25rem; margin-bottom:1.25rem; }
+.sidebar-card h4 { font-weight:600; font-size:.75rem; margin-bottom:.75rem; color:var(--broth); text-transform:uppercase; letter-spacing:.06em; }
+.sidebar-card h4.night-h4 { color:#9060d0; }
+.sidebar-card ul { list-style:none; }
+.sidebar-card ul li { font-size:.85rem; padding:.4rem 0; border-bottom:1px solid var(--border); color:var(--muted); display:flex; align-items:center; gap:.5rem; }
+.sidebar-card ul li:last-child { border-bottom:none; }
+.sidebar-card ul li a { color:var(--broth); text-decoration:none; font-weight:500; }
+.sidebar-card ul li a:hover { text-decoration:underline; }
+.sidebar-score { background:var(--deep); border-radius:12px; padding:1.25rem; margin-bottom:1.25rem; text-align:center; }
+.sidebar-score.night-score { background:linear-gradient(135deg,#0d0a1a 0%,#1a0d30 100%); }
+.score-label { font-size:.75rem; color:#a08060; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.5rem; }
+.score-num { font-family:'Abril Fatface',serif; font-size:3rem; color:var(--sour); line-height:1; }
+.night-score .score-num { color:#c4a0f0; }
+.score-sub { font-size:.8rem; color:#7a6b50; margin-top:.3rem; }
+.difficulty-bar { margin-bottom:.6rem; }
+.diff-label { font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; margin-bottom:.25rem; }
+.diff-track { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+.diff-fill { height:100%; border-radius:3px; }
+.diff-fill.orange { background:var(--broth); }
+.diff-fill.red    { background:var(--red); }
+.diff-fill.blue   { background:var(--blue); }
+.diff-fill.green  { background:var(--green); }
+.diff-fill.purple { background:#9060d0; }
+
+footer { background:var(--deep); color:#7a6b50; text-align:center; padding:2.5rem 2rem; font-size:.88rem; margin-top:3rem; }
+footer strong { color:var(--sour); font-family:'Abril Fatface',serif; font-size:1rem; display:block; margin-bottom:.4rem; }
+footer .footer-links { margin:.9rem 0 0; display:flex; flex-wrap:wrap; gap:.25rem 1rem; justify-content:center; }
+footer .footer-links a { color:#9a8a68; text-decoration:none; font-size:.85rem; font-weight:600; }
+footer .footer-links a:hover { color:var(--sour); }
+
+@media(max-width:760px){
+  .main-wrap { grid-template-columns:1fr; }
+  .sidebar { position:static; }
+  nav ul { gap:0.2rem; }
+  nav ul li a { font-size:.72rem; padding:.25rem .6rem; }
+  .game-header { flex-direction:column; gap:1rem; }
+  .compare-table,.nf-table { font-size:.78rem; }
+  .compare-table th,.compare-table td,.nf-table th,.nf-table td { padding:.5rem .6rem; }
+}
+</style>
+
+<!-- Team Sinigang brand icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#07111f">
+<link rel="stylesheet" href="/assets/brand/brand.css">
+</head>
+<body class="ts-branding">
+
+<nav>
+  <a class="nav-brand ts-logo-link" href="/index.html" aria-label="Team Sinigang home"><img src="/assets/brand/team-sinigang-logo.webp" alt="Team Sinigang"></a>
+  <ul>
+    <li><a href="index.html#featured">Featured</a></li>
+    <li><a href="index.html#games">Games</a></li>
+    <li><a href="index.html#sinigang">What is Sinigang?</a></li>
+    <li><a href="recipes.html">Recipes</a></li>
+    <li><a href="sinigaming.html" class="active">🎮 Sinigaming</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Team Sinigang Presents</div>
+  <h1>Sinigaming</h1>
+  <p class="tagline">Tips, hints &amp; guides — bold takes for bold players. No fluff, just the good stuff. 🎮🍲</p>
+</div>
+
+<div class="game-tabs">
+  <button class="game-tab" data-game="crimson-desert" onclick="showGame('crimson-desert',this)">🗡️ Crimson Desert</button>
+  <button class="game-tab" data-game="elden-ring" onclick="showGame('elden-ring',this)">⚱️ Elden Ring</button>
+  <button class="game-tab tab-night" data-game="nightreign" onclick="showGame('nightreign',this)">🌙 Elden Ring: Nightreign</button>
+  <button class="game-tab tab-sdv" data-game="stardew" onclick="showGame('stardew',this)">🌾 Stardew Valley</button>
+  <button class="game-tab tab-d4 active" data-game="diablo4" onclick="showGame('diablo4',this)">👿 Diablo IV</button>
+</div>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a> <span>›</span> <a href="sinigaming.html">Sinigaming</a>
+  <span id="breadcrumb-game"></span>
+</div>
+
+<div class="main-wrap">
+  <div class="content-col">
+
+    <!-- ===== CRIMSON DESERT ===== -->
+    <div class="guide-section" id="guide-crimson-desert">
+      <div class="game-header">
+        <div class="game-box-art game-box-cd">🗡️</div>
+        <div>
+          <div class="platform-row"><span class="tag">PC</span><span class="tag">2026</span><span class="tag">Open World</span><span class="tag">Action RPG</span></div>
+          <h2>Crimson Desert</h2>
+          <p class="dev">Developed by Pearl Abyss · Released March 19, 2026</p>
+          <p class="verdict">Massive open-world action set in Pywel — bigger than Skyrim and RDR2 combined. Stunning to explore, brutal in combat, and built very differently from anything Bethesda ever made.</p>
+        </div>
+      </div>
+      <div class="callout"><div class="ci">🐉</div><div><h4>Written for the Skyrim 100% veteran</h4><p>You've cleared every dungeon, collected every Word Wall, and finished every questline in Tamriel. Welcome to Pywel. It's bigger, faster, and angrier — and it will humble you. Here's what you need to know before your first steps.</p></div></div>
+      <div class="tips-section">
+        <h3>🗺️ Skyrim vs Crimson Desert</h3>
+        <table class="compare-table">
+          <thead><tr><th>Feature</th><th>⚔️ Skyrim</th><th>🗡️ Crimson Desert</th></tr></thead>
+          <tbody>
+            <tr><td>Map size</td><td>~37 sq km</td><td>~80 sq km — roughly twice as large</td></tr>
+            <tr><td>Your character</td><td>Custom Dragonborn</td><td>Fixed protagonist — Kliff, mercenary leader</td></tr>
+            <tr><td>Leveling</td><td>XP → level up → perks</td><td>No traditional levels — Abyss Artifacts</td></tr>
+            <tr><td>Narrative</td><td>Open, player-driven</td><td>Cinematic, story-driven, focused</td></tr>
+            <tr><td>Fast travel</td><td>Unlocked from the start</td><td>Nearly non-existent early on</td></tr>
+            <tr><td>Combat pace</td><td>Methodical, can sneak/pause</td><td>Fast, aggressive — timing critical</td></tr>
+            <tr><td>Controller</td><td>Either works well</td><td>Controller strongly recommended on PC</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tips-section">
+        <h3>🏙️ First Hour: Don't Leave Hernand</h3>
+        <div class="tip-card priority"><div class="tip-number">1</div><div class="tip-body"><h4>Spend real time in Hernand — your starting city</h4><p>This is your Whiterun. Resist the urge to storm off into the wild. Talk to every named NPC, find the Butcher, Grocer, and Smithy, and grab every "favor" quest. These tasks ease you into the world and reward you with gear and reputation early.</p><div class="compare-note">Skyrim reflex to ignore: heading straight for the Greybeards without looting Whiterun first.</div></div></div>
+        <div class="tip-card info"><div class="tip-number">2</div><div class="tip-body"><h4>Get through Chapter 4 before free-roaming heavily</h4><p>Large chunks of the map start empty. They unlock and come alive as you advance the main story through Chapter 4. Push the story first — the world rewards you massively when it opens up.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">3</div><div class="tip-body"><h4>Use a controller — seriously</h4><p>The combat system was built with a controller in mind. Multiple reviewers describe mouse and keyboard as "very, very difficult." Grab your PS or Xbox controller from hour one.</p></div></div>
+      </div>
+      <div class="tips-section">
+        <h3>⚡ Progression: Abyss Artifacts Are Your Levels</h3>
+        <div class="tip-card magic"><div class="tip-number">4</div><div class="tip-body"><h4>Abyss Artifacts = Skyrim skill points + perk points combined</h4><p>No XP bars. You find glowing Abyss Artifacts throughout the world. They let you revive at 30% HP on death and invest in your stats and skills. Collect them religiously.</p><div class="compare-note">Like a Standing Stone you actually slot into your gear and keep forever.</div></div></div>
+        <div class="tip-card magic"><div class="tip-number">5</div><div class="tip-body"><h4>Question marks hide fast travel points and Artifacts</h4><p>~40% of map question marks are Abyss Nexus fast travel points. The rest are Abyss Cressets that reward Artifacts. Clear every single one — you unlock travel AND get stronger simultaneously.</p><div class="compare-note">This is your Word Wall hunt. That "gotta find them all" compulsion applies here.</div></div></div>
+        <div class="tip-card info"><div class="tip-number">6</div><div class="tip-body"><h4>Invest in Stamina early — it runs everything</h4><p>Stamina governs your ability to block, attack, sprint, and dodge. Early Abyss Artifact points into Stamina will feel immediately impactful in every combat encounter.</p></div></div>
+      </div>
+      <div class="tips-section">
+        <h3>🌍 Exploration & Combat</h3>
+        <div class="tip-card success"><div class="tip-number">7</div><div class="tip-body"><h4>Ring bells on tall structures to reveal the map</h4><p>Ringing bells on elevated structures unlocks the regional map with points of interest. Always go high. Always ring the bell.</p></div></div>
+        <div class="tip-card warning"><div class="tip-number">8</div><div class="tip-body"><h4>Bosses will destroy you — stockpile food</h4><p>Boss encounters are notoriously overtuned early. Hunt animals for meat, buy from the Butcher and Grocer, and cook at Campfires. Bring as much food as possible into every boss fight.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">9</div><div class="tip-body"><h4>Combat is about timing — not stat-checking</h4><p>Crimson Desert rewards reading enemy behavior. Spend time in early fights learning dodges, blocks, and counters. A weapon that fits your rhythm will outperform a higher-stat weapon.</p><div class="compare-note">Think less "glass cannon mage" and more patient fighter. Swinging first will get you punished.</div></div></div>
+        <div class="tip-card priority"><div class="tip-number">10</div><div class="tip-body"><h4>Do commissions constantly for Silver and Contribution Rank</h4><p>Faction quests and commissions raise your Contribution Rank, unlocking unique regional gear. This is your best income loop and the key to staying competitive on gear throughout.</p></div></div>
+      </div>
+      <div class="verdict-box">
+        <h3>🍲 The Sinigaming Verdict</h3>
+        <ul class="verdict-list">
+          <li><span>✅</span> Open-world exploration feels like a spiritual successor to Skyrim — and surpasses it in scale</li>
+          <li><span>✅</span> Completionist instincts are perfectly suited here — enormous amount to find and track</li>
+          <li><span>⚠️</span> Combat, progression, and fast travel are completely different — don't expect to adapt in the first few hours</li>
+          <li><span>⚠️</span> Cinematic, focused story — you're playing Kliff's story, not writing your own</li>
+          <li><span>💡</span> Get through Chapter 4 before going full explorer mode — the world opens up massively</li>
+          <li><span>💡</span> Estimated 50–80+ hours to see everything — your kind of game</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== ELDEN RING ===== -->
+    <div class="guide-section" id="guide-elden-ring">
+      <div class="game-header">
+        <div class="game-box-art game-box-er">⚱️</div>
+        <div>
+          <div class="platform-row"><span class="tag">PC</span><span class="tag">PS5</span><span class="tag">Xbox</span><span class="tag">2022</span><span class="tag">Souls-like</span><span class="tag dlc">+ Shadow of the Erdtree DLC</span></div>
+          <h2>Elden Ring</h2>
+          <p class="dev">Developed by FromSoftware · Base game 2022 · Shadow of the Erdtree DLC June 2024</p>
+          <p class="verdict">FromSoftware's open-world masterpiece. Brutally difficult, endlessly rewarding. One principle: you will die, and you will learn. One of the greatest games ever made.</p>
+        </div>
+      </div>
+      <div class="callout"><div class="ci">💀</div><div><h4>Know what you're getting into</h4><p>Elden Ring is a Souls-like — you will die repeatedly, lose your Runes (currency), and retrieve them from your death spot. This is the design, not a flaw. Every death teaches you something. Embrace it, and the game becomes one of the most satisfying experiences in gaming.</p></div></div>
+      <div class="tips-section">
+        <h3>⚗️ Before You Start</h3>
+        <div class="tip-card info"><div class="tip-number">1</div><div class="tip-body"><h4>Don't stress your starting class — it's not permanent</h4><p>All 10 classes can eventually use any gear by leveling the right stats. For beginners: Vagabond (melee tank) and Samurai (versatile katana) are the most forgiving. Astrologer is excellent if you prefer ranged magic.</p><div class="souls-note">No "restart because I picked wrong" anxiety. Any class can beat the whole game.</div></div></div>
+        <div class="tip-card priority"><div class="tip-number">2</div><div class="tip-body"><h4>Pick the Golden Seed as your Keepsake</h4><p>The Golden Seed gives you an extra charge on your Flask of Crimson Tears (your healing potion). One extra heal at the start of the game is more valuable than any other starting bonus — it sets you up better than every alternative.</p></div></div>
+      </div>
+      <div class="tips-section">
+        <h3>🏇 Your First Hour in Limgrave</h3>
+        <div class="tip-card priority"><div class="tip-number">3</div><div class="tip-body"><h4>Get Torrent (your horse) as soon as possible</h4><p>After reaching the first outdoor Site of Grace, speak to Melina. She gives you Torrent your horse AND the ability to level up. Torrent is essential for traversal and for certain boss fights. Get him immediately.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">4</div><div class="tip-body"><h4>At the Church of Elleh: buy the Crafting Kit and find Renna at night</h4><p>Merchant Kale sells the Crafting Kit (buy it immediately), a Torch, and a Telescope. Then come back at night — Renna appears and gives you the Spirit Calling Bell, which lets you summon Spirit Ashes (AI ally fighters) in boss fights. This is massive.</p></div></div>
+        <div class="tip-card warning"><div class="tip-number">5</div><div class="tip-body"><h4>Do NOT fight the Tree Sentinel at the start</h4><p>The giant golden knight on horseback right after the tutorial is the game's first test of wisdom: walk away. He is designed to kill you. Come back after 10+ hours when properly leveled. FromSoftware is teaching you that not every enemy is meant to be fought immediately.</p><div class="souls-note">Some fights are walls you run around, not through. This is the first one.</div></div></div>
+      </div>
+      <div class="tips-section">
+        <h3>📈 Leveling & Stats</h3>
+        <div class="tip-card priority"><div class="tip-number">6</div><div class="tip-body"><h4>Pump Vigor first — always Vigor</h4><p>Vigor = your HP. The #1 mistake new players make is ignoring Vigor in favor of attack stats. Aim for at least 40 Vigor before investing heavily elsewhere — it means surviving hits that would otherwise one-shot you.</p><div class="souls-note">Every veteran will say the same thing: "I died 50 times before realizing I just needed more Vigor."</div></div></div>
+        <div class="tip-card info"><div class="tip-number">7</div><div class="tip-body"><h4>Always spend Runes before heading into danger</h4><p>Runes are your XP currency. You lose them on death — they drop at your corpse and you have one chance to retrieve them. Always spend Runes at a Site of Grace before heading into dangerous territory or a boss fight.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">8</div><div class="tip-body"><h4>Collect Golden Seeds and Sacred Tears — they buff your flasks</h4><p>Golden Seeds (at glowing golden plants) add extra healing flask charges. Sacred Tears (in churches/ruins) increase how much each charge heals. Priority pickups throughout Limgrave — more and stronger heals = more boss attempts.</p></div></div>
+      </div>
+      <div class="tips-section">
+        <h3>⚔️ Combat Fundamentals</h3>
+        <div class="tip-card warning"><div class="tip-number">9</div><div class="tip-body"><h4>Stop panic rolling — time your dodge</h4><p>Spam-rolling is called "panic rolling" and it will get you killed. Elden Ring has input buffering — mash buttons and your inputs queue up and fire at the wrong time. Practice one well-timed roll through an attack. The invincibility frames on a good dodge are your most powerful defensive tool.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">10</div><div class="tip-body"><h4>Two-hand your weapon for a significant damage boost</h4><p>Hold Triangle/Y while pressing your weapon button to two-hand, giving you a 50% Strength bonus and often better move sets. For Strength builds especially, two-handing effectively doubles your power without spending a single level.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">11</div><div class="tip-body"><h4>Use Spirit Ashes — they're not cheating</h4><p>Spirit Ashes summon NPC spirits to assist in boss fights. They're part of the game. The Lone Wolf Ashes (three wolves, buy early from a merchant) are excellent for pulling boss aggro while you heal or attack from the side.</p><div class="souls-note">Veterans will debate this. Ignore them. You're a dad. Use every tool the game gives you.</div></div></div>
+        <div class="tip-card info"><div class="tip-number">12</div><div class="tip-body"><h4>If an area destroys you, leave and come back later</h4><p>Elden Ring is non-linear. If a zone or boss is wrecking you — leave. Go somewhere else. Level up. There is always a path forward elsewhere on the map. There is no shame in coming back overleveled.</p></div></div>
+      </div>
+      <div class="dlc-divider"><div class="dlc-icon">🌳</div><div><h3>Shadow of the Erdtree DLC</h3><p>Requires defeating Mohg, Lord of Blood and Starscourge Radahn in the base game. Has its own separate power system — read this before entering.</p></div></div>
+      <div class="callout dlc-callout"><div class="ci">⚠️</div><div><h4>Reach the DLC at the right time</h4><p>Defeat Mohg, Lord of Blood AND Starscourge Radahn, then interact with the withered arm in Mohg's arena to enter the Realm of Shadow. Have at least 45–60 Vigor and be around Rune Level 120–150 before entering. The DLC is harder than the base game.</p></div></div>
+      <div class="tips-section">
+        <h3>🌳 Shadow of the Erdtree: New Rules</h3>
+        <div class="tip-card magic"><div class="tip-number">13</div><div class="tip-body"><h4>Scadutree Fragments are your power in the DLC — collect them obsessively</h4><p>The DLC has a completely separate power system. Scadutree Fragments permanently boost your attack AND damage negation when used at a Site of Grace. Your base game level barely matters here — Scadutree Blessing level does. Knight encampments with mini-bosses often have one nearby.</p><div class="souls-note">This is the DLC's Sacred Tears. Prioritize these over everything else when you first enter.</div></div></div>
+        <div class="tip-card magic"><div class="tip-number">14</div><div class="tip-body"><h4>Revered Spirit Ashes upgrade your summons in the DLC</h4><p>Your Spirit Ashes are weakened entering the DLC. Revered Spirit Ashes (found at places of worship in the Realm of Shadow) boost your summons back up. Get both Scadutree Fragments AND Revered Spirit Ashes — neglecting either makes everything brutally harder.</p></div></div>
+        <div class="tip-card priority"><div class="tip-number">15</div><div class="tip-body"><h4>Explore sideways first — don't charge the story bosses immediately</h4><p>Before fighting story-critical bosses, unlock as much of the map as possible — including skipping ahead to Scadu Altus and the Cerulean Coast via alternate routes. More map = more Scadutree Fragments = dramatically easier boss fights when you return.</p></div></div>
+        <div class="tip-card warning"><div class="tip-number">16</div><div class="tip-body"><h4>DLC bosses are harder than anything in the base game</h4><p>If you're getting one-shot at full Vigor 60, you need more Scadutree Fragments. The final boss, Promised Consort Radahn, is widely considered the hardest boss FromSoftware has ever made. Use your Spirit Ashes. Use every tool. No shame in it.</p></div></div>
+      </div>
+      <div class="verdict-box">
+        <h3>🍲 The Sinigaming Verdict</h3>
+        <ul class="verdict-list">
+          <li><span>✅</span> One of the greatest games ever made — deserves every award it won</li>
+          <li><span>✅</span> The open world is endlessly surprising — every corner hides something worth finding</li>
+          <li><span>✅</span> Spirit Ashes make it accessible — use them without guilt</li>
+          <li><span>⚠️</span> The difficulty is real — budget your "one more attempt" sessions wisely as a dad</li>
+          <li><span>⚠️</span> DLC is harder than the base game — enter prepared</li>
+          <li><span>💡</span> Base game ~60–100 hrs · DLC adds another 20–40 hrs · Worth every minute</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== NIGHTREIGN ===== -->
+    <div class="guide-section" id="guide-nightreign">
+      <div class="game-header">
+        <div class="game-box-art game-box-nr">🌙</div>
+        <div>
+          <div class="platform-row"><span class="tag night-tag">PC</span><span class="tag night-tag">PS5</span><span class="tag night-tag">Xbox</span><span class="tag night-tag">2025</span><span class="tag night-tag">Co-op Roguelite</span><span class="tag night-tag">Standalone</span></div>
+          <h2 style="color:#c4a0f0;">Elden Ring: Nightreign</h2>
+          <p class="dev" style="color:#7050a0;">Developed by FromSoftware · Released May 30, 2025 · Standalone game</p>
+          <p class="verdict night-verdict">A bold departure from Elden Ring's formula — a co-op roguelite set in the same universe. Three Nightfarers, two nights, one terrifying Nightlord. Each run is a self-contained ~45-minute session. This is the dad-friendly FromSoftware game. Pick it up, put it down, no save-state guilt.</p>
+        </div>
+      </div>
+
+      <div class="callout dad-callout"><div class="ci">👨‍👦</div><div><h4>Why this one actually works for busy parents</h4><p>Unlike Elden Ring's 60–100 hour campaign, Nightreign is built around short, contained expeditions. Each run is roughly 30–45 minutes. Win or lose, you're done — no massive save file to maintain, no 30-minute dungeon you have to redo. You can pick it up on a Tuesday night and feel satisfied in one session.</p></div></div>
+
+      <div class="callout night-callout"><div class="ci">🌙</div><div><h4>This is NOT Elden Ring with multiplayer bolted on</h4><p>Nightreign is a completely different game. It's a roguelite — your gear, weapons, and stats reset each run. The map is procedurally generated. You pick a preset character (Nightfarer) with fixed abilities instead of building your own. Think Apex Legends meets Elden Ring combat, with a shrinking zone mechanic pulled from battle royales.</p></div></div>
+
+      <div class="tips-section">
+        <h3 class="night-h3">🌍 How an Expedition Works</h3>
+        <div class="tip-card night"><div class="tip-number">1</div><div class="tip-body"><h4>3-day structure: loot → loot → Nightlord</h4><p>Every expedition follows the same structure. Days 1 and 2 are your prep phase: run around the Limveld map (a remixed, procedurally generated version of Limgrave), fight enemies, find weapons with better stats, level up at Sites of Grace using Runes, and hunt mini-bosses. Day 3 is the Nightlord — a massive, punishing boss you must defeat together. The whole thing takes about 30–45 minutes.</p><div class="night-note">Day 3 Nightlord is the Elden Ring boss experience you know, but with a time pressure you don't. Go in prepared.</div></div></div>
+        <div class="tip-card warning"><div class="tip-number">2</div><div class="tip-body"><h4>The Night's Tide will kill you if you ignore it</h4><p>The Night's Tide is a blue flaming ring that shrinks around the map as each day passes, like a battle royale zone. If you stand in it too long, you lose HP, drop a character level, and lose your Runes. Each expedition day lasts about 15 minutes — keep one eye on the map and always know which direction the tide is pushing you.</p><div class="night-note">The tide doesn't affect enemies, only you. Enemies will happily chase you into it.</div></div></div>
+        <div class="tip-card info"><div class="tip-number">3</div><div class="tip-body"><h4>Losing a run is not wasted time — Relics carry over</h4><p>Failed expeditions still grant Relics — permanent items you equip at the Roundtable Hold between runs. Relics provide passive buffs that carry into every future expedition. Over time, a strong Relic loadout makes you significantly more powerful before you've even touched a weapon in Limveld. Losing is literally still progress.</p><div class="dad-note">One 45-minute run before bed that ends in defeat still permanently upgraded your character. That's the loop. Keep going.</div></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3 class="night-h3">⚔️ Picking Your Nightfarer</h3>
+        <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">You start with 6 of the 8 Nightfarers unlocked. The other two unlock via in-game requirements. Each has fixed stats and three abilities: a Passive, a Character Skill, and an Ultimate Art. Here's who to start with and who to graduate to.</p>
+        <table class="nf-table">
+          <thead><tr><th>Nightfarer</th><th>Role</th><th>Key Abilities</th><th>Best For</th></tr></thead>
+          <tbody>
+            <tr><td>⚔️ Wylder</td><td>All-rounder</td><td>Sixth Sense (cheat death once) · Claw Shot (grapple) · Onslaught Stake (explosive stake)</td><td><span class="nf-rec">Beginners</span> The most forgiving class. Balanced stats, a death cheat passive, and a grapple for mobility.</td></tr>
+            <tr><td>🛡️ Guardian</td><td>Tank</td><td>Steel Guard (stronger blocking) · Whirlwind (cyclone AoE) · Wings of Salvation (protective leap)</td><td><span class="nf-rec">Beginners</span> High damage resistance. Great for players who like absorbing hits and protecting teammates.</td></tr>
+            <tr><td>🏹 Ironeye</td><td>Ranged</td><td>Eagle Eye (finds more loot) · Sniper ability · High damage from distance</td><td><span class="nf-rec mid">Intermediate</span> Excellent for players who prefer staying out of melee. The loot passive has real value.</td></tr>
+            <tr><td>🗡️ Duchess</td><td>Agile/Stealth</td><td>High mobility, backstab focus, speed-based abilities</td><td><span class="nf-rec mid">Intermediate</span> Fast and lethal. Rewards aggressive positioning but punishes mistakes.</td></tr>
+            <tr><td>🪄 Recluse</td><td>Mage</td><td>FP-focused, heavy spell damage, support capabilities</td><td><span class="nf-rec mid">Intermediate</span> Big damage if your team builds around protecting you. Fragile alone.</td></tr>
+            <tr><td>🪓 Raider</td><td>Barbarian</td><td>Strength-focused, massive stagger damage, brutal AoE</td><td><span class="nf-rec mid">Intermediate</span> High risk, high reward melee. Punishes recklessness but rewards aggression.</td></tr>
+            <tr><td>🥷 Executor</td><td>Counter/Samurai</td><td>Deflection mechanics, katana focus, high precision</td><td><span class="nf-rec adv">Advanced</span> Mastering parries and deflects is deeply satisfying but requires mechanical skill.</td></tr>
+            <tr><td>👻 Revenant</td><td>Summoner</td><td>Spirit Ash summoning built into the class, support/chaos hybrid</td><td><span class="nf-rec adv">Advanced</span> Unique and powerful in co-op — your summons can completely alter fight dynamics.</td></tr>
+          </tbody>
+        </table>
+        <div class="tip-card night"><div class="tip-number">4</div><div class="tip-body"><h4>Start with Wylder, then try Guardian — graduate to the others</h4><p>Wylder's Sixth Sense passive (cheat death once per run) is practically made for learning the game. You'll get a free save at least once per run while you figure out enemy patterns. Guardian is the second-best learning class — the Steel Guard and high defense let you make mistakes without dying instantly.</p><div class="night-note">Unlock Executor and Revenant only after you've learned the map and enemy patterns on the easier classes first.</div></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3 class="night-h3">⚡ Surviving Days 1 & 2</h3>
+        <div class="tip-card priority"><div class="tip-number">5</div><div class="tip-body"><h4>Always be upgrading your weapon — smithing stones are everywhere</h4><p>Unlike Elden Ring where you carefully choose what to upgrade, in Nightreign you should constantly be swapping and upgrading weapons. Smithing stones drop from enemies, appear in chests, and are sold by merchants. Use them immediately — there's no carry-over between runs, so hoarding is pointless.</p><div class="night-note">The rule of thumb: if a weapon has higher stats or a better passive, upgrade it and switch. The bigger number almost always wins early.</div></div></div>
+        <div class="tip-card success"><div class="tip-number">6</div><div class="tip-body"><h4>Dual-wield same weapon types for double attacks</h4><p>If you equip two weapons of the same type (two daggers, two longswords, two katanas), pressing Left Hand attack swings both simultaneously. Right hand only attacks with one. This is a significant DPS increase — look for matching weapon types during your loot runs.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">7</div><div class="tip-body"><h4>Fill every item slot — even for passive benefits</h4><p>Even items you're not actively using provide passive stat bonuses if they're slotted. Some classes like Ironeye benefit from carrying a high-stat melee weapon just for the passive numbers, even if they'll never swing it. Always have something in every slot.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">8</div><div class="tip-body"><h4>Use consumables on the ground without pocketing them</h4><p>You can use items directly off the ground without putting them in your inventory. Grease, boluses, flasks — if you see them, use them on the spot. Items with status-effect cures also give you a small resistance buff for the rest of the run. Don't save consumables; in a roguelite, resources you hoard are resources wasted.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">9</div><div class="tip-body"><h4>Not every enemy needs to die — be selective</h4><p>You're on a time limit. Large groups of weak enemies can eat your clock without meaningful rewards. Prioritize: mini-bosses (guaranteed good loot), Sites of Grace (leveling), merchant locations (smithing stones and consumables), and marked objectives. Skip enemy packs that offer nothing special.</p><div class="dad-note">Think of it like doing side quests vs main quests on a 45-minute timer. Be efficient.</div></div></div>
+        <div class="tip-card warning"><div class="tip-number">10</div><div class="tip-body"><h4>Mark good weapons for teammates</h4><p>Hold Triangle/Y + L3 to mark an item in the world. This flags it on your teammates' maps and screens so they can pick it up if it suits their build better. Passing gear between players is one of the big co-op advantages of Nightreign — a sword that's useless to a Recluse mage might be a game-changer for a Raider.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3 class="night-h3">🏆 The Nightlord: Day 3</h3>
+        <div class="tip-card warning"><div class="tip-number">11</div><div class="tip-body"><h4>If all three players go down during a Night encounter — it's over</h4><p>During the nightly boss encounters (Days 1–2 night phases and the Day 3 Nightlord), if all allies are downed simultaneously it's an instant defeat and full retreat — no revival. One player staying alive keeps the run alive. When things get bad, one person should prioritize surviving while the others are revived, not everyone hero-ing in simultaneously.</p></div></div>
+        <div class="tip-card priority"><div class="tip-number">12</div><div class="tip-body"><h4>Coordinate Ultimate Arts for the Nightlord fight</h4><p>Each Nightfarer's Ultimate Art is a powerful, recharging ability. Don't use all three at once — stagger them through the fight. If one player uses their Ultimate at the start of a phase and the other two hold theirs for the next phase, you maintain consistent burst damage throughout the whole fight instead of burning everything in the first 30 seconds.</p><div class="night-note">Co-op timing of Ultimates is what separates squads that clear Nightlords from squads that get wiped in Phase 2.</div></div></div>
+        <div class="tip-card night"><div class="tip-number">13</div><div class="tip-body"><h4>Buy FP-restoring items for your magic/skill users before Day 3</h4><p>Any Nightfarer that uses Character Skills or spells (Recluse especially) burns through FP fast. Before the Nightlord fight, make sure you've stocked FP-restoring items from merchants. Running out of FP mid-Nightlord is effectively losing one player's entire toolkit.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3 class="night-h3">🔮 The Relic System: Long-Term Power</h3>
+        <div class="tip-card magic"><div class="tip-number">14</div><div class="tip-body"><h4>Relics are your permanent progression — take them seriously</h4><p>Relics are the only thing that carries across runs. You can equip up to 6 at once from pedestals at the Roundtable Hold. They provide passive buffs to attributes, damage types, and conditional bonuses. Unlock more Relic slots by buying character Goblets from the Small Jar Bazaar using Murks (the currency you earn from runs).</p><div class="night-note">Failed runs still grant Relics. Think of every run — win or lose — as a Relic-farming session.</div></div></div>
+        <div class="tip-card magic"><div class="tip-number">15</div><div class="tip-body"><h4>Synergise your squad's Relics — some scale with multiple users</h4><p>Certain Relics scale exponentially when multiple players run the same one. A squad heal Relic that triggers when one player uses a flask becomes a full-team AoE heal if all three carry it. Before entering an expedition together, coordinate Relic setups and assign roles: who tanks, who bursts, who supports. This is what separates casual squads from squads that clear consistently.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">16</div><div class="tip-body"><h4>Complete Remembrance questlines for unique Relics</h4><p>In the Roundtable Hold Journal, each Nightfarer has a Remembrance — an optional story quest triggered by finding Memory Fragments during runs (marked with an orange flag on the map). Completing them gives big Rune payouts and unlocks special unique Relics that significantly power up that character's key ability. Worth pursuing once you've settled on a main Nightfarer.</p></div></div>
+      </div>
+
+      <div class="verdict-box night-verdict-box">
+        <h3>🌙 The Sinigaming Verdict</h3>
+        <ul class="verdict-list">
+          <li><span>✅</span> The best FromSoftware game for players with limited session time — each run is a complete experience</li>
+          <li><span>✅</span> Co-op makes it genuinely more fun, not just easier — squad synergy adds real depth</li>
+          <li><span>✅</span> Even failed runs progress your permanent Relic loadout — no session feels wasted</li>
+          <li><span>⚠️</span> This is NOT a continuation of Elden Ring's story — it's a side universe spinoff</li>
+          <li><span>⚠️</span> Procedural randomness means some runs are loot-rich and others feel dry — that's the roguelite deal</li>
+          <li><span>💡</span> Start with Wylder — learn the systems — then experiment with other Nightfarers</li>
+          <li><span>💡</span> ~30–45 min per expedition · Perfect for the Tuesday night window after the kids are in bed</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== STARDEW VALLEY ===== -->
+    <div class="guide-section" id="guide-stardew">
+      <div class="game-header">
+        <div class="game-box-art" style="background:linear-gradient(145deg,#2d6a1f 0%,#1a3d0f 100%);">🌾</div>
+        <div>
+          <div class="platform-row">
+            <span class="tag">PC</span><span class="tag">Mac</span><span class="tag">Switch</span><span class="tag">iOS</span><span class="tag">Android</span><span class="tag">2016</span><span class="tag">All Ages</span>
+          </div>
+          <h2 style="color:#4caf50;">Stardew Valley</h2>
+          <p class="dev">Developed by ConcernedApe (one person!) · Released 2016 · ~$15 on Steam</p>
+          <p class="verdict" style="border-left-color:#4caf50;">You inherit your grandfather's overgrown farm in Pelican Town and start over from scratch. Grow crops, raise animals, explore mines, build friendships, and restore the Community Center. One of the most relaxing yet surprisingly deep games ever made — and it runs on any Mac or PC.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="border-color:#4caf50;">
+        <div class="ci">🌱</div>
+        <div>
+          <h4>Perfect for all ages — including dad</h4>
+          <p>No death penalty. No timer pressure. No game over. You can play 20 minutes before work or two hours on a weekend and both feel satisfying. Your kids can watch or play alongside you. It's genuinely one of the most stress-free games ever made — and one of the deepest once you dig in.</p>
+        </div>
+      </div>
+
+      <div class="tips-section">
+        <h3>🌅 Day 1: The First Thing You Do</h3>
+        <div class="tip-card priority"><div class="tip-number">1</div><div class="tip-body"><h4>Plant your parsnip seeds immediately on Day 1</h4><p>You start with a letter from your grandfather and a bag of parsnip seeds. Plant them right away on Day 1 — parsnips take 4 days to grow and are your first income. Clear just enough land to plant all of them, then spend the rest of Day 1 chopping wood and breaking rocks. Don't over-clear — you'll run out of energy fast.</p></div></div>
+        <div class="tip-card warning"><div class="tip-number">2</div><div class="tip-body"><h4>Watch your Energy bar — it controls everything</h4><p>Energy is your most important resource. Every swing of an axe, hoe, or watering can costs energy. When it hits zero you move slowly and can't do much. When it hits negative (bright red) you pass out. Eat food to restore energy — foraged items like spring onions (find them in the south field near Marnie's Ranch from Day 1) restore energy for free.</p><div class="dad-note">Think of energy like your real-life stamina after work. Respect it early and everything flows. Ignore it and you'll waste half your day passed out.</div></div></div>
+        <div class="tip-card info"><div class="tip-number">3</div><div class="tip-body"><h4>Be home by midnight or you pass out and lose gold</h4><p>The in-game day runs 6am to 2am. If you're still out at midnight your character starts blinking as a warning. At 2am you pass out wherever you are and get fined a chunk of gold — or worse, you lose items if you passed out in the mines. Get in the habit of heading home by 11:30pm to safely save and sleep.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">4</div><div class="tip-body"><h4>Craft a Chest on Day 1 — your first storage</h4><p>You need 50 Wood to craft a Chest (check your Crafting menu). Place it outside your house to store items you want to keep but don't need to carry. You'll quickly run out of inventory space — a chest solves this immediately. Make several over the first few days.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3>🌻 Crops by Season — What to Plant and When</h3>
+        <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">Crops die when the season changes. Plant things that finish before Day 28. Multi-harvest crops (like Blueberries) are the best value — plant once, harvest multiple times.</p>
+        <table class="compare-table">
+          <thead><tr><th>Season</th><th>🌟 Best Crops</th><th>💡 Key Tip</th></tr></thead>
+          <tbody>
+            <tr><td>🌸 Spring</td><td>Potatoes (Day 1–6), Cauliflower, Strawberries (from Egg Festival Day 13)</td><td>Strawberries are the #1 Spring crop but only sold at the Egg Festival on Spring 13 — save gold and buy as many as you can</td></tr>
+            <tr><td>☀️ Summer</td><td>Blueberries (multi-harvest, plant early), Starfruit (expensive but huge profit)</td><td>Blueberries are the workhorse — each plant produces 3 berries per harvest and regrows. Plant a big patch on Summer 1</td></tr>
+            <tr><td>🍂 Fall</td><td>Cranberries (multi-harvest), Pumpkins (giant crop potential), Sweet Gem Berry</td><td>Cranberries = Fall's Blueberries. Plant early, harvest weekly. Pumpkins can grow into Giant Crops for bonus yield</td></tr>
+            <tr><td>❄️ Winter</td><td>No outdoor crops — mine, fish, and build</td><td>Winter is your infrastructure season — upgrade tools, complete bundles, build relationships, explore deep mines</td></tr>
+          </tbody>
+        </table>
+        <div class="tip-card success"><div class="tip-number">5</div><div class="tip-body"><h4>At Farming Level 5 — always pick Tiller</h4><p>When your Farming skill hits Level 5 you choose a profession. Pick Tiller — it gives a 10% bonus to all crop sell prices. This compounds significantly over the whole year and is the best early profession for income. At Level 10, pick Artisan (40% bonus to artisan goods like wine and jelly) for long-term profits.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">6</div><div class="tip-body"><h4>Upgrade your Watering Can before Summer — game changer</h4><p>A basic Watering Can waters one tile per click. A Gold Watering Can waters a 3×3 grid in one swing — what takes 25 energy manually takes 2 energy with Gold. Take your can to Clint the blacksmith, upgrade it (costs ore + gold), and pick it up 2 days later. Do this on a rainy day so you don't need to water crops while it's being upgraded.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3>⛏️ The Mines — Go Early and Often</h3>
+        <div class="tip-card priority"><div class="tip-number">7</div><div class="tip-body"><h4>Unlock the mines on Spring 5 — don't delay</h4><p>On Spring 5 you get a letter saying a landslide has been cleared. Head to the northeast of town to find the mine entrance. The mines are where you get all your metal ores for tool upgrades. Go on rainy days (you don't need to water crops) or in evenings after farm work. Aim to reach Level 40 by end of Spring, Level 80 by end of Summer, Level 120 by end of Fall.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">8</div><div class="tip-body"><h4>Mine Level milestones unlock everything</h4><p>Level 40 = Copper ore for first tool upgrades. Level 80 = Gold ore for Gold tools (massive quality of life). Level 120 = bottom of the mine, unlocks the Skull Cavern in the desert later. Each 5 levels has an elevator checkpoint so you don't restart from the top — always push to the next checkpoint before stopping.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">9</div><div class="tip-body"><h4>Bring food into the mines — always</h4><p>Food restores energy and can restore health. Bring cooked food, cheese (from cows), or foraged items before heading in. When your energy gets low, eat something and keep going. Running out of energy in the mines and limping home costs you a whole floor-clearing session.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3>🏛️ Community Center — Your Main Goal for Year 1</h3>
+        <div class="tip-card priority"><div class="tip-number">10</div><div class="tip-body"><h4>The Community Center is your Year 1 mission</h4><p>On Spring 5, when you walk through Pelican Town, Mayor Lewis shows you the old Community Center. Inside you'll find "bundles" — collections of items to donate in exchange for major town upgrades. Completing rooms unlocks: the Greenhouse (grow crops in Winter), Minecarts (fast travel), the Bus to the Desert, and more. This is the main progression goal of the game.</p></div></div>
+        <div class="tip-card warning"><div class="tip-number">11</div><div class="tip-body"><h4>Save one of everything from each season — seriously</h4><p>The Community Center bundles require items from every season. Before selling your entire harvest, check the bundle requirements and keep at least one of anything that's asked for. You can't go back and get a Spring crop in Summer — you'd have to wait a full year. One missed item can delay completing the Community Center by an entire year.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">12</div><div class="tip-body"><h4>Complete the Boiler Room first — it unlocks Minecarts</h4><p>The Boiler Room bundles need mine ores (Copper, Iron, Gold). It's one of the easier rooms and its reward — the Minecart system — instantly gives you fast travel between the mines, the town, the quarry, and the bus station. This makes the rest of the game significantly faster to navigate.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">13</div><div class="tip-body"><h4>Don't sign up with JojaMart — ever</h4><p>In town there's a JojaMart (the big box store). A character named Morris will offer you a Joja Community Development Form. Do NOT buy it. It permanently closes the Community Center path and replaces it with a pay-to-unlock system. The Community Center route is more fun, gives better rewards, and is the soul of the game's story.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3>🤝 Townspeople — Make Friends Early</h3>
+        <div class="tip-card success"><div class="tip-number">14</div><div class="tip-body"><h4>Give gifts twice a week to build friendships fast</h4><p>You can give each villager up to 2 gifts per week. Check each character's liked gifts (the game hints at this in dialogue, or check the Farmhouse TV for "Tips"). High friendship unlocks cutscenes, unique dialogue, and recipes. Some bundles need items that villagers send you as gifts — higher friendship = more mail gifts.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">15</div><div class="tip-body"><h4>Talk to everyone every day — even for a second</h4><p>Just talking to a villager (even with no gift) gives a tiny friendship boost. As you walk through town to the mines or shops, click every person you pass. It costs zero energy and zero time and keeps all your relationships climbing passively.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">16</div><div class="tip-body"><h4>Watch TV every morning for tips and weather</h4><p>The TV in your farmhouse shows two useful channels: the Fortune Teller (tells you if it's a lucky day — great for mining) and Livin' off the Land (farming and foraging tips). Check both every morning before heading out. Lucky days are the best days to go deep in the mines.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3>🎣 Fishing — Frustrating at First, Worth It</h3>
+        <div class="tip-card warning"><div class="tip-number">17</div><div class="tip-body"><h4>Fishing is hard at first — stick with it</h4><p>The fishing minigame feels impossible to new players. You click to keep a green bar under a moving fish icon — it requires quick reflexes and gets easier as your Fishing skill levels up. The key: don't give up on the first 10 attempts. By Fishing Level 4–5 it becomes much more manageable. Eat food that boosts Fishing (like Dish o' the Sea) before fishing for Community Center bundles.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">18</div><div class="tip-body"><h4>Fish on rainy days — better fish, same time slot</h4><p>Rain makes certain rare fish appear that are otherwise unavailable (Catfish requires rain in Spring/Fall). Rainy days are also when you don't need to water crops, making them your perfect fishing + mining days. Check the TV weather forecast the night before to plan ahead.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3>💡 Quality of Life Tips You'll Wish You Knew</h3>
+        <div class="tip-card magic"><div class="tip-number">19</div><div class="tip-body"><h4>Dig up worm tiles with your Hoe — always</h4><p>Anywhere on the map where you see worms wiggling out of the ground, use your Hoe to dig it up. These "artifact spots" yield buried items — artifacts for the museum, lost books, or valuable foraged items. You walk past these every day. Start digging every single one.</p></div></div>
+        <div class="tip-card magic"><div class="tip-number">20</div><div class="tip-body"><h4>The Traveling Cart appears every Friday and Sunday</h4><p>A mysterious merchant sets up her cart in Cindersap Forest every Friday and Sunday. She sells rare seeds (including the Red Cabbage seed needed for a Community Center bundle in Year 1), furniture, and random items. Visit her every week without fail — some items are only available from her cart and missing them can delay your Year 1 Community Center completion.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">21</div><div class="tip-body"><h4>Spring Onions in Cindersap Forest = free early energy</h4><p>In the south part of the map (Cindersap Forest, near Marnie's Ranch), Spring Onions spawn for free every day in Spring. They restore 13 Energy each and cost nothing. Walk through this area every morning and forage them — they're your free energy snacks for the whole first month of Spring.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">22</div><div class="tip-body"><h4>Place Sprinklers as soon as you can — save your energy</h4><p>Crafted Sprinklers automatically water adjacent tiles every morning before you wake up — no energy cost. A Basic Sprinkler waters 4 tiles, Quality waters 8, and Iridium waters 24. Getting even a few Basic Sprinklers in place frees up a huge chunk of your daily energy for mining, foraging, or fishing instead of watering.</p></div></div>
+      </div>
+
+      <div class="verdict-box" style="background:linear-gradient(135deg,#1a3d0f 0%,#0f2208 100%);">
+        <h3 style="color:#81c784;">🌾 The Sinigaming Verdict</h3>
+        <ul class="verdict-list">
+          <li><span>✅</span> One of the best all-ages games ever made — your kids can play alongside you</li>
+          <li><span>✅</span> Completely stress-free — no death penalty, no game over, play at your own pace</li>
+          <li><span>✅</span> Runs on any Mac, PC, Switch, phone — incredibly accessible</li>
+          <li><span>✅</span> ~$15 on Steam, goes on sale regularly for under $8</li>
+          <li><span>⚠️</span> The first week feels slow — push through Spring and it opens up dramatically</li>
+          <li><span>⚠️</span> Fishing is frustrating early — it gets easier, promise</li>
+          <li><span>💡</span> ~50–60 hrs to "beat" but infinitely replayable · Co-op supports up to 4 players</li>
+          <li><span>💡</span> Don't look everything up on your first run — discovering things yourself is half the joy</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== DIABLO IV ===== -->
+    <div class="guide-section visible" id="guide-diablo4">
+      <div class="game-header">
+        <div class="game-box-art game-box-d4">👿</div>
+        <div>
+          <div class="platform-row">
+            <span class="tag">PC</span><span class="tag">Steam Deck</span><span class="tag">PS5</span><span class="tag">Xbox</span><span class="tag">2023</span><span class="tag">Action RPG</span><span class="tag dlc">+ Lord of Hatred DLC</span>
+          </div>
+          <h2 style="color:#e88070;">Diablo IV</h2>
+          <p class="dev">Developed by Blizzard Entertainment · Base game June 2023 · Lord of Hatred DLC April 2026</p>
+          <p class="verdict" style="border-left-color:#c0392b;">Hell has returned to Sanctuary and it has never looked this good. The Lord of Hatred expansion added the Paladin and Warlock classes and is widely considered the game finally delivering on its full potential. Rolling a holy-damage Shield Paladin on Steam Deck right now? You picked the perfect moment.</p>
+        </div>
+      </div>
+
+      <div class="callout d4-callout">
+        <div class="ci">⚔️</div>
+        <div>
+          <h4>Written for the Holy Shield Paladin on Steam Deck</h4>
+          <p>You're tanky, you hit hard with holy damage, and you've got a shield bash that will make demons regret existing. Level 20 is right where the Paladin's kit truly starts opening up. This guide is built around your exact build direction.</p>
+        </div>
+      </div>
+
+      <div class="tips-section">
+        <h3>🔥 Before You Start</h3>
+        <div class="tip-card d4"><div class="tip-number">1</div><div class="tip-body"><h4>The Paladin is a Lord of Hatred class — you need the DLC</h4><p>The Paladin and Warlock were added in the Lord of Hatred expansion. If you're playing a Paladin, you already have it — but be aware the Paladin's full skill tree, Torment endgame tiers, and set bonuses are all DLC content. Base game classes are Barbarian, Druid, Necromancer, Rogue, and Sorcerer.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">2</div><div class="tip-body"><h4>Steam Deck: use the dedicated handheld preset</h4><p>Blizzard added a dedicated handheld preset for Lord of Hatred — use it. Expect ~60 FPS in open world and ~40 FPS in towns and dense combat. That's normal. Cap your frame rate at 40 in Steam's performance overlay for a smoother experience than chasing 60.</p><div class="deck-note">Steam Deck OLED users: the dark gothic art style looks stunning on the OLED panel. Soak it in.</div></div></div>
+        <div class="tip-card warning"><div class="tip-number">3</div><div class="tip-body"><h4>The game had a rough launch — Season 4 onwards is a different game</h4><p>Early reviews called Diablo IV unambitious and the endgame thin. From Season 4 forward, Blizzard overhauled loot, quality of life, and build variety significantly. If you've read old negative reviews from 2023, the game you're playing today is meaningfully better in almost every system.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3 class="d4-h3">🛡️ Holy Shield Paladin — Your Build</h3>
+        <div class="callout d4-callout">
+          <div class="ci">😇</div>
+          <div>
+            <h4>The Holy Shield Paladin fantasy</h4>
+            <p>You are a walking wall of divine light. Enemies get blasted by holy damage while you stand there blocking hits with your shield like you're personally offended by Hell's existence. It's tanky, it's flashy, and the skill synergies make you feel genuinely powerful by Level 30.</p>
+          </div>
+        </div>
+        <div class="tip-card d4"><div class="tip-number">4</div><div class="tip-body"><h4>Your core skill rotation at Level 20</h4><p>Your primary loop should be: <strong>Shield Bash → Holy Bolt → Consecration</strong>. Shield Bash generates Holy Power (your resource), Holy Bolt spends it for burst damage, and Consecration lays a ground AoE of holy fire that makes trash packs melt. You don't need to be moving — let them come to you.</p><div class="holy-note">Shield Bash hits harder the higher your Block Chance. Stack Block Chance on gear — it's both offense and defense.</div></div></div>
+        <div class="tip-card priority"><div class="tip-number">5</div><div class="tip-body"><h4>Holy damage scales with Sacred Power — look for it on every gear slot</h4><p>Prioritize Sacred Power (sometimes labeled Holy Damage %) on your amulet, rings, and gloves. Your weapon matters less than your off-hand shield — the shield's Block Value feeds directly into Shield Bash damage. A great shield with a mediocre weapon beats a great weapon with a bad shield every time.</p></div></div>
+        <div class="tip-card info"><div class="tip-number">6</div><div class="tip-body"><h4>Divine Shield is your "oh no" button — always keep it ready</h4><p>Divine Shield makes you fully invulnerable for a short window. Use it when you're getting burst down, to survive a boss's one-shot attack, or to reposition. New Paladin players often waste it offensively. Save it for survival — it has a longer cooldown than it looks.</p></div></div>
+        <div class="tip-card d4"><div class="tip-number">7</div><div class="tip-body"><h4>Judgment of the Righteous is your elite/boss opener</h4><p>Against elites and bosses, drop Judgment before your burst rotation. It reduces their resistance to holy damage for several seconds — everything you do during that window hits harder. The core loop: Judgment → Shield Bash (x2) → Holy Bolt spend. Repeat.</p></div></div>
+        <div class="tip-card warning"><div class="tip-number">8</div><div class="tip-body"><h4>Don't neglect Vitality — you're tanky, not invincible</h4><p>Holy Shield Paladins feel immortal against basic enemies then get erased by a first-time elite pack because their HP is too low. Keep Vitality as a co-priority stat alongside Sacred Power. Aim for a HP pool that lets you take 2–3 elite hits before your shield and heals cover you.</p></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3 class="d4-h3">🎮 Playing on Steam Deck</h3>
+        <div class="tip-card info"><div class="tip-number">9</div><div class="tip-body"><h4>Map your skills deliberately — the Paladin is button-hungry</h4><p>The Paladin has more active skills than most classes. On Steam Deck, face buttons + both triggers cover 6 skill slots — use them all. Suggested: <strong>A = Shield Bash, B = Holy Bolt, X = Consecration, Y = Judgment, LT = Divine Shield, RT = Ultimate</strong>. Back paddles for potions.</p><div class="deck-note">Don't leave a shoulder button empty — the Paladin needs every slot.</div></div></div>
+        <div class="tip-card priority"><div class="tip-number">10</div><div class="tip-body"><h4>Lock framerate to 40 — not 30, not unlimited</h4><p>Unlimited framerate causes the fans to scream and battery to drain in ~1.5 hours. 30 FPS feels sluggish for Shield Bash timing. 40 FPS is the sweet spot — smooth enough for melee combat, cool enough to last 2.5–3 hours per charge. Set it in the Steam Deck Quick Access Menu under Battery → Framerate Limit.</p></div></div>
+        <div class="tip-card warning"><div class="tip-number">11</div><div class="tip-body"><h4>Diablo IV requires an internet connection — even solo</h4><p>The game is always-online. If you're playing on the go (plane, commute), you need a hotspot. There is no offline mode. This is the biggest Steam Deck limitation for this game — plan accordingly. The connection requirement is light though; even a weak hotspot holds fine.</p></div></div>
+      </div>
+
+      <div class="dlc-divider d4-dlc">
+        <div class="dlc-icon">🔱</div>
+        <div>
+          <h3>Lord of Hatred — What's New</h3>
+          <p>The second major expansion · Skovos Isles · Paladin &amp; Warlock · Level cap 70 · Torment I–XII</p>
+        </div>
+      </div>
+
+      <div class="tips-section">
+        <div class="tip-card d4"><div class="tip-number">12</div><div class="tip-body"><h4>The new level cap is 70 — Torment I–XII is the endgame</h4><p>Lord of Hatred raised the cap from 60 to 70 and replaced the old Nightmare/Torment system with Torment I through XII tiers. At Level 20 you're in the early campaign — Torment unlocks post-story. Focus on getting through the Mephisto campaign in the Skovos Isles first. It's the best story content Diablo IV has ever produced.</p></div></div>
+        <div class="tip-card magic"><div class="tip-number">13</div><div class="tip-body"><h4>Set bonuses are back — and the Paladin benefits massively</h4><p>Lord of Hatred reintroduced Set items. The Paladin's Holy Crusader set at 4 pieces makes Shield Bash generate free Holy Power on Block — a build-defining unlock. Start watching for Set piece drops around Level 40 and save them even if their individual stats seem mediocre.</p><div class="holy-note">Don't vendor Set pieces. Even low-stat ones matter once you hit 4-piece bonus threshold.</div></div></div>
+        <div class="tip-card success"><div class="tip-number">14</div><div class="tip-body"><h4>Transmutation lets you reroll one stat on gear</h4><p>Also new in Lord of Hatred: Transmutation, which lets you swap one unwanted stat on gear for something better. Found great armor with no Sacred Power roll? Transmute it. This makes gearing significantly less painful than Diablo IV at launch — use it on every piece that's 80% of what you want.</p><div class="holy-note">Don't Transmute low-level gear. Save it for pieces you'll wear for 5+ levels — gear turns over fast in the 20–30 range.</div></div></div>
+      </div>
+
+      <div class="tips-section">
+        <h3>⚗️ General Tips</h3>
+        <div class="tip-card info"><div class="tip-number">15</div><div class="tip-body"><h4>The Skill Tree is deep — don't lock in too early</h4><p>Diablo IV lets you freely respec your skills for a small gold cost. Don't agonize over early choices — experiment. At Level 20 you should be testing things, not cementing your final build. Your definitive build will emerge around Level 40–50 when Set pieces start dropping.</p></div></div>
+        <div class="tip-card success"><div class="tip-number">16</div><div class="tip-body"><h4>Do the side quests — they tell the best stories</h4><p>The main campaign is dark and cinematic. The side quests are where the quiet, grim human stories live — survivors, cultists, towns on the edge. They also drop solid gear and give Renown. Don't blow past them; they make Sanctuary feel like a real place worth saving.</p></div></div>
+        <div class="tip-card priority"><div class="tip-number">17</div><div class="tip-body"><h4>Raise your Renown in each region — it gives Paragon Points</h4><p>Each of the five regions has a Renown meter filled by completing side quests, discovering dungeons, and finding Waypoints. Max Renown gives you bonus Skill Points AND Paragon Points (post-60 power). Spend time on Renown in your current region before moving on.</p></div></div>
+        <div class="tip-card magic"><div class="tip-number">18</div><div class="tip-body"><h4>Dungeons drop Legendary Aspects — they're your real power</h4><p>Completing a dungeon for the first time unlocks a Legendary Aspect in your Codex of Power — a reusable power you can imprint onto any gear piece. Check which Aspects benefit Shield Bash and Holy damage and clear those dungeons early. An Aspect imprinted on gear beats most random Legendary drops at your level.</p></div></div>
+      </div>
+
+      <div class="verdict-box d4-verdict-box">
+        <h3>🍲 The Sinigaming Verdict</h3>
+        <ul class="verdict-list">
+          <li><span>✅</span> The best Diablo has ever felt — Lord of Hatred is the game fully delivering on its promise</li>
+          <li><span>✅</span> The Paladin is mechanically excellent — holy damage + Shield Bash is deeply satisfying</li>
+          <li><span>✅</span> Steam Deck + isometric ARPG = a genuinely great handheld gaming fit</li>
+          <li><span>✅</span> Set bonuses and Transmutation make gearing fun rather than frustrating</li>
+          <li><span>⚠️</span> Always-online is the one real Steam Deck limitation — bring a hotspot on the go</li>
+          <li><span>⚠️</span> Base game + both DLCs is pricey at full price — watch for sales</li>
+          <li><span>💡</span> You're at the perfect entry point — Level 20 is right as the Paladin opens up</li>
+          <li><span>💡</span> Push to Level 40 before judging the build — that's when Set pieces start dropping</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MORE COMING -->
+    <div class="tips-section">
+      <h3>🔜 More Sinigaming Guides Coming</h3>
+      <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">We're cooking up guides for more games. Got a request? Drop us a message!</p>
+      <div class="coming-soon-grid">
+        <div class="coming-card"><div class="coming-icon">🌋</div><strong>Monster Hunter Wilds</strong>Beginner's build guide<span class="soon-badge">Coming Soon</span></div>
+        <div class="coming-card"><div class="coming-icon">🤠</div><strong>Red Dead Redemption 2</strong>100% walkthrough tips<span class="soon-badge">Coming Soon</span></div>
+        <div class="coming-card"><div class="coming-icon">🧱</div><strong>Minecraft</strong>Survival mode mastery<span class="soon-badge">Coming Soon</span></div>
+      </div>
+    </div>
+
+  </div><!-- end content-col -->
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div id="sb-score-cd" class="sidebar-score" style="display:none">
+      <div class="score-label">Sinigaming Rating</div>
+      <div class="score-num">8.5</div>
+      <div class="score-sub">Crimson Desert 🍲</div>
+    </div>
+    <div id="sb-score-er" class="sidebar-score" style="display:none">
+      <div class="score-label">Sinigaming Rating</div>
+      <div class="score-num">10</div>
+      <div class="score-sub">Elden Ring 🍲</div>
+    </div>
+    <div id="sb-score-nr" class="sidebar-score night-score" style="display:none">
+      <div class="score-label">Sinigaming Rating</div>
+      <div class="score-num">9</div>
+      <div class="score-sub">Nightreign 🌙</div>
+    </div>
+
+    <div id="sb-diff-cd" class="sidebar-card" style="display:none">
+      <h4>Difficulty — Crimson Desert</h4>
+      <div class="difficulty-bar"><div class="diff-label"><span>Combat</span><span>Hard</span></div><div class="diff-track"><div class="diff-fill red" style="width:80%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Exploration</span><span>Medium</span></div><div class="diff-track"><div class="diff-fill blue" style="width:55%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Progression</span><span>Medium</span></div><div class="diff-track"><div class="diff-fill orange" style="width:60%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>100% Grind</span><span>High</span></div><div class="diff-track"><div class="diff-fill red" style="width:75%"></div></div></div>
+    </div>
+    <div id="sb-diff-er" class="sidebar-card" style="display:none">
+      <h4>Difficulty — Elden Ring</h4>
+      <div class="difficulty-bar"><div class="diff-label"><span>Combat</span><span>Very Hard</span></div><div class="diff-track"><div class="diff-fill red" style="width:90%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Exploration</span><span>Medium</span></div><div class="diff-track"><div class="diff-fill blue" style="width:50%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Progression</span><span>Hard</span></div><div class="diff-track"><div class="diff-fill orange" style="width:70%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>DLC Difficulty</span><span>Brutal</span></div><div class="diff-track"><div class="diff-fill red" style="width:98%"></div></div></div>
+    </div>
+    <div id="sb-diff-nr" class="sidebar-card" style="display:none">
+      <h4 class="night-h4">Difficulty — Nightreign</h4>
+      <div class="difficulty-bar"><div class="diff-label"><span>Per Run</span><span>Hard</span></div><div class="diff-track"><div class="diff-fill purple" style="width:75%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Co-op Coordination</span><span>Medium</span></div><div class="diff-track"><div class="diff-fill blue" style="width:55%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Time Investment</span><span>Low ✅</span></div><div class="diff-track"><div class="diff-fill green" style="width:25%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Nightlord Bosses</span><span>Very Hard</span></div><div class="diff-track"><div class="diff-fill purple" style="width:88%"></div></div></div>
+    </div>
+
+    <div id="sb-facts-cd" class="sidebar-card" style="display:none">
+      <h4>Quick Facts — Crimson Desert</h4>
+      <ul>
+        <li>🗺️ Map is ~80 sq km</li>
+        <li>🎮 3 playable characters</li>
+        <li>🗡️ Kliff is the main protagonist</li>
+        <li>🌍 Set in Pywel</li>
+        <li>⚡ No traditional XP system</li>
+        <li>🏆 ~50–80 hrs to complete</li>
+        <li>🕹️ Controller recommended on PC</li>
+        <li>📅 Released March 19, 2026</li>
+      </ul>
+    </div>
+    <div id="sb-facts-er" class="sidebar-card" style="display:none">
+      <h4>Quick Facts — Elden Ring</h4>
+      <ul>
+        <li>🗺️ Open world: Lands Between</li>
+        <li>⚱️ 10 starting classes</li>
+        <li>🐎 Get Torrent ASAP</li>
+        <li>💀 Lose Runes on death — retrieve them</li>
+        <li>👻 Spirit Ashes = AI ally summons</li>
+        <li>🏆 ~60–100 hrs base game</li>
+        <li>🌳 DLC adds ~20–40 hrs</li>
+        <li>📅 Base: Feb 2022 · DLC: Jun 2024</li>
+      </ul>
+    </div>
+    <div id="sb-facts-nr" class="sidebar-card" style="display:none">
+      <h4 class="night-h4">Quick Facts — Nightreign</h4>
+      <ul>
+        <li>🌙 Standalone game (not DLC)</li>
+        <li>👥 1–3 players (solo, duo, or trio)</li>
+        <li>⚔️ 8 Nightfarers (preset classes)</li>
+        <li>⏱️ ~30–45 min per expedition</li>
+        <li>🗺️ Procedurally generated map</li>
+        <li>🔮 Relics carry over between runs</li>
+        <li>🌊 Night's Tide = shrinking zone</li>
+        <li>📅 Released May 30, 2025</li>
+      </ul>
+    </div>
+
+    <div id="sb-score-sdv" class="sidebar-score" style="display:none; background:linear-gradient(135deg,#1a3d0f 0%,#0f2208 100%);">
+      <div class="score-label">Sinigaming Rating</div>
+      <div class="score-num" style="color:#81c784;">9.5</div>
+      <div class="score-sub">Stardew Valley 🌾</div>
+    </div>
+    <div id="sb-diff-sdv" class="sidebar-card" style="display:none">
+      <h4 style="color:#2e7d32;">Difficulty — Stardew Valley</h4>
+      <div class="difficulty-bar"><div class="diff-label"><span>Combat</span><span>Easy</span></div><div class="diff-track"><div class="diff-fill green" style="width:25%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Farming</span><span>Low</span></div><div class="diff-track"><div class="diff-fill green" style="width:20%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Fishing</span><span>Medium</span></div><div class="diff-track"><div class="diff-fill orange" style="width:55%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>100% Completion</span><span>High</span></div><div class="diff-track"><div class="diff-fill red" style="width:78%"></div></div></div>
+    </div>
+    <div id="sb-facts-sdv" class="sidebar-card" style="display:none">
+      <h4 style="color:#2e7d32;">Quick Facts — Stardew Valley</h4>
+      <ul>
+        <li>🌾 Farm, mine, fish, befriend</li>
+        <li>💻 Mac, PC, Switch, iOS, Android</li>
+        <li>👨‍👩‍👧‍👦 Co-op up to 4 players</li>
+        <li>💰 ~$15 on Steam</li>
+        <li>❄️ 4 seasons · 28 days each</li>
+        <li>🏛️ Community Center = main goal</li>
+        <li>🏆 ~50–60 hrs to complete</li>
+        <li>📅 Released Feb 2016</li>
+      </ul>
+    </div>
+
+    <div id="sb-score-d4" class="sidebar-score d4-score">
+      <div class="score-label">Sinigaming Rating</div>
+      <div class="score-num">9.2</div>
+      <div class="score-sub">Diablo IV 👿</div>
+    </div>
+    <div id="sb-diff-d4" class="sidebar-card">
+      <h4 class="d4-h4">Difficulty — Diablo IV</h4>
+      <div class="difficulty-bar"><div class="diff-label"><span>Combat</span><span>Hard</span></div><div class="diff-track"><div class="diff-fill red" style="width:78%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Build Depth</span><span>High</span></div><div class="diff-track"><div class="diff-fill red" style="width:82%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Gearing</span><span>Medium</span></div><div class="diff-track"><div class="diff-fill orange" style="width:55%"></div></div></div>
+      <div class="difficulty-bar"><div class="diff-label"><span>Endgame Grind</span><span>High</span></div><div class="diff-track"><div class="diff-fill red" style="width:85%"></div></div></div>
+    </div>
+    <div id="sb-facts-d4" class="sidebar-card">
+      <h4 class="d4-h4">Quick Facts — Diablo IV</h4>
+      <ul>
+        <li>👿 Dark action RPG — isometric, always-online</li>
+        <li>🛡️ Paladin + Warlock added in Lord of Hatred DLC</li>
+        <li>🎮 Steam Deck verified — use handheld preset</li>
+        <li>🔱 Level cap: 70 · Torment I–XII endgame</li>
+        <li>✨ Holy damage + Shield Bash = the fantasy</li>
+        <li>🏆 ~40–60 hrs campaign + deep endgame</li>
+        <li>📅 Base: Jun 2023 · DLC 2: Apr 2026</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Team Sinigang Games</h4>
+      <ul>
+        <li>🌌 <a href="alpha/SaveTheUniverse.html">Fingularity</a></li>
+        <li>🌿 <a href="alpha/jungle-sprint.html">Jungle Sprint</a></li>
+        <li>🧩 <a href="alpha/puzzle-pot.html">Puzzle Pot</a></li>
+        <li>⚡ <a href="alpha/broth-blitz.html">Broth Blitz</a></li>
+        <li>⚔️ <a href="alpha/lapu-lapu-game.html">Lapu-Lapu</a></li>
+      </ul>
+    </div>
+
+  </aside>
+</div>
+
+<footer>
+  <strong>Team Sinigang</strong>
+  Serving games hot since 2024 🍲 · Sinigaming — tips forged in the fire of too many deaths
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#games">Games</a>
+    <a href="recipes.html">Recipes</a>
+    <a href="sinigaming.html">Sinigaming</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+</footer>
+
+<script>
+const breadcrumbNames = {
+  'crimson-desert': ' › Crimson Desert',
+  'elden-ring': ' › Elden Ring',
+  'nightreign': ' › Elden Ring: Nightreign',
+  'stardew': ' › Stardew Valley',
+  'diablo4': ' › Diablo IV'
+};
+
+const validGames = ['crimson-desert', 'elden-ring', 'nightreign', 'stardew', 'diablo4'];
+
+function showGame(gameId, tabEl, scrollBehavior) {
+  document.querySelectorAll('.guide-section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+  const section = document.getElementById('guide-' + gameId);
+  if (section) section.classList.add('visible');
+  if (tabEl) tabEl.classList.add('active');
+  const map = { 'crimson-desert':'cd', 'elden-ring':'er', 'nightreign':'nr', 'stardew':'sdv', 'diablo4':'d4' };
+  ['cd','er','nr','sdv','d4'].forEach(k => {
+    ['sb-score-','sb-diff-','sb-facts-'].forEach(prefix => {
+      const el = document.getElementById(prefix + k);
+      if (el) el.style.display = (map[gameId] === k) ? 'block' : 'none';
+    });
+  });
+  const bc = document.getElementById('breadcrumb-game');
+  if (bc) bc.textContent = breadcrumbNames[gameId] || '';
+  history.replaceState(null, '', '#' + gameId);
+  const tabs = document.querySelector('.game-tabs');
+  if (tabs && scrollBehavior !== 'none') {
+    window.scrollTo({ top: tabs.offsetTop - 60, behavior: scrollBehavior || 'smooth' });
+  }
+}
+
+// On page load, check for a hash and activate the right tab — no scroll animation
+window.addEventListener('DOMContentLoaded', function() {
+  const hash = window.location.hash.replace('#', '');
+  if (hash && validGames.includes(hash)) {
+    const tab = document.querySelector('[data-game="' + hash + '"]');
+    showGame(hash, tab, 'instant');
+  }
+});
+</script>
+</body>
+</html>
